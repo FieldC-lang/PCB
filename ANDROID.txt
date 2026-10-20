@@ -1,0 +1,8 @@
+Android project: android/
+Web assets are copied into android/app/src/main/assets/www.
+Detected SDK: /home/cam/Android/Sdk
+
+  export ANDROID_HOME="$HOME/Android/Sdk"
+  npm run dist:android
+
+Or open android/ in Android Studio and use Build → Generate Signed Bundle / APK.
