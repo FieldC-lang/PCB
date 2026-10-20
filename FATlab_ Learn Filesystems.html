@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FATlab: Learn Filesystems</title>
+<style>
+:root{--bg:#f5f7fc;--fg:#18213d;--card:#fff;--line:#d6dcee;--mut:#5a6685;--acc:#2f55d4;--accd:#1f3ba0;--onacc:#fff;--ok:#d8f3e4;--okt:#126b43;--no:#fde2dd;--not:#a2301b;--sel:#e3eaff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1730;--fg:#e6ebfa;--card:#18224a;--line:#2b3868;--mut:#9aa8d0;--acc:#6f8dff;--accd:#4a68db;--onacc:#0b1230;--ok:#123d2b;--okt:#8ff0bd;--no:#4a1f1b;--not:#ffb1a3;--sel:#1e2c63}}
+:root[data-theme="dark"]{--bg:#0f1730;--fg:#e6ebfa;--card:#18224a;--line:#2b3868;--mut:#9aa8d0;--acc:#6f8dff;--accd:#4a68db;--onacc:#0b1230;--ok:#123d2b;--okt:#8ff0bd;--no:#4a1f1b;--not:#ffb1a3;--sel:#1e2c63}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+code,.cell,.node code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+code{background:var(--sel);padding:1px 5px;border-radius:5px;font-size:.9em}
+.top{display:flex;gap:14px;align-items:baseline;padding:16px 18px 4px;font-weight:600}.top b{flex:1;font-size:26px}
+.sub{margin:0;padding:0 18px 8px;color:var(--mut)}
+section{padding:8px 18px}h2{font-size:15px;margin:10px 0 8px;color:var(--mut)}
+.chain{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.node{position:relative;display:flex;flex-direction:column;gap:4px;padding:10px 12px;text-align:left;background:var(--card);border:2px dashed var(--line);border-radius:6px}
+.node small{color:var(--mut);font-size:12px}.node code{background:none;padding:0;align-self:flex-end;font-size:14px;color:var(--mut)}
+.node.done{border:2px solid var(--acc);background:var(--sel)}.node.done code{color:var(--acc);font-weight:700}
+.node:not(:disabled):not(.done){border:2px solid var(--fg)}.node:disabled{opacity:.55;cursor:default}
+.bar{display:flex;align-items:center;gap:12px;padding:16px 18px}.prog{flex:1;height:12px;border-radius:6px;background:var(--line);overflow:hidden}.prog div{height:100%;background:var(--acc);transition:width .3s}
+.ghost{background:none;border:0;font-size:20px;color:var(--mut)}.bar span{color:var(--not);font-weight:700}
+main{flex:1;padding:6px 18px}main h1{font-size:21px;line-height:1.3}
+.opt{display:block;width:100%;margin:10px 0;padding:14px;text-align:left;background:var(--card);border:2px solid var(--line);border-bottom-width:4px;border-radius:12px}
+.opt.on,.cell.on{border-color:var(--acc);background:var(--sel)}
+.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px}
+.cell{position:relative;padding:10px 6px;text-align:center;font-weight:700;background:var(--card);border:2px solid var(--line);border-bottom-width:4px;border-radius:6px}
+.cell small{display:block;font:12px system-ui,sans-serif;color:var(--mut)}.cell em{position:absolute;top:3px;right:7px;font-style:normal;color:var(--acc)}
+input{width:100%;box-sizing:border-box;padding:14px;font:inherit;background:var(--card);color:var(--fg);border:2px solid var(--line);border-radius:12px}
+footer{padding:14px 18px;border-top:2px solid var(--line)}footer p{margin:0 0 12px}footer small{display:block;margin-top:4px;opacity:.8}
+footer.right{background:var(--ok);color:var(--okt)}footer.wrong{background:var(--no);color:var(--not)}
+.go{width:100%;padding:14px;font-weight:700;color:var(--onacc);background:var(--acc);border:0;border-bottom:4px solid var(--accd);border-radius:12px}
+.end{text-align:center;padding-top:18vh}
+</style></head><body><div id="app"></div>
+<script>
+const U=[
+{n:'Filesystem basics',ls:[
+{n:'Why filesystems?',r:'Tanenbaum, Modern Operating Systems: File Systems',x:[
+['mc','A disk only understands numbered blocks of bytes. What turns them into named files?',['The filesystem','The monitor','The CPU cache'],0,'A filesystem maps names to the blocks that hold the data.'],
+['mc','Typical size of one disk sector?',['64 bytes','512 bytes','1 MB'],1,'Classic sectors are 512 bytes (newer disks also use 4096).'],
+['mc','Which of these is metadata?',['The file’s text','The file’s name and size','The disk’s brand'],1,'Metadata describes the data: name, size, timestamps, location.'],
+['mc','Which two jobs does every filesystem do?',['Draw icons and play sound','Track free blocks and map names to blocks','Compress video'],1,'Free-space tracking plus name-to-block mapping is the core.']]},
+{n:'Clusters',r:'Tanenbaum, Modern Operating Systems: File Systems',x:[
+['mc','A cluster is…',['One bit','A group of contiguous sectors, the unit of allocation','A folder'],1,'FAT hands out space in whole clusters, never single sectors.'],
+['fill','A cluster is 8 sectors of 512 bytes. How many bytes?',null,['4096'],'8 × 512 = 4096.'],
+['fill','On 4096-byte clusters, how many clusters does a 5000-byte file use?',null,['2'],'5000 ÷ 4096 rounded up is 2.'],
+['mc','The unused tail of a file’s last cluster is called…',['Slack space','Swap','A superblock'],0,'Slack space is the price of big clusters.']]}]},
+{n:'FAT layout',ls:[
+{n:'Regions',r:'Microsoft FAT spec: Boot Sector and BPB',x:[
+['mc','What comes first on a FAT volume?',['Data clusters','The boot sector with the BPB','The root directory'],1,'Sector 0 holds the BIOS Parameter Block describing the whole volume.'],
+['mc','The region order is…',['Reserved, FAT copies, root directory, data','Data, FAT, boot sector','FAT, data, boot sector'],0,'Reserved sectors, then the FATs, then the root directory, then data.'],
+['fill','1 reserved sector, 2 FATs of 9 sectors each. Which sector does the root directory start at?',null,['19'],'1 + 2 × 9 = 19 (sectors count from 0).'],
+['mc','Why keep two FAT copies?',['Speed','Redundancy if one is damaged','Compression'],1,'The second copy is a backup of the allocation table.']]},
+{n:'The BPB',r:'Microsoft FAT spec: Boot Sector and BPB',x:[
+['fill','Bytes 00 02 sit at offset 11, little-endian. What is the 16-bit value in decimal?',null,['512'],'0x0200 = 512 bytes per sector.'],
+['mc','A valid boot sector ends (offset 510) with…',['0x55 0xAA','0x00 0x00','0xE5 0xE5'],0,'The 0x55 0xAA signature marks a valid boot sector.'],
+['mc','In “FAT32”, what does 32 refer to?',['Maximum files','Bits per FAT entry','Sectors per cluster'],1,'FAT12/16/32 are named by entry width (FAT32 really uses 28 bits).'],
+['mc','Why must your code read BPB integers little-endian?',['FAT stores the low byte first','It is faster','Big-endian is illegal'],0,'FAT stores multi-byte integers least-significant byte first.']]}]},
+{n:'Cluster chains',ls:[
+{n:'Follow the chain',r:'Microsoft FAT spec: FAT Data Structure',x:[
+['mc','The FAT is an array indexed by cluster number. Each entry holds…',['The file name','The next cluster of the file','The file size'],1,'It is a linked list stored in a table.'],
+['mc','Data clusters are numbered from…',['0','2','10'],1,'Entries 0 and 1 are reserved, so data starts at cluster 2.'],
+['chain','The file starts at cluster 2. Tap its clusters in order.',[[2,'4'],[3,'0'],[4,'6'],[5,'0'],[6,'EOC']],[2,4,6],'2 → 4 → 6 → end. Entries holding 0 are free.'],
+['mc','A FAT entry of 0 means…',['Free cluster','Bad cluster','Directory'],0,'Zero marks a free cluster; allocation scans for it.']]},
+{n:'Ends and edge cases',r:'Microsoft FAT spec: FAT Data Structure',x:[
+['mc','In FAT16, which values end a chain?',['0x0000','0xFFF8 to 0xFFFF','0x0002'],1,'Values from 0xFFF8 up mean end of chain.'],
+['mc','Which FAT16 value marks a bad cluster?',['0xFFF7','0xFFF8','0x0001'],0,'0xFFF7 tells the driver never to use that cluster.'],
+['chain','The file starts at cluster 4. Tap its clusters in order.',[[4,'7'],[5,'0'],[6,'EOC'],[7,'6'],[8,'0']],[4,7,6],'4 → 7 → 6 → end. Chains need not be contiguous; that is fragmentation.'],
+['fill','A file spans 3 clusters. How many of its FAT entries are non-zero?',null,['3'],'Two links plus the end-of-chain marker in the last entry.']]}]},
+{n:'Directories',ls:[
+{n:'32-byte entries',r:'Microsoft FAT spec: FAT Directory Structure',x:[
+['fill','How many bytes is one FAT directory entry?',null,['32'],'Always 32 bytes, which makes scanning simple.'],
+['fill','How many entries fit in one 512-byte sector?',null,['16'],'512 ÷ 32 = 16.'],
+['mc','The 8.3 name field is…',['8 name bytes plus 3 extension bytes, space-padded','Any length','Null-terminated'],0,'11 bytes, space-padded, and the dot is not stored.'],
+['mc','A first byte of 0xE5 means the entry is…',['Deleted','A directory','The last one'],0,'0xE5 = deleted. A first byte of 0x00 means no more entries follow.']]},
+{n:'Fields and deleting',r:'Microsoft FAT spec: FAT Directory Structure',x:[
+['mc','Which field tells you where the file’s data starts?',['Attribute byte','First cluster number','Name'],1,'It is at offset 26 (plus offset 20 for the high half on FAT32).'],
+['mc','Attribute bit 0x10 marks an entry as…',['Read-only','A subdirectory','A hidden file'],1,'0x10 = directory. 0x01 read-only, 0x02 hidden, 0x04 system.'],
+['mc','To delete a file, a FAT driver…',['Zeroes all its data','Sets the first name byte to 0xE5 and frees its chain','Formats the disk'],1,'The data stays on disk, which is why undelete tools often work.'],
+['mc','Where is the exact file size stored?',['In the FAT','In the directory entry','Nowhere; it is derived from the chain'],1,'The FAT only knows the chain; the byte size lives in the entry (offset 28).']]}]},
+{n:'Write one',ls:[
+{n:'Reading files',r:'Microsoft FAT spec: Boot Sector and BPB',x:[
+['mc','How do you read a file’s contents?',['Find its entry, take the first cluster, follow the FAT chain','Scan every sector for the name','Read the FAT only'],0,'Directory entry, then first cluster, then walk the chain.'],
+['mc','<code>sector = data_start + (N - ?) * sectors_per_cluster</code> What replaces ?',['0','1','2'],2,'Clusters 0 and 1 do not exist in the data area, so cluster 2 is the first.'],
+['fill','data_start = 33 and 4 sectors per cluster. First sector of cluster 5?',null,['45'],'33 + (5 − 2) × 4 = 45.'],
+['fill','4096-byte clusters. Which chain index (0-based) holds byte offset 5000?',null,['1'],'5000 ÷ 4096 = 1 remainder 904, so the second cluster.']]},
+{n:'Writing files',r:'Microsoft FAT spec: FAT Data Structure',x:[
+['fill','Clusters 2 to 5 hold 2: 3, 3: EOC, 4: 0, 5: EOC. Which cluster is allocated first?',null,['4'],'Scan from cluster 2 for the first entry equal to 0.'],
+['mc','Which write order is safest?',['Directory entry first','Data and FAT first, directory entry last','Order never matters'],1,'A crash then leaves orphaned clusters, never an entry pointing at garbage.'],
+['mc','Create a file: find a free slot, allocate clusters, write data, link the chain and mark EOC, then…',['Fill in the directory entry (name, first cluster, size)','Delete the FAT','Reboot'],0,'The entry publishes the file: name, first cluster, size.'],
+['mc','You free a file’s clusters. What do you write into their FAT entries?',['0x0000','0xFFFF','The file size'],0,'Zero marks each cluster free again.']]}]}
+];
+const N=U.reduce((a,u)=>a+u.ls.length,0);
+let S={xp:0,done:{},streak:0,last:''},L=null;
+try{S=Object.assign(S,JSON.parse(localStorage.getItem('fatlab')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('fatlab',JSON.stringify(S))}catch(e){}};
+const $=document.getElementById('app'),key=(u,l)=>u+'-'+l;
+const isOpen=(u,l)=>l>0?S.done[key(u,l-1)]:u==0||S.done[key(u-1,U[u-1].ls.length-1)];
+const cur=()=>U[L.u].ls[L.l].x[L.q[L.i]];
+function home(){
+ const t=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString(),st=S.last==t||S.last==y?S.streak:0;
+ let g=0,h=`<header class="top"><b>FATlab</b><span>${st} day streak</span><span>${S.xp} XP</span></header><p class="sub">Learn how filesystems work, then write one. Each lesson is a cluster: finish it to link the chain.</p>`;
+ U.forEach((un,u)=>{h+=`<section><h2>Unit ${u+1}. ${un.n}</h2><div class="chain">`;
+  un.ls.forEach((ls,l)=>{const d=S.done[key(u,l)],o=isOpen(u,l),c=g+2;g++;
+   h+=`<button class="node${d?' done':''}" ${o?'':'disabled'} onclick="start(${u},${l})"><small>cluster ${c}</small><b>${ls.n}</b><code>${d?(g<N?c+1:'EOC'):'0'}</code></button>`});
+  h+='</div></section>'});
+ $.innerHTML=h}
+function start(u,l){L={u,l,i:0,h:5,sel:[],st:'ask',xp:0,v:'',q:U[u].ls[l].x.map((_,k)=>k)};lesson()}
+function lesson(){
+ const e=cur(),[t,q,o]=e,a=L.st=='ask',d=a?'':'disabled';
+ let b=`<div class="bar"><button class="ghost" onclick="home()" aria-label="Quit lesson">✕</button><div class="prog"><div style="width:${L.i/L.q.length*100}%"></div></div><span>♥ ${L.h}</span></div><main><h1>${q}</h1>`;
+ if(t=='mc')o.forEach((s,k)=>b+=`<button class="opt${L.sel[0]===k?' on':''}" ${d} onclick="pick(${k})">${s}</button>`);
+ else if(t=='fill')b+=`<input id="f" autocomplete="off" autocapitalize="off" placeholder="Type your answer" aria-label="Your answer" ${d} onkeydown="event.key=='Enter'&&check()">`;
+ else{b+='<div class="cells">';o.forEach(([c,v])=>{const p=L.sel.indexOf(c);b+=`<button class="cell${p<0?'':' on'}" ${d} onclick="pick(${c})"><small>cluster ${c}</small>${v}${p<0?'':`<em>${p+1}</em>`}</button>`});b+='</div>'}
+ b+=`</main><footer class="${L.st}">${a?'':`<p><b>${L.st=='right'?'Correct!':'Not quite.'}</b> ${e[4]}<small>Ref: ${U[L.u].ls[L.l].r}</small></p>`}<button class="go" onclick="${a?'check()':'next()'}">${a?'Check':'Continue'}</button></footer>`;
+ $.innerHTML=b;const f=document.getElementById('f');if(f){f.value=L.v;if(a)f.focus()}}
+function pick(k){if(L.st!='ask')return;if(cur()[0]=='mc')L.sel=[k];else{const p=L.sel.indexOf(k);p<0?L.sel.push(k):L.sel.splice(p,1)}lesson()}
+function check(){
+ const e=cur(),t=e[0];let ok;
+ if(t=='fill'){L.v=document.getElementById('f').value;if(!L.v.trim())return;ok=e[3].includes(L.v.trim().toLowerCase().replace(/^0x|[, ]/g,''))}
+ else{if(!L.sel.length)return;ok=t=='mc'?L.sel[0]===e[3]:L.sel.join()==e[3].join()}
+ L.st=ok?'right':'wrong';
+ if(ok)L.xp+=10;else{L.h--;L.q.push(L.q[L.i])}
+ lesson()}
+function next(){if(L.h<1)return end(0);L.i++;L.st='ask';L.sel=[];L.v='';L.i>=L.q.length?end(1):lesson()}
+function end(w){
+ if(w){S.xp+=L.xp;S.done[key(L.u,L.l)]=1;const d=new Date().toDateString();if(S.last!=d){S.streak=S.last==new Date(Date.now()-864e5).toDateString()?S.streak+1:1;S.last=d}save()}
+ $.innerHTML=`<main class="end"><h1>${w?'Lesson complete!':'Out of hearts'}</h1><p>${w?'+'+L.xp+' XP. Cluster linked.':'Read the explanations, then try the lesson again.'}</p></main><footer><button class="go" onclick="home()">${w?'Continue':'Back to the chain'}</button></footer>`}
+home();
+</script></body></html>
