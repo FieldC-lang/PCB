@@ -1,0 +1,1545 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Stumps to Solar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Big+Shoulders+Stencil+Display:wght@700;800&display=swap">
+<style>
+/* Layout: sticky stat bar + tabs; Learn = cabin that builds itself above a winding lesson path; lessons open full-screen like a flash-card deck. */
+:root{
+  --z:1;
+  --paper:#EDF2EE; --sheet:#F8FAF7; --sheet2:#E3EBE6; --ink:#17221E; --ink2:#4B5B55; --line:#C6D1CB;
+  --mint:#8FCDB8; --teal:#1D6A57; --on-teal:#FFFFFF; --galv:#7A8B94; --sun:#E5A21F; --sun-soft:#F6E2A8;
+  --ok:#2C8655; --ok-soft:#D7EEDF; --bad:#BF4428; --bad-soft:#F6DCD3; --warn:#9A6A12;
+  --water:#2C7DB6; --hot:#C4432E; --waste:#7B5A39; --elec:#B87E0C; --dc:#7650B0; --earth:#3E8E3A;
+  --sky:#DCEBF2; --ground:#CFC2A6; --timber:#C99A62; --fibro:#F2F0E6; --roof:#8E9BA2;
+  --f-disp:'Archivo','Arial Narrow',system-ui,sans-serif;
+  --f-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-stamp:'Big Shoulders Stencil Display','Archivo',Impact,sans-serif;
+  --r:10px; --sh:0 1px 0 rgba(23,34,30,.06),0 8px 22px rgba(23,34,30,.08);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1715; --sheet:#16211E; --sheet2:#1E2B27; --ink:#E5EEEA; --ink2:#A2B3AC; --line:#2D3C37;
+  --mint:#4E9C84; --teal:#7DD0B6; --on-teal:#0B1311; --galv:#94A4AD; --sun:#F1BD48; --sun-soft:#46380F;
+  --ok:#5CC48A; --ok-soft:#173326; --bad:#F27C60; --bad-soft:#3A1E17; --warn:#E5B34E;
+  --water:#69B2E6; --hot:#F2826C; --waste:#C99D70; --elec:#F1BD48; --dc:#B596EA; --earth:#7CCB76;
+  --sky:#1B2A33; --ground:#3A3326; --timber:#9C7446; --fibro:#C9C6B8; --roof:#5D6A71;
+  --sh:0 1px 0 rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1715; --sheet:#16211E; --sheet2:#1E2B27; --ink:#E5EEEA; --ink2:#A2B3AC; --line:#2D3C37;
+  --mint:#4E9C84; --teal:#7DD0B6; --on-teal:#0B1311; --galv:#94A4AD; --sun:#F1BD48; --sun-soft:#46380F;
+  --ok:#5CC48A; --ok-soft:#173326; --bad:#F27C60; --bad-soft:#3A1E17; --warn:#E5B34E;
+  --water:#69B2E6; --hot:#F2826C; --waste:#C99D70; --elec:#F1BD48; --dc:#B596EA; --earth:#7CCB76;
+  --sky:#1B2A33; --ground:#3A3326; --timber:#9C7446; --fibro:#C9C6B8; --roof:#5D6A71;
+  --sh:0 1px 0 rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.35); color-scheme:dark}
+html{font-size:calc(16px * var(--z))}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.55;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--sheet)}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-disp);text-wrap:balance;margin:0;line-height:1.15}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--ink2)}
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--sheet);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:.6rem;padding-block:.5rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.55rem;min-width:0;margin-right:auto}
+.brand .mark{font-family:var(--f-stamp);font-weight:800;font-size:1rem;letter-spacing:.04em;color:var(--teal);border:2px solid currentColor;border-radius:4px;padding:.05rem .35rem;line-height:1.2;transform:rotate(-3deg)}
+.brand b{font-family:var(--f-disp);font-stretch:85%;font-weight:850;font-size:1.2rem;letter-spacing:-.01em;white-space:nowrap}
+.stats{display:flex;gap:.4rem;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:.3rem;background:var(--sheet2);border-radius:999px;padding:.2rem .6rem;font-family:var(--f-disp);font-weight:700;font-size:.85rem;white-space:nowrap}
+.chip svg{width:1rem;height:1rem}
+.ctrls{display:flex;gap:.25rem;align-items:center}
+.ib{border:1px solid var(--line);background:var(--sheet);border-radius:8px;min-width:2.1rem;height:2.1rem;display:inline-grid;place-items:center;cursor:pointer;padding:0 .4rem;font-family:var(--f-disp);font-weight:700;font-size:.85rem}
+.ib:hover{background:var(--sheet2)}
+.ib svg{width:1.05rem;height:1.05rem}
+.zl{min-width:2.8rem;text-align:center;font-family:var(--f-disp);font-size:.8rem;font-weight:700}
+.tabs{display:flex;gap:.25rem;overflow-x:auto;padding-bottom:.45rem;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;background:transparent;padding:.4rem .85rem;border-radius:999px;cursor:pointer;font-family:var(--f-disp);font-weight:750;font-size:.95rem;color:var(--ink2);white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--teal);color:var(--on-teal)}
+main{padding-block:1rem 4rem}
+.view[hidden]{display:none!important}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1.25rem;align-items:center;margin-bottom:1.5rem}
+.hero .art{background:var(--sky);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.hero .art svg{display:block;width:100%;height:auto}
+.hero h1{font-size:clamp(1.8rem,4.5vw,2.8rem);font-stretch:80%;font-weight:900;letter-spacing:-.02em}
+.hero p{margin:.6rem 0 0;max-width:34rem}
+.stage{font-family:var(--f-stamp);font-weight:800;color:var(--teal);letter-spacing:.06em;font-size:1rem;text-transform:uppercase}
+.bar{height:.6rem;background:var(--sheet2);border-radius:999px;overflow:hidden;margin-top:.9rem}
+.bar i{display:block;height:100%;background:var(--teal);border-radius:999px;transition:width .4s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:0;border-radius:12px;padding:.75rem 1.2rem;font-family:var(--f-disp);font-weight:800;font-size:1rem;cursor:pointer;background:var(--teal);color:var(--on-teal);box-shadow:0 3px 0 color-mix(in srgb,var(--teal) 60%,#000)}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.ghost{background:var(--sheet);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+/* path */
+.unit{margin-top:2rem}
+.uhead{display:flex;gap:.9rem;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:.8rem 1rem}
+.ustamp{font-family:var(--f-stamp);font-weight:800;font-size:1.9rem;line-height:1;color:var(--teal);border:2.5px solid currentColor;border-radius:6px;padding:.15rem .4rem;transform:rotate(-4deg);flex:none}
+.uhead h2{font-size:1.25rem;font-stretch:90%;font-weight:850}
+.uhead p{margin:.15rem 0 0;font-size:.9rem;color:var(--ink2)}
+.ulocked .ustamp{color:var(--galv)}
+.nodes{display:flex;flex-direction:column;align-items:center;gap:1.1rem;padding:1.3rem 0 .4rem}
+.node{display:flex;flex-direction:column;align-items:center;gap:.35rem;background:none;border:0;cursor:pointer;max-width:15rem;text-align:center}
+.node .dot{width:4.4rem;height:4.4rem;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--on-teal);box-shadow:0 5px 0 color-mix(in srgb,var(--teal) 55%,#000);font-family:var(--f-stamp);font-weight:800;font-size:1.5rem;position:relative}
+.node .dot svg{width:1.9rem;height:1.9rem}
+.node.done .dot{background:var(--sun);color:#2A1E00;box-shadow:0 5px 0 color-mix(in srgb,var(--sun) 55%,#000)}
+.node.locked .dot{background:var(--sheet2);color:var(--galv);box-shadow:0 5px 0 var(--line)}
+.node.next .dot::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:3px solid var(--teal);opacity:.6;animation:pulse 1.8s infinite}
+@keyframes pulse{0%{transform:scale(.92);opacity:.7}100%{transform:scale(1.12);opacity:0}}
+.node span{font-family:var(--f-disp);font-weight:750;font-size:.92rem;line-height:1.25}
+.node small{font-size:.75rem;color:var(--ink2)}
+.crowns{position:absolute;bottom:-.4rem;right:-.5rem;background:var(--sheet);border:1px solid var(--line);border-radius:999px;font:700 .7rem var(--f-disp);color:var(--ink);padding:.05rem .35rem}
+/* generic panels */
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:1rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem}
+.lab{font-family:var(--f-disp);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.field{display:flex;flex-direction:column;gap:.25rem;min-width:0}
+.field input,.field select{font:inherit;border:1px solid var(--line);border-radius:8px;padding:.45rem .55rem;background:var(--paper);color:var(--ink);min-width:0;width:100%}
+.field input[type=range]{padding:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.7rem}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8.5rem),1fr));gap:.6rem;margin-top:.9rem}
+.kv{background:var(--sheet2);border-radius:8px;padding:.55rem .7rem}
+.kv b{display:block;font-family:var(--f-disp);font-size:1.35rem;font-weight:850;font-variant-numeric:tabular-nums;line-height:1.15}
+.kv span{font-size:.78rem;color:var(--ink2)}
+.svgbox{overflow-x:auto;border-radius:8px;background:var(--paper);border:1px solid var(--line);margin-top:.8rem}
+.svgbox svg{display:block;width:100%;height:auto;min-width:20rem}
+.tool h3{font-size:1.2rem;font-stretch:90%;font-weight:850;margin-bottom:.35rem}
+.tool p{margin:.2rem 0 .8rem;font-size:.92rem;color:var(--ink2);max-width:46rem}
+.note{font-size:.82rem;color:var(--ink2);margin-top:.7rem}
+.sub-tabs{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:1rem}
+.sub-tabs button{border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:.35rem .8rem;cursor:pointer;font:700 .88rem var(--f-disp)}
+.sub-tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.layers{display:flex;gap:.4rem;flex-wrap:wrap}
+.layers label{display:inline-flex;gap:.35rem;align-items:center;border:1px solid var(--line);border-radius:999px;padding:.25rem .65rem;font-size:.85rem;cursor:pointer;background:var(--sheet)}
+.layers i{width:.75rem;height:.75rem;border-radius:3px;display:inline-block}
+.info{margin-top:.7rem;min-height:3rem;font-size:.92rem}
+.codes table{width:100%;border-collapse:collapse;font-size:.9rem}
+.codes th,.codes td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+.codes th{font-family:var(--f-disp);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+.tablebox{overflow-x:auto}
+.tag{display:inline-block;font:700 .7rem var(--f-disp);letter-spacing:.04em;text-transform:uppercase;border-radius:4px;padding:.1rem .4rem;white-space:nowrap}
+.tag.lic{background:var(--bad-soft);color:var(--bad)}
+.tag.diy{background:var(--ok-soft);color:var(--ok)}
+.tag.cert{background:var(--sun-soft);color:var(--warn)}
+/* lesson overlay */
+.lesson{position:fixed;inset:0;z-index:60;background:var(--paper);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.lesson[hidden]{display:none!important}
+.lbar{display:flex;align-items:center;gap:.8rem;padding-block:.7rem}
+.lbar .bar{flex:1;margin:0;height:.8rem}
+.lbody{flex:1;overflow-y:auto}
+.lbody .wrap{max-width:44rem;padding-block:.5rem 1.5rem}
+.lfoot{border-top:1px solid var(--line);background:var(--sheet)}
+.lfoot .wrap{max-width:44rem;padding-block:.8rem;display:flex;gap:.8rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.lfoot.ok{background:var(--ok-soft)} .lfoot.bad{background:var(--bad-soft)}
+.fb{flex:1 1 16rem;min-width:0;font-size:.92rem}
+.fb h4{font-size:1.1rem;margin-bottom:.15rem}
+.lfoot.ok h4{color:var(--ok)} .lfoot.bad h4{color:var(--bad)}
+.kicker{font-family:var(--f-stamp);font-weight:800;letter-spacing:.06em;color:var(--teal);text-transform:uppercase;font-size:.95rem}
+.qtitle{font-size:1.35rem;font-stretch:92%;font-weight:850;margin:.3rem 0 1rem}
+.card p{margin:.5rem 0}
+.card ul{margin:.4rem 0;padding-left:1.2rem}
+.card li{margin:.2rem 0}
+.fig{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:.4rem;margin:.6rem 0;position:relative}
+.fig svg{display:block;width:100%;height:auto}
+.fig .zoomit{position:absolute;top:.4rem;right:.4rem}
+.ref{font-size:.8rem;color:var(--ink2);border-left:3px solid var(--mint);padding:.3rem .6rem;margin-top:1rem;background:var(--sheet)}
+.opts{display:grid;gap:.6rem}
+.opt{border:2px solid var(--line);border-bottom-width:4px;background:var(--sheet);border-radius:12px;padding:.75rem .9rem;text-align:left;cursor:pointer;font-size:1rem;line-height:1.35}
+.opt:hover{border-color:var(--mint)}
+.opt.sel{border-color:var(--teal);background:color-mix(in srgb,var(--teal) 10%,var(--sheet))}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt[disabled]{cursor:default}
+.tf{grid-template-columns:1fr 1fr}
+.ordl{display:grid;gap:.45rem;margin-bottom:.9rem;min-height:2.6rem;border:2px dashed var(--line);border-radius:12px;padding:.5rem}
+.ordl .opt{padding:.55rem .75rem;font-size:.95rem}
+.ordl .opt b{font-family:var(--f-stamp);color:var(--teal);margin-right:.4rem}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.match .opt{padding:.6rem .7rem;font-size:.92rem}
+.match .opt.gone{opacity:.25;pointer-events:none}
+.numin{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.numin input{font:800 1.4rem var(--f-disp);width:10rem;max-width:100%;padding:.5rem .7rem;border:2px solid var(--line);border-radius:12px;background:var(--sheet);color:var(--ink)}
+.numin span{font:700 1.1rem var(--f-disp);color:var(--ink2)}
+.tapfig svg [data-hit]{cursor:pointer}
+.tapfig svg [data-hit]:hover{filter:drop-shadow(0 0 3px var(--sun))}
+.tapfig svg .picked{filter:drop-shadow(0 0 4px var(--teal))}
+.donebox{text-align:center;padding-block:2rem}
+.donebox .big{font-family:var(--f-stamp);font-size:3rem;color:var(--teal);font-weight:800}
+.trophies{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin:1rem 0}
+/* modal */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(10,16,14,.6);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal[hidden]{display:none!important}
+.mbox{background:var(--sheet);border-radius:var(--r);width:min(70rem,100%);max-height:100%;display:flex;flex-direction:column;overflow:hidden}
+.mhead{display:flex;gap:.5rem;align-items:center;padding:.6rem .8rem;border-bottom:1px solid var(--line)}
+.mhead b{margin-right:auto;font-family:var(--f-disp)}
+.mview{overflow:auto;flex:1;background:var(--paper)}
+.mview svg{display:block;transform-origin:0 0}
+.toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:.55rem 1rem;border-radius:999px;font:700 .9rem var(--f-disp);z-index:90}
+.toast[hidden]{display:none!important}
+.svgt{font-family:var(--f-disp);font-weight:700}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.brand b{font-size:1.05rem}.ctrls .hide-s{display:none}.match{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="mark">S2S</span><b>Stumps to Solar</b></div>
+    <div class="stats">
+      <span class="chip" title="Experience points"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="var(--sun)" stroke="none"/></svg><span id="xp" class="num">0</span> XP</span>
+      <span class="chip" title="Day streak"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="var(--sun)"/><g stroke="var(--sun)" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><span id="streak" class="num">0</span></span>
+    </div>
+    <div class="ctrls">
+      <button class="ib" id="zout" aria-label="Zoom out">−</button>
+      <span class="zl num" id="zlab">100%</span>
+      <button class="ib" id="zin" aria-label="Zoom in">+</button>
+      <button class="ib" id="fs" aria-label="Fullscreen" title="Fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="ib" id="theme" aria-label="Switch light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></svg></button>
+    </div>
+  </div>
+  <div class="wrap">
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-view="learn" aria-selected="true">Learn</button>
+      <button class="tab" role="tab" data-view="plans" aria-selected="false">Plans</button>
+      <button class="tab" role="tab" data-view="tools" aria-selected="false">Tools</button>
+      <button class="tab" role="tab" data-view="codes" aria-selected="false">Codes</button>
+      <button class="tab" role="tab" data-view="prefs" aria-selected="false">Settings</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="view" id="v-learn">
+    <div class="hero">
+      <div class="art" id="heroArt"></div>
+      <div>
+        <div class="stage" id="stageLab">Stage 0 · Bare site</div>
+        <h1>Build a fibro cabin, off-grid and mains-ready.</h1>
+        <p>A 7.2 × 4.2 m cabin on stumps: timber frame, fibre cement cladding, 900 mm eaves that shade the windows, solar and battery power, rainwater, and the pipes and conduits ready for town services. Every lesson you finish adds to the cabin.</p>
+        <div class="bar" aria-label="Course progress"><i id="pbar" style="width:0%"></i></div>
+        <div class="row" style="margin-top:.9rem">
+          <button class="btn" id="goNext">Start lesson 1</button>
+          <span class="muted num" id="plab">0 of 0 lessons</span>
+        </div>
+      </div>
+    </div>
+    <div id="path"></div>
+  </section>
+
+  <section class="view" id="v-plans" hidden></section>
+  <section class="view" id="v-tools" hidden></section>
+  <section class="view codes" id="v-codes" hidden></section>
+  <section class="view" id="v-prefs" hidden></section>
+</main>
+
+<div class="lesson" id="lesson" hidden>
+  <div class="wrap lbar">
+    <button class="ib" id="lclose" aria-label="Close lesson"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="bar"><i id="lprog" style="width:0%"></i></div>
+    <span class="chip num" id="lxp">0 XP</span>
+  </div>
+  <div class="lbody" id="lbody"><div class="wrap" id="lcontent"></div></div>
+  <div class="lfoot" id="lfoot"><div class="wrap"><div class="fb" id="fb"></div><button class="btn" id="lbtn">Continue</button></div></div>
+</div>
+
+<div class="modal" id="dmodal" hidden>
+  <div class="mbox">
+    <div class="mhead"><b id="dtitle">Diagram</b>
+      <button class="ib" id="dzo" aria-label="Zoom diagram out">−</button>
+      <button class="ib" id="dzi" aria-label="Zoom diagram in">+</button>
+      <button class="ib" id="dclose" aria-label="Close diagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="mview" id="dview"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script>
+// ---------- SVG helpers ----------
+const D = {};
+const S = (w,h,inner,label) => `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${label}"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink2)" stroke-width="1"/></pattern></defs>${inner}</svg>`;
+const T = (x,y,s,o={}) => `<text x="${x}" y="${y}" class="svgt" font-size="${o.s||12}" fill="${o.c||'var(--ink)'}" text-anchor="${o.a||'start'}"${o.w?` font-weight="${o.w}"`:''}>${s}</text>`;
+const L = (x1,y1,x2,y2,c='var(--ink)',w=1.5,d='') => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}"${d?` stroke-dasharray="${d}"`:''}/>`;
+const R = (x,y,w,h,f,s='var(--ink)',sw=1.2,ex='') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}" stroke="${s}" stroke-width="${sw}" ${ex}/>`;
+const P = (d,f='none',s='var(--ink)',sw=1.5,ex='') => `<path d="${d}" fill="${f}" stroke="${s}" stroke-width="${sw}" ${ex}/>`;
+const C = (cx,cy,r,f,s='var(--ink)',sw=1.2) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${f}" stroke="${s}" stroke-width="${sw}"/>`;
+const H = (id,inner) => `<g data-hit="${id}">${inner}</g>`;
+const A = (x1,y1,x2,y2,c='var(--ink)',w=1.5) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}" marker-end="url(#ah)"/>`;
+// callout: leader from point to label
+const CO = (x,y,tx,ty,s,a='start') => L(x,y,tx,ty,'var(--ink2)',1) + C(x,y,2.2,'var(--ink)','none',0) + T(tx+(a==='start'?3:a==='end'?-3:0),ty+4,s,{s:11,a});
+// dimension line with end ticks
+const DIM = (x1,y1,x2,y2,s,o={}) => {
+  const vert = Math.abs(x1-x2) < Math.abs(y1-y2);
+  const t = 5; let g = L(x1,y1,x2,y2,'var(--ink2)',1);
+  g += vert ? L(x1-t,y1,x1+t,y1,'var(--ink2)',1)+L(x2-t,y2,x2+t,y2,'var(--ink2)',1) : L(x1,y1-t,x1,y1+t,'var(--ink2)',1)+L(x2,y2-t,x2,y2+t,'var(--ink2)',1);
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  g += vert ? T(mx+(o.left?-6:6),my+4,s,{s:11,a:o.left?'end':'start',c:'var(--ink2)'}) : T(mx,my-6,s,{s:11,a:'middle',c:'var(--ink2)'});
+  return g;
+};
+const corr = (x,y,w,h,step=6) => { let g=''; for(let i=x+step/2;i<x+w;i+=step) g+=L(i,y,i,y+h,'var(--ink)',.5); return g; };
+
+// ---------- HERO: north elevation that builds with progress ----------
+D.hero = (s=0) => {
+  const k=58, x0=112, x1=x0+7.2*k, gy=300, bb=gy-0.45*k, fl=bb-18, top=fl-2.7*k, ridge=top-58, eL=x0-0.45*k, eR=x1+0.45*k;
+  const X = m => x0+m*k, Y = m => fl-m*k;
+  let g = R(0,0,640,340,'var(--sky)','none',0);
+  g += C(586,48,20,'var(--sun)','none',0);
+  g += R(0,gy,640,40,'var(--ground)','none',0) + L(0,gy,640,gy,'var(--ink2)',1);
+  g += T(12,22,'NORTH ELEVATION',{s:11,c:'var(--ink2)'});
+  if(s<11){ let gh = R(x0,top+4,x1-x0,fl-top-4,'none','var(--ink2)',1.2) + P(`M${eL} ${top-6} L${eR} ${top-6} L${eR} ${ridge} L${eL} ${ridge}z`,'none','var(--ink2)',1.2) + R(X(0.9),Y(2.1),2.4*k,2.1*k,'none','var(--ink2)',1.2) + R(X(5.25),Y(2.1),1.2*k,1.2*k,'none','var(--ink2)',1.2);
+    for(const m of [0,1.8,3.6,5.4,7.2]) gh += L(X(m),bb,X(m),gy,'var(--ink2)',1.2);
+    g += `<g opacity=".4" stroke-dasharray="5 4">${gh}</g>`; }
+  if(s<1){ g += T(320,gy+26,'Bare site — finish lessons to build',{s:12,a:'middle',c:'var(--ink2)'}); }
+  if(s>=1 && s<3){ g += L(x0-14,gy-4,x1+14,gy-4,'var(--hot)',1.2,'5 4'); [x0-14,x1+14].forEach(x=>{g+=R(x-3,gy-24,6,24,'var(--timber)','var(--ink)',.8)}); }
+  if(s>=11){ // underground services to boundary
+    g += P(`M${X(0.6)} ${gy} L${X(0.6)} ${gy+18} L22 ${gy+18}`,'none','var(--elec)',2,'stroke-dasharray="6 4"');
+    g += P(`M${X(1.2)} ${gy} L${X(1.2)} ${gy+28} L22 ${gy+28}`,'none','var(--water)',2,'stroke-dasharray="6 4"');
+    g += R(8,gy+10,22,16,'var(--sheet2)','var(--ink)',1)+R(8,gy+22,22,12,'var(--sheet2)','var(--ink)',1);
+    g += L(20,gy-40,20,gy,'var(--ink)',1.5)+P(`M20 ${gy-40} L46 ${gy-33} L20 ${gy-26}z`,'var(--ok)','none',0)+T(24,gy-46,'mains-ready',{s:10});
+  }
+  if(s>=8){ g += P(`M${X(2.0)} ${bb} L${X(2.0)} ${gy+8} L${X(-1.6)} ${gy+12}`,'none','var(--waste)',2,'stroke-dasharray="4 3"'); }
+  if(s>=2){ for(const m of [0,1.8,3.6,5.4,7.2]){ const x=X(m)+(m===0?6:m===7.2?-6:0);
+      g += R(x-9,gy,18,12,'url(#hatch)','var(--ink2)',.8,'stroke-dasharray="3 2"') + R(x-3,bb,6,gy-bb,'var(--galv)','var(--ink)',.8) + P(`M${x-10} ${bb} L${x+10} ${bb} L${x+6} ${bb+4} L${x-6} ${bb+4}z`,'var(--galv)','var(--ink)',.8); }
+    g += R(x0-4,bb-10,x1-x0+8,10,'var(--timber)','var(--ink)',1); }
+  if(s>=3){ g += R(x0-4,fl,x1-x0+8,8,'var(--timber)','var(--ink)',1);
+    if(s<5){ for(let m=0;m<=7.2001;m+=0.6) g += L(X(m),top,X(m),fl,'var(--timber)',3);
+      g += L(x0,top+2,x1,top+2,'var(--timber)',4)+L(x0,fl-2,x1,fl-2,'var(--timber)',4); } }
+  if(s>=4){ const gt=top-6;
+    g += P(`M${eL} ${gt} L${eR} ${gt} L${eR} ${ridge} L${eL} ${ridge}z`,'var(--roof)','var(--ink)',1.2)+corr(eL,ridge,eR-eL,gt-ridge,7);
+    g += R(eL,gt,eR-eL,10,'var(--sheet)','var(--ink)',1)+R(eL-2,gt-2,eR-eL+4,6,'var(--galv)','var(--ink)',.8); }
+  if(s>=5){ g += R(x0,top+8,x1-x0,fl-top-8,'var(--fibro)','var(--ink)',1.2);
+    for(let m=1.2;m<7.2;m+=1.2) g += L(X(m),top+8,X(m),fl,'var(--ink2)',2.2); }
+  if(s>=3){ const win=(a,b,sill,head,glass)=>{ g += R(X(a),Y(head),(b-a)*k,(head-sill)*k,glass,'var(--ink)',s>=5?2:1.2); if(s>=6) g += L(X((a+b)/2),Y(head),X((a+b)/2),Y(sill),'var(--ink)',1.2); };
+    const gl = s>=10?'var(--sun-soft)':s>=6?'var(--sky)':'none';
+    win(0.9,3.3,0,2.1,gl); win(5.25,6.45,0.9,2.1,gl);
+    if(s>=6){ g += R(X(0.7),fl,2.8*k,6,'var(--timber)','var(--ink)',1)+R(X(1.4),fl+6,1.4*k,6,'var(--timber)','var(--ink)',.8)+R(X(1.5),fl+12,1.2*k,6,'var(--timber)','var(--ink)',.8); } }
+  if(s>=7){ const tx=560, tw=58, tt=gy-92; g += R(tx,tt,tw,92,'var(--galv)','var(--ink)',1.2,'rx="6"')+corr(tx,tt,tw,92,5)+R(tx-3,tt-6,tw+6,8,'var(--galv)','var(--ink)',1,'rx="3"');
+    g += P(`M${eR-6} ${top-4} L${eR-6} ${tt-16} L${tx+tw/2} ${tt-16} L${tx+tw/2} ${tt-6}`,'none','var(--ink)',3)+T(tx+tw/2,gy+12,'rainwater',{s:9,a:'middle'}); }
+  if(s>=8){ g += R(X(6.3),ridge-22,7,30,'var(--galv)','var(--ink)',1)+R(X(6.3)-2,ridge-25,11,5,'var(--galv)','var(--ink)',1)+T(X(6.3)+12,ridge-14,'vent',{s:9}); }
+  if(s>=9){ const pw=1.76*k*0.98, ph=(top-6-ridge)/2-3; for(let r=0;r<2;r++) for(let i=0;i<4;i++){ const px=X(0.28)+i*(pw+3), py=ridge+3+r*(ph+2);
+      g += R(px,py,pw,ph,'var(--dc)','var(--ink)',1,'opacity=".9"')+L(px+pw/3,py,px+pw/3,py+ph,'var(--sheet)',.5)+L(px+2*pw/3,py,px+2*pw/3,py+ph,'var(--sheet)',.5); } }
+  if(s>=10){ g += R(X(3.7),Y(1.9),20,26,'var(--sheet2)','var(--ink)',1,'rx="2"')+T(X(3.7)+10,Y(1.9)-4,'meter',{s:8,a:'middle'}); }
+  if(s>=5){ g += `<rect x="${x0}" y="${top+4}" width="${x1-x0}" height="${1.73*k}" fill="var(--ink)" opacity=".14"/>` + T(x1-6,top+20,'eave shade at equinox noon',{s:9,a:'end',c:'var(--ink2)'}); }
+  return S(640,340,g,'North elevation of the cabin, built to stage '+s);
+};
+
+// ---------- Stump detail ----------
+D.stump = () => {
+  let g = R(0,230,360,70,'var(--ground)','none',0)+L(0,230,360,230,'var(--ink2)',1);
+  g = R(0,230,420,70,'var(--ground)','none',0)+L(0,230,420,230,'var(--ink2)',1);
+  g += H('footing', R(150,248,80,40,'url(#hatch)','var(--ink)',1.2)) + CO(230,270,262,276,'Concrete pad footing');
+  g += H('stump', R(183,142,14,106,'var(--galv)','var(--ink)',1.2)+R(172,244,36,6,'var(--galv)','var(--ink)',1)) + CO(183,200,150,200,'Adjustable steel stump','end');
+  g += H('antcap', P('M158 142 L222 142 L214 132 L166 132z','var(--sun)','var(--ink)',1.2)) + CO(162,140,150,160,'Ant cap (termite shield)','end');
+  g += H('bearer', R(30,104,300,28,'var(--timber)','var(--ink)',1.2)) + CO(310,112,350,92,'Bearer');
+  let j=''; for(let x=44;x<330;x+=46) j+=R(x,80,14,24,'var(--timber)','var(--ink)',1);
+  g += H('joist', j) + CO(104,86,90,40,'Joists at 450 c/c');
+  g += H('floor', R(30,72,300,8,'var(--fibro)','var(--ink)',1.2)) + CO(300,76,300,52,'Flooring sheet','middle');
+  g += L(190,150,190,112,'var(--ink)',2) + CO(194,120,262,164,'Tie-down bolt');
+  g += DIM(345,132,345,230,'≥ 400 mm');
+  return S(420,300,g,'Stump detail: footing, stump, ant cap, bearer, joists, flooring');
+};
+
+// ---------- Stump grid plan ----------
+D.grid = () => {
+  const k=46, x0=40, y0=40, W=7.2*k, Hh=4.2*k; let g = R(x0,y0,W,Hh,'none','var(--ink2)',1,'stroke-dasharray="4 3"');
+  for(let m=0;m<=7.2001;m+=0.45) g += L(x0+m*k,y0,x0+m*k,y0+Hh,'var(--timber)',1);
+  for(const r of [0,2.1,4.2]) g += R(x0-4,y0+r*k-4,W+8,8,'var(--timber)','var(--ink)',1);
+  for(const r of [0,2.1,4.2]) for(const c of [0,1.8,3.6,5.4,7.2]) g += R(x0+c*k-6,y0+r*k-6,12,12,'var(--galv)','var(--ink)',1.2);
+  g += DIM(x0,y0+Hh+22,x0+1.8*k,y0+Hh+22,'1.8 m') + DIM(x0+W+20,y0,x0+W+20,y0+2.1*k,'2.1 m');
+  g += T(x0+W/2,y0-14,'Bearers run east–west · joists north–south',{s:11,a:'middle',c:'var(--ink2)'}) + T(x0+W+8,y0+Hh+40,'15 stumps',{s:12,a:'end',w:800});
+  g += A(20,y0+70,20,y0+40)+T(20,y0+86,'N',{s:12,a:'middle',w:800});
+  return S(440,280,g,'Stump grid: 5 columns by 3 rows');
+};
+
+// ---------- Wall frame ----------
+D.frame = () => {
+  const x0=30, x1=390, yt=30, yb=250, wx0=150, wx1=270, ls=70, sill=170; let g='';
+  g += H('topplate', R(x0,yt,x1-x0,8,'var(--timber)','var(--ink)',1)+R(x0,yt+8,x1-x0,8,'var(--timber)','var(--ink)',1));
+  g += H('bottomplate', R(x0,yb-8,x1-x0,8,'var(--timber)','var(--ink)',1));
+  let st=''; for(const x of [30,90,330,382]) st += R(x,yt+16,8,yb-yt-24,'var(--timber)','var(--ink)',1);
+  g += H('stud', st);
+  g += H('jamb', R(wx0-8,yt+16,8,yb-yt-24,'var(--timber)','var(--ink)',1)+R(wx1,yt+16,8,yb-yt-24,'var(--timber)','var(--ink)',1)+R(wx0-16,ls+20,8,yb-ls-28,'var(--timber)','var(--ink)',1)+R(wx1+8,ls+20,8,yb-ls-28,'var(--timber)','var(--ink)',1));
+  g += H('lintel', R(wx0-16,ls,wx1-wx0+32,20,'var(--sun)','var(--ink)',1.2));
+  g += H('jack', R(206,yt+16,8,ls-yt-16,'var(--timber)','var(--ink)',1)+R(206,sill+8,8,yb-sill-16,'var(--timber)','var(--ink)',1));
+  g += H('sill', R(wx0,sill,wx1-wx0,8,'var(--timber)','var(--ink)',1));
+  g += H('nogging', R(38,140,52,7,'var(--timber)','var(--ink)',1)+R(98,132,36,7,'var(--timber)','var(--ink)',1)+R(286,140,44,7,'var(--timber)','var(--ink)',1)+R(338,132,44,7,'var(--timber)','var(--ink)',1));
+  g += T(210,130,'opening',{s:11,a:'middle',c:'var(--ink2)'}) + DIM(30,268,90,268,'600 c/c');
+  return S(420,285,g,'Wall frame with a window opening');
+};
+
+// ---------- Load path ----------
+D.loadpath = () => {
+  let g = R(0,262,360,38,'var(--ground)','none',0);
+  g += P('M60 120 L180 50 L300 120','none','var(--ink)',3)+L(80,120,280,120,'var(--ink)',2);
+  g += R(84,120,10,100,'var(--timber)','var(--ink)',1)+R(266,120,10,100,'var(--timber)','var(--ink)',1)+R(70,220,220,10,'var(--timber)','var(--ink)',1);
+  g += R(84,230,8,32,'var(--galv)','var(--ink)',1)+R(268,230,8,32,'var(--galv)','var(--ink)',1);
+  for(const x of [120,180,240]) g += A(x,92,x,40,'var(--water)',2);
+  g += T(180,30,'Wind uplift',{s:12,a:'middle',c:'var(--water)'});
+  g += P('M276 118 L280 124 L280 220 L280 236 L280 270','none','var(--bad)',3,'stroke-dasharray="7 4"');
+  [[280,122,'roof → wall plate: strap'],[280,176,'studs carry it down'],[280,226,'wall → floor frame'],[280,252,'bearer → stump → footing']].forEach(([x,y,s])=>{g+=C(x,y,4,'var(--bad)','none',0)+T(x+10,y+4,s,{s:10.5})});
+  return S(420,300,g,'Continuous load path from roof to ground');
+};
+
+// ---------- Roof truss ----------
+D.truss = () => {
+  const k=60, cx=210, by=160, hs=2.1*k, rise=0.87*k, ov=0.9*k, drop=ov*Math.tan(Math.PI/8);
+  const lx=cx-hs, rx=cx+hs, ay=by-rise;
+  let g = H('overhang', L(lx,by,lx-ov,by+drop,'var(--sun)',6)+L(rx,by,rx+ov,by+drop,'var(--sun)',6));
+  g += H('topchord', L(lx,by,cx,ay,'var(--timber)',6)+L(cx,ay,rx,by,'var(--timber)',6));
+  g += H('bottomchord', L(lx,by,rx,by,'var(--timber)',6));
+  g += H('web', L(cx-hs/2,by,cx-hs/4,by-rise*0.75,'var(--timber)',4)+L(cx-hs/2,by,cx,ay,'var(--timber)',4)+L(cx+hs/2,by,cx,ay,'var(--timber)',4)+L(cx+hs/2,by,cx+hs/4,by-rise*0.75,'var(--timber)',4));
+  g += H('heel', R(lx-10,by+3,26,14,'var(--galv)','var(--ink)',1)+R(rx-16,by+3,26,14,'var(--galv)','var(--ink)',1));
+  for(let i=1;i<=4;i++){ const t=i/5; g+= R(lx+(cx-lx)*t-4,by+(ay-by)*t-9,8,6,'var(--galv)','var(--ink)',.8)+R(rx+(cx-rx)*t-4,by+(ay-by)*t-9,8,6,'var(--galv)','var(--ink)',.8); }
+  g += R(lx-6,by+17,14,40,'var(--fibro)','var(--ink)',1)+R(rx-8,by+17,14,40,'var(--fibro)','var(--ink)',1);
+  g += T(cx,by+40,'4.2 m span (wall to wall)',{s:11,a:'middle',c:'var(--ink2)'})+T(lx-ov,by+drop+18,'900 eave',{s:11,c:'var(--ink2)'})+T(cx,ay-14,'22.5° pitch',{s:11,a:'middle',c:'var(--ink2)'});
+  return S(420,225,g,'Gable roof truss with eave overhangs');
+};
+
+// ---------- Eave and sun angles (Brisbane, solar noon) ----------
+D.eave = () => {
+  const k=74, fy=270, wx=230, so=fy-2.35*k, P0=0.9*k, fx=wx-P0, sill=fy-0.9*k, head=fy-2.1*k, wt=fy-2.7*k;
+  let g = R(0,fy,360,30,'var(--ground)','none',0);
+  g += R(wx,wt,14,fy-wt,'var(--fibro)','var(--ink)',1.2) + R(wx-3,head,20,sill-head,'var(--sky)','var(--ink)',1.5);
+  g += P(`M${fx-6} ${so-8} L${wx+130} ${so-8-(130+P0)*0.414}`,'none','var(--roof)',6) + R(fx-6,so-10,8,14,'var(--sheet)','var(--ink)',1) + L(fx,so,wx,so,'var(--ink)',2);
+  const ray=(deg,c,lab,ly)=>{ const t=Math.tan(deg*Math.PI/180); let hx=wx, hy=so+P0*t; if(hy>fy){ hy=fy; hx=fx+(fy-so)/t; }
+    const sx=fx-(so-6)/t; g += L(sx,6,hx,hy,c,2.2,'6 3') + C(hx,hy,3.5,c,'none',0) + T(sx+4,ly,lab,{s:11,c}); };
+  ray(86,'var(--hot)','Summer 86°',18); ray(62.5,'var(--warn)','Equinox 62.5°',36); ray(39,'var(--water)','Winter 39°',54);
+  g += DIM(fx,so-28,wx,so-28,'900 eave') + DIM(wx+40,so,wx+40,sill,'1450 sill → edge') + T(wx+22,(head+sill)/2,'window',{s:10,c:'var(--ink2)'});
+  g += T(8,fy+20,'NORTH (outside)',{s:10,c:'var(--ink2)'}) + T(352,fy+20,'inside',{s:10,a:'end',c:'var(--ink2)'});
+  return S(360,300,g,'Eave section with summer, equinox and winter noon sun rays');
+};
+
+// ---------- Roof layers (exploded) ----------
+D.roofl = () => {
+  let g=''; const x0=40, x1=250;
+  let w=`M${x0} 40`; for(let x=x0;x<x1;x+=14) w+=` q7 -9 14 0`; g += P(w,'none','var(--roof)',3) + T(x1+16,40,'Corrugated steel, screwed through crests',{s:11});
+  g += R(x0,62,x1-x0,6,'var(--galv)','var(--ink)',1) + T(x1+16,68,'Steel battens',{s:11});
+  g += R(x0,84,x1-x0,10,'var(--sun-soft)','var(--ink)',1) + T(x1+16,92,'Roof blanket / reflective sarking',{s:11});
+  g += R(x0,110,x1-x0,14,'var(--timber)','var(--ink)',1) + T(x1+16,120,'Truss top chord',{s:11});
+  g += R(x0,140,x1-x0,26,'var(--sun-soft)','var(--ink)',1,'rx="8"') + T(x1+16,156,'Ceiling insulation batts',{s:11});
+  g += R(x0,182,x1-x0,6,'var(--fibro)','var(--ink)',1) + T(x1+16,188,'Ceiling lining',{s:11});
+  return S(500,210,g,'Roof layers from sheet to ceiling');
+};
+
+// ---------- Sun path over the site (southern hemisphere) ----------
+D.sunpath = () => {
+  let g = R(130,140,100,58,'var(--fibro)','var(--ink)',1.5) + R(130,140,100,6,'var(--teal)','none',0) + T(180,174,'cabin',{s:11,a:'middle'});
+  g += P('M70 230 Q180 -40 290 230','none','var(--water)',2.2,'stroke-dasharray="7 4"') + T(180,40,'Winter: low in the north',{s:11,a:'middle',c:'var(--water)'});
+  g += P('M86 250 Q180 90 274 250','none','var(--hot)',2.2) + T(180,124,'Summer: high, rises & sets south of E–W',{s:11,a:'middle',c:'var(--hot)'});
+  g += A(330,70,330,24) + T(330,64+26,'N',{s:13,a:'middle',w:800}) + T(14,170,'E',{s:12,w:800}) + T(346,170,'W',{s:12,a:'end',w:800});
+  g += T(180,135+16,'long side faces north',{s:10,a:'middle',c:'var(--teal)'});
+  return S(360,270,g,'Sun paths: winter low in the north, summer high');
+};
+
+// ---------- Set-out: diagonals and 3-4-5 ----------
+D.setout = () => {
+  const k=38, x0=40, y0=30, W=7.2*k, Hh=4.2*k; let g = R(x0,y0,W,Hh,'none','var(--ink)',1.5);
+  g += L(x0,y0,x0+W,y0+Hh,'var(--hot)',1.5,'6 4') + L(x0+W,y0,x0,y0+Hh,'var(--hot)',1.5,'6 4') + T(x0+W/2,y0+Hh/2-8,'diagonals equal = square',{s:11,a:'middle',c:'var(--hot)'});
+  g += P(`M${x0} ${y0+Hh-3*k/1.5} L${x0} ${y0+Hh} L${x0+4*k/1.5} ${y0+Hh}`,'none','var(--teal)',3) + L(x0,y0+Hh-2*k,x0+4*k/1.5,y0+Hh,'var(--teal)',2);
+  g += T(x0+6,y0+Hh-30,'3',{s:13,w:800,c:'var(--teal)'}) + T(x0+48,y0+Hh-6,'4',{s:13,w:800,c:'var(--teal)'}) + T(x0+52,y0+Hh-46,'5',{s:13,w:800,c:'var(--teal)'});
+  g += DIM(x0,y0+Hh+18,x0+W,y0+Hh+18,'7.2 m') + DIM(x0+W+16,y0,x0+W+16,y0+Hh,'4.2 m');
+  return S(380,240,g,'Set-out: equal diagonals and a 3-4-5 triangle');
+};
+// ---------- Fibre cement sheet layout ----------
+D.sheets = () => {
+  const k=90, x0=40, y0=20, W=3.6*k, Hh=2.7*k; let g='';
+  for(let i=0;i<3;i++) g += R(x0+i*1.2*k,y0,1.2*k,Hh,'var(--fibro)','var(--ink)',1);
+  let st=''; for(let m=0;m<=3.6001;m+=0.6) st += L(x0+m*k,y0,x0+m*k,y0+Hh,'var(--timber)',1.5,'5 4')+L(x0+m*k,y0,x0+m*k,y0+Hh,'transparent',10);
+  g += H('stud', st);
+  g += H('joint', R(x0+1.2*k-5,y0,10,Hh,'var(--galv)','var(--ink)',1)+R(x0+2.4*k-5,y0,10,Hh,'var(--galv)','var(--ink)',1));
+  let fx=''; for(let i=0;i<=6;i++){ const m=i*0.6, edge = i%2===0, xo = i===0?6:i===6?-6:0; if(edge&&i>0&&i<6) continue;
+    for(let y=y0+8;y<y0+Hh;y+= edge?22:34) fx += C(x0+m*k+xo,y,2,'var(--ink)','none',0); }
+  g += H('fixing', fx);
+  g += CO(x0+1.2*k,y0+60,x0+1.2*k+28,y0-4,'joint lands on a stud, covered by a batten') ;
+  g += DIM(x0,y0+Hh+16,x0+1.2*k,y0+Hh+16,'1200 sheet') + DIM(x0+W+16,y0,x0+W+16,y0+Hh,'2700');
+  return S(440,290,g,'Fibre cement sheets fixed to studs at 600 centres');
+};
+
+// ---------- Window install section ----------
+D.window = () => {
+  let g = R(150,10,40,260,'var(--timber)','var(--ink)',1) + T(170,30,'stud',{s:10,a:'middle'});
+  g += H('wrap', L(146,10,146,270,'var(--water)',3));
+  g += H('cladding', R(136,10,9,82,'var(--fibro)','var(--ink)',1)+R(136,196,9,74,'var(--fibro)','var(--ink)',1));
+  g += H('window', R(120,104,70,80,'var(--sky)','var(--ink)',1.5)+L(120,144,190,144,'var(--ink)',1));
+  g += H('headflash', P('M150 96 L134 96 L134 102 L128 104','none','var(--hot)',3));
+  g += H('sillflash', P('M190 186 L150 186 L126 194','none','var(--hot)',3));
+  g += CO(146,40,112,40,'wall wrap','end') + CO(134,98,112,82,'head flashing','end') + CO(128,193,112,214,'sill tray / flashing','end') + CO(140,240,112,244,'fibre cement','end') + CO(122,140,112,140,'window frame','end');
+  g += T(300,30,'INSIDE',{s:11,a:'middle',c:'var(--ink2)'}) + T(20,262,'OUTSIDE',{s:11,c:'var(--ink2)'});
+  return S(340,280,g,'Window installation section with flashings and wall wrap');
+};
+
+// ---------- Rainwater system ----------
+D.rain = () => {
+  let g = P('M10 30 L120 30','none','var(--roof)',6);
+  g += H('gutter', P('M100 34 L136 34 L132 52 L104 52z','var(--galv)','var(--ink)',1.2)+L(100,34,136,34,'var(--ok)',2,'2 2'));
+  g += P('M118 52 L118 96','none','var(--ink)',5);
+  g += H('firstflush', R(108,96,20,60,'var(--sheet2)','var(--ink)',1.2)+C(118,160,4,'var(--ink)','none',0));
+  g += P('M128 104 L176 104 L176 112','none','var(--ink)',5);
+  g += H('screen', R(166,112,22,6,'var(--ok)','var(--ink)',1));
+  g += H('tank', R(150,118,74,96,'var(--galv)','var(--ink)',1.4,'rx="8"')+corr(150,118,74,96,6));
+  g += H('overflow', P('M224 128 L250 128 L250 214','none','var(--water)',3)) + T(254,210,'overflow →',{s:10}) + T(254,222,'lawful discharge',{s:10});
+  g += P('M224 200 L290 200','none','var(--water)',3);
+  g += H('pump', C(302,200,13,'var(--teal)','var(--ink)',1.2)) + T(302,226,'pump',{s:10,a:'middle'});
+  g += P('M315 200 L338 200','none','var(--water)',3);
+  g += H('filter', R(338,176,16,40,'var(--sheet)','var(--ink)',1.2)+R(362,176,16,40,'var(--ink2)','var(--ink)',1.2)) + T(358,232,'filters',{s:10,a:'middle'});
+  g += P('M378 200 L396 200','none','var(--water)',3);
+  g += H('uv', R(396,190,40,20,'var(--dc)','var(--ink)',1.2,'rx="4"')) + T(416,232,'UV',{s:10,a:'middle'});
+  g += P('M436 200 L480 200 L480 150','none','var(--water)',3) + P('M466 150 L494 150 L494 132 L480 120 L466 132z','var(--fibro)','var(--ink)',1.2) + T(480,112,'house',{s:10,a:'middle'});
+  g += T(118,182,'first flush',{s:10,a:'middle'}) + T(187,108,'screen',{s:10,a:'middle'}) + T(118,24,'gutter + leaf guard',{s:10,a:'middle'});
+  return S(520,240,g,'Rainwater system from roof to tap');
+};
+
+// ---------- Mains-ready site plan ----------
+D.ready = () => {
+  let g = R(0,226,460,34,'var(--sheet2)','none',0) + T(230,248,'STREET / FRONT BOUNDARY',{s:11,a:'middle',c:'var(--ink2)'}) + L(0,226,460,226,'var(--ink)',2,'10 5');
+  g += R(150,40,170,100,'var(--fibro)','var(--ink)',1.5) + T(235,95,'cabin',{s:12,a:'middle'});
+  g += H('meterbox', R(150,118,12,18,'var(--sun)','var(--ink)',1)) ;
+  g += H('conduit', P('M156 136 L156 214 L120 214 L120 226','none','var(--elec)',3,'stroke-dasharray="7 4"') + R(110,214,20,12,'var(--sheet)','var(--ink)',1));
+  g += H('waterstub', P('M200 140 L200 206 L230 206 L230 226','none','var(--water)',3,'stroke-dasharray="7 4"') + R(222,210,16,12,'var(--water)','var(--ink)',1));
+  g += H('sewerjunction', P('M290 140 L290 196 L340 196 L340 226','none','var(--waste)',3,'stroke-dasharray="7 4"') + C(290,196,6,'var(--sheet)','var(--waste)',2));
+  g += H('septic', R(360,70,40,26,'var(--waste)','var(--ink)',1,'rx="4"') + P('M290 140 L290 150 L380 150 L380 96','none','var(--waste)',3) + L(410,60,410,150,'var(--waste)',6,'2 4') + L(426,60,426,150,'var(--waste)',6,'2 4'));
+  g += C(90,80,26,'var(--galv)','var(--ink)',1.2) + T(90,84,'tank',{s:10,a:'middle'}) + P('M116 80 L150 80','none','var(--water)',3);
+  g += T(98,206,'conduit',{s:10,a:'end'}) + T(244,204,'capped water',{s:10}) + T(300,190,'IO + junction',{s:10}) + T(380,60,'septic + trench (now)',{s:10,a:'middle'}) + T(166,130,'meter box',{s:10});
+  g += A(30,40,30,14) + T(30,54,'N',{s:12,a:'middle',w:800});
+  return S(460,260,g,'Site plan showing capped services ready for mains');
+};
+
+// ---------- Heat pump hot water ----------
+D.hws = () => {
+  let g = H('tank', R(40,40,80,170,'var(--sheet)','var(--ink)',1.5,'rx="10"') + R(52,52,56,30,'var(--galv)','var(--ink)',1)) + T(80,132,'60 °C',{s:16,a:'middle',w:800,c:'var(--hot)'}) + T(80,150,'stored',{s:10,a:'middle'});
+  g += P('M10 196 L40 196','none','var(--water)',4) + T(10,188,'cold in',{s:10});
+  g += P('M120 60 L230 60','none','var(--hot)',4);
+  g += P('M230 60 L360 60','none','var(--hot)',4) + T(366,64,'kitchen sink',{s:10});
+  g += H('tempering', C(230,110,14,'var(--sheet2)','var(--ink)',1.5)+T(230,114,'TV',{s:10,a:'middle',w:800}));
+  g += P('M230 60 L230 96','none','var(--hot)',4) + P('M10 150 L216 110','none','var(--water)',3,'stroke-dasharray="5 3"');
+  g += P('M244 110 L360 110','none','var(--warn)',4) + T(366,114,'≤ 50 °C bathroom',{s:10});
+  g += H('ptr', R(120,90,18,10,'var(--bad)','var(--ink)',1) + P('M138 95 L160 95 L160 220','none','var(--bad)',2,'stroke-dasharray="4 3"')) + T(166,214,'relief drain',{s:10});
+  g += T(230,140,'tempering valve',{s:10,a:'middle'}) + T(80,230,'heat pump water heater',{s:10,a:'middle'});
+  return S(460,240,g,'Hot water: stored at 60 °C, tempered to 50 °C for bathrooms');
+};
+
+// ---------- Sanitary drainage ----------
+D.drain = () => {
+  let g = R(0,120,520,8,'var(--timber)','var(--ink)',1) + T(8,114,'floor',{s:10,c:'var(--ink2)'}) + R(0,226,520,24,'var(--ground)','none',0);
+  g += R(60,70,46,20,'var(--fibro)','var(--ink)',1.2) + T(83,64,'basin',{s:10,a:'middle'});
+  g += H('trap', P('M83 90 L83 140 Q83 154 95 154 Q107 154 107 140 L107 136','none','var(--waste)',4));
+  g += R(150,112,70,8,'var(--fibro)','var(--ink)',1.2) + T(185,106,'shower',{s:10,a:'middle'}) + P('M185 128 L185 146 Q185 158 197 158 Q209 158 209 146','none','var(--waste)',4);
+  g += R(250,84,40,36,'var(--fibro)','var(--ink)',1.2,'rx="8"') + T(270,78,'WC',{s:10,a:'middle'});
+  g += H('vent', P('M330 128 L330 6','none','var(--galv)',5)) + T(338,20,'vent to air',{s:10});
+  g += H('fall', P('M107 168 L460 196','none','var(--waste)',6)) + P('M209 150 L209 176','none','var(--waste)',4) + P('M270 120 L270 184','none','var(--waste)',5) + L(330,128,330,190,'var(--waste)',5);
+  g += T(250,214,'fall 1:60 (100 mm drain)',{s:11,a:'middle',w:700});
+  g += H('io', R(452,150,16,46,'var(--sheet)','var(--ink)',1.2)) + T(476,164,'IO',{s:10});
+  g += H('org', R(484,214,26,12,'var(--galv)','var(--ink)',1) + L(497,196,497,214,'var(--waste)',3)) + T(497,242,'ORG',{s:10,a:'middle'});
+  g += P('M460 196 L520 200','none','var(--waste)',6);
+  return S(520,250,g,'Drainage: traps, vent, fall, inspection opening and overflow relief gully');
+};
+
+// ---------- Septic tank ----------
+D.septic = () => {
+  let g = R(0,40,460,180,'var(--ground)','none',0);
+  g += R(40,60,200,130,'var(--sheet2)','var(--ink)',2,'rx="6"');
+  g += H('scum', R(42,62,196,16,'var(--timber)','none',0)) + T(140,74,'scum',{s:10,a:'middle'});
+  g += H('effluent', R(42,78,196,70,'var(--water)','none',0,'opacity=".35"')) + T(140,118,'settled effluent',{s:11,a:'middle'});
+  g += H('sludge', R(42,148,196,40,'var(--waste)','none',0)) + T(140,172,'sludge (pumped out)',{s:10,a:'middle',c:'var(--sheet)'});
+  g += P('M0 70 L56 70 L56 110','none','var(--waste)',5) + P('M224 110 L224 70 L300 70','none','var(--waste)',5);
+  g += H('trench', R(300,62,150,40,'url(#hatch)','var(--ink)',1.2) + L(300,74,450,74,'var(--waste)',5,'8 5')) + T(375,120,'absorption trench',{s:11,a:'middle'});
+  g += T(20,60,'from house',{s:10}) ;
+  return S(460,220,g,'Septic tank layers and absorption trench');
+};
+
+// ---------- Off-grid block diagram ----------
+D.offgrid = () => {
+  const box=(id,x,y,w,h,f,lab,sub)=>H(id,R(x,y,w,h,f,'var(--ink)',1.4,'rx="8"')+T(x+w/2,y+h/2+(sub?-2:4),lab,{s:12,a:'middle',w:800})+(sub?T(x+w/2,y+h/2+13,sub,{s:9.5,a:'middle'}):''));
+  let g = box('pv',20,20,120,52,'var(--dc)','PV array','~3.5 kW, north roof');
+  g += box('isolator',40,104,80,34,'var(--sheet2)','DC isolator');
+  g += box('inverter',190,92,150,70,'var(--sun-soft)','Inverter-charger','MPPT + 230 V AC');
+  g += box('battery',200,210,130,52,'var(--ok-soft)','LFP battery','48 V, ~14 kWh');
+  g += box('board',390,98,110,58,'var(--sheet)','Switchboard','RCBO circuits');
+  g += box('gen',20,212,120,46,'var(--sheet2)','Generator','backup AC in');
+  g += box('grid',390,10,110,48,'none','Future grid','meter + main sw.');
+  g += A(80,72,80,104,'var(--dc)',2.5) + P('M80 138 L80 160 L190 128','none','var(--dc)',2.5,'marker-end="url(#ah)"');
+  g += A(265,162,265,210,'var(--ok)',2.5) + A(275,210,275,164,'var(--ok)',2.5);
+  g += A(340,127,390,127,'var(--elec)',2.5) + P('M140 235 L215 160','none','var(--elec)',2,'stroke-dasharray="5 3" marker-end="url(#ah)"');
+  g += P('M445 58 L445 98','none','var(--elec)',2,'stroke-dasharray="6 4" marker-end="url(#ah)"') + T(452,82,'later',{s:10,c:'var(--ink2)'});
+  g += A(445,156,445,190,'var(--elec)',2.5) + T(445,206,'lights · power · pump',{s:10,a:'middle'}) + T(445,220,'hot water · cooktop',{s:10,a:'middle'});
+  return S(520,270,g,'Off-grid solar system block diagram with future grid connection');
+};
+
+// ---------- Switchboard single-line ----------
+D.board = () => {
+  let g = R(20,20,120,40,'none','var(--ink2)',1.2,'rx="6" stroke-dasharray="5 4"') + T(80,44,'Future meter',{s:11,a:'middle',c:'var(--ink2)'});
+  g += R(170,20,130,40,'var(--sun-soft)','var(--ink)',1.2,'rx="6"') + T(235,44,'Inverter AC out',{s:11,a:'middle',w:700});
+  g += H('main', R(170,86,130,34,'var(--bad-soft)','var(--ink)',1.4,'rx="4"') + T(235,108,'MAIN SWITCH',{s:11,a:'middle',w:800}));
+  g += P('M80 60 L80 74 L200 74 L200 86','none','var(--ink2)',1.5,'stroke-dasharray="5 4"') + L(235,60,235,86,'var(--ink)',2);
+  g += L(40,146,440,146,'var(--ink)',4) + L(235,120,235,146,'var(--ink)',2) + T(444,150,'busbar',{s:10});
+  const c=['Lights + smoke alarms','Power: kitchen','Power: general','Induction cooktop','Heat pump HWS','Water pump','Air-con'];
+  let rc=''; c.forEach((n,i)=>{ const x=44+i*57; rc += L(x+18,146,x+18,166,'var(--ink)',2)+R(x,166,36,40,'var(--sheet)','var(--ink)',1.2,'rx="3"')+T(x+18,184,'RCBO',{s:8,a:'middle',w:800})+T(x+18,199,String(i+1),{s:11,a:'middle',w:800,c:'var(--teal)'}); });
+  g += H('rcbo', rc);
+  c.forEach((n,i)=>{ g += T(i<4?24:250,232+(i%4)*15,(i+1)+'  '+n,{s:10.5}); });
+  g += T(20,300,'Each circuit: 30 mA RCD + overcurrent protection',{s:10,c:'var(--ink2)'});
+  return S(470,310,g,'Switchboard: main switch, busbar and RCBO circuits');
+};
+
+// ---------- Earthing / MEN concept ----------
+D.earth = () => {
+  let g = R(0,214,420,46,'var(--ground)','none',0);
+  g += R(40,30,220,130,'var(--sheet)','var(--ink)',1.5,'rx="8"') + T(150,22,'main switchboard',{s:10,a:'middle',c:'var(--ink2)'});
+  g += H('neutralbar', R(60,60,70,14,'var(--galv)','var(--ink)',1.2)) + T(95,54,'neutral bar',{s:10,a:'middle'});
+  g += H('earthbar', R(170,60,70,14,'var(--earth)','var(--ink)',1.2)) + T(205,54,'earth bar',{s:10,a:'middle'});
+  g += H('men', P('M130 67 L170 67','none','var(--bad)',4)) + T(150,92,'MEN link',{s:10,a:'middle',c:'var(--bad)'});
+  g += P('M205 74 L205 236','none','var(--earth)',3) ;
+  g += H('electrode', R(200,214,10,40,'var(--galv)','var(--ink)',1.2)) + T(216,246,'earth electrode',{s:10});
+  g += P('M240 120 L330 120 L330 180','none','var(--earth)',2.5,'stroke-dasharray="6 3"') + R(316,180,28,12,'var(--water)','var(--ink)',1) + T(350,190,'bonding',{s:10});
+  g += P('M95 74 L95 140','none','var(--galv)',3) + T(100,150,'to source N',{s:10});
+  return S(420,260,g,'Earthing: neutral bar, earth bar, MEN link and electrode');
+};
+
+// ---------- Battery placement (south wall, under eave) ----------
+D.battery = () => {
+  let g = R(0,236,460,24,'var(--ground)','none',0);
+  g += R(20,40,420,196,'var(--fibro)','var(--ink)',1.4) + R(10,26,440,14,'var(--roof)','var(--ink)',1) + `<rect x="20" y="40" width="420" height="80" fill="var(--ink)" opacity=".12"/>`;
+  g += R(60,90,70,60,'var(--sky)','var(--ink)',1.5) + `<rect x="30" y="60" width="130" height="176" fill="var(--bad)" opacity=".12"/>` + T(95,80,'window',{s:10,a:'middle'});
+  g += R(350,96,60,140,'var(--sheet)','var(--ink)',1.5) + `<rect x="320" y="70" width="120" height="166" fill="var(--bad)" opacity=".12"/>` + T(380,90,'door',{s:10,a:'middle'});
+  g += H('cabinet', R(196,110,40,90,'var(--ok-soft)','var(--ink)',1.5,'rx="4"') + R(246,120,44,56,'var(--sun-soft)','var(--ink)',1.5,'rx="4"'));
+  g += T(216,214,'battery',{s:10,a:'middle'}) + T(268,190,'inverter',{s:10,a:'middle'}) + T(230,56,'eave shade keeps it cooler',{s:10,a:'middle'});
+  g += T(95,228,'keep-clear zone',{s:10,a:'middle',c:'var(--bad)'}) + T(380,228,'keep-clear zone',{s:10,a:'middle',c:'var(--bad)'});
+  return S(460,260,g,'Battery and inverter on a shaded external wall clear of the window and door');
+};
+// ---------- COURSE CONTENT: units 1–4 ----------
+const UNITS = [];
+UNITS.push({id:'u1', title:'Plan the cabin', sub:'What you are building, approvals, sun and set-out', lessons:[
+ {id:'u1a', title:'Meet the cabin', ref:'NCC 2022 Volume Two (housing) · asbestos.qld.gov.au', cards:[
+  {h:'What you are building', d:'heroFull', t:`<p>The reference cabin is <b>7.2 m × 4.2 m</b> (about 30 m²): a raised timber floor on steel stumps, a 90 mm timber wall frame <b>2.7 m</b> high, fibre cement cladding, and a <b>22.5° gable roof</b> in corrugated steel running east–west.</p><p>The roof runs out <b>900 mm past the north and south walls</b>, so the eaves shade the windows. Power comes from solar panels and a battery, water from the roof, and every pipe and conduit for town services is laid and capped, ready for later.</p>`},
+  {h:'Fibro, then and now', t:`<p>Australian "fibro" used to be asbestos cement. Asbestos was banned nationally from 31 December 2003, and homes built before about 1990 may contain it.</p><p>Modern fibre cement is <b>cement, sand and cellulose (wood) fibre</b>. Treat any old sheet as asbestos unless tested: never cut, drill, sand, water-blast or reuse salvaged sheets.</p>`},
+  {h:'Why stumps?', t:`<ul><li>Air moves under the floor, which keeps a Queensland summer cooler.</li><li>Termite tunnels are easy to spot.</li><li>It copes with sloping or flood-prone ground.</li><li>Drains and pipes stay reachable, which makes the later mains connection simpler.</li></ul>`}],
+ qs:[
+  {k:'mc', q:'What is modern fibre cement sheet made of?', o:['Cement, sand and cellulose fibre','Cement and asbestos fibre','Gypsum plaster and paper','Compressed timber chips and glue'], a:0, e:'Modern sheets use cellulose (wood pulp) fibre. Asbestos has been banned nationally since 31 December 2003.'},
+  {k:'tf', q:'Salvaged 1960s fibro sheets are fine to reuse if you paint them.', a:false, e:'Treat old fibro as asbestos. Don\'t cut, drill, sand, water-blast or reuse it. Paint does not make reuse safe.'},
+  {k:'mc', q:'Which way should the cabin\'s long walls face?', o:['North and south','East and west','It makes no difference','Toward the street'], a:0, e:'In the southern hemisphere the sun is in the north. Long north walls take winter sun and eaves can shade them in summer.'},
+  {k:'match', q:'Match each part to its job.', p:[['Stumps','Hold the floor off the ground'],['Eaves','Shade the windows'],['Battery','Stores solar energy for night'],['Rainwater tank','Stores water from the roof']], e:'Every part of the cabin has one main job; later units build each one.'},
+  {k:'num', q:'The floor is 7.2 m × 4.2 m. What is the floor area?', a:30.24, tol:0.05, u:'m²', e:'7.2 × 4.2 = 30.24 m².'}]},
+ {id:'u1b', title:'Approvals and who does what', ref:'QBCC — About owner-building · Building Act 1975 (Qld) · Plumbing and Drainage Act 2018 (Qld) · Electrical Safety Act 2002 (Qld)', cards:[
+  {h:'Three kinds of approval', t:`<ul><li><b>Planning</b> (council): is a cabin allowed on this lot, how far from boundaries, and are there flood or bushfire overlays?</li><li><b>Building approval</b>: a private building certifier checks the design against the National Construction Code (NCC) and inspects stages such as footings and frame.</li><li><b>Plumbing approval</b>: council approves the plumbing, drainage and any on-site sewage system, and inspects it.</li></ul>`},
+  {h:'Licensed trades', t:`<ul><li><span class="tag lic">Licensed</span> <b>Electrician</b>: all fixed wiring, the switchboard, the solar AC side and battery connections.</li><li><span class="tag lic">Licensed</span> <b>Plumber / drainer</b>: water supply, sanitary drainage, on-site sewage, stormwater connection.</li><li><span class="tag lic">Licensed</span> <b>Pest controller</b>: chemical termite treatment.</li><li><span class="tag cert">Accredited</span> <b>Solar designer and installer</b>: accreditation through Solar Accreditation Australia (SAA) is needed for small-scale technology certificates (rebates).</li></ul>`},
+  {h:'Owner-builder in Queensland', t:`<p>If you manage the build yourself and the work is worth <b>more than $11,000</b>, you need a QBCC owner-builder permit before work starts. Most applicants must complete an owner-builder course.</p><p>A permit does not let you do plumbing, drainage, gas fitting or pest control unless you hold that licence, or remove more than 10 m² of asbestos. Electrical work always needs a licensed electrician.</p>`}],
+ qs:[
+  {k:'mc', q:'Who may connect the switchboard and wire the power points?', o:['A licensed electrician','The owner-builder','Any handy person with the right tools','The panel supplier\'s delivery driver'], a:0, e:'Fixed electrical work is licensed work in every Australian state and territory.'},
+  {k:'tf', q:'In Queensland, an owner-builder permit lets you do your own plumbing and drainage.', a:false, e:'Owner-builders can\'t do plumbing, drainage, gas fitting or pest control unless they hold that licence.'},
+  {k:'mc', q:'Above what value of work does a Queensland owner-builder need a QBCC permit?', o:['$11,000','$3,300','$50,000','A permit is never needed'], a:0, e:'More than $11,000 of work needs an owner-builder permit before work starts.'},
+  {k:'match', q:'Match each approval or role to what it covers.', p:[['Building certifier','Checks design against the NCC, inspects stages'],['Council plumbing approval','Drainage and on-site sewage'],['SAA accreditation','Solar designers and installers'],['Owner-builder permit','Managing your own build']], e:'Each approval covers a different part of the job.'},
+  {k:'ord', q:'Put the start of the job in order.', o:['Check council planning rules for the lot','Get the design and engineering done','Get building and plumbing approvals (and an owner-builder permit)','Start site work'], e:'Planning rules first, then design, then approvals, then site work.'}]},
+ {id:'u1c', title:'Site, sun and set-out', ref:'YourHome — Passive design: orientation and shading (yourhome.gov.au)', cards:[
+  {h:'Read the sun', d:'sunpath', t:`<p>In Brisbane (27.5°S) the noon sun is <b>86° high on 21 December</b> and only <b>39° on 21 June</b>, low in the north. Face the long walls and most windows north, and keep east and west windows small.</p><p>Afternoon sea breezes usually come from the east to north-east. Put openable windows on opposite walls so breezes can pass through.</p>`},
+  {h:'Set out square', d:'setout', t:`<p>Peg the corners, then run string lines on profiles set back from the corners so they survive digging. Check square two ways:</p><ul><li><b>3-4-5</b> (or 6-8-10): a triangle with these sides has a 90° corner.</li><li><b>Diagonals</b>: in a rectangle both diagonals are equal. For 7.2 × 4.2 m each is √(7.2² + 4.2²) ≈ 8.335 m.</li></ul>`}],
+ qs:[
+  {k:'num', q:'What is each diagonal of a 7.2 m × 4.2 m rectangle? (2 decimals)', a:8.34, tol:0.01, u:'m', e:'√(7.2² + 4.2²) = √69.48 ≈ 8.335 m. Both diagonals must match for square corners.'},
+  {k:'tf', q:'If a rectangle\'s two diagonals are equal, its corners are square.', a:true, e:'A four-sided shape with equal opposite sides and equal diagonals is a true rectangle.'},
+  {k:'num', q:'A 3-4-5 triangle scaled up to 6 m and 8 m sides. What must the long side be?', a:10, tol:0, u:'m', e:'Double 3-4-5 gives 6-8-10.'},
+  {k:'mc', q:'Why keep west windows small?', o:['Afternoon sun is low, so eaves can\'t block it','West windows let in more rain','Building rules ban west windows','West light is too dim to use'], a:0, e:'Low east and west sun gets under any eave. Smaller glass or vertical shading is the fix.'},
+  {k:'mc', q:'In Brisbane, roughly how high is the noon sun on 21 June?', o:['About 39°','About 86°','About 62°','About 15°'], a:0, e:'90° − 27.5° (latitude) − 23.4° (earth\'s tilt) ≈ 39°.'}]}
+]});
+
+UNITS.push({id:'u2', title:'Footings and stumps', sub:'Soil, the stump grid, termites and the floor frame', lessons:[
+ {id:'u2a', title:'Footings and the stump grid', ref:'AS 2870 Residential slabs and footings · AS 1684.2 Residential timber-framed construction (non-cyclonic)', cards:[
+  {h:'Soil decides the footing', t:`<p>A <b>site classification</b> (AS 2870) rates how much the ground moves as it wets and dries:</p><ul><li><b>A</b>: sand or rock, little movement</li><li><b>S</b>: slightly reactive clay</li><li><b>M</b>: moderately reactive</li><li><b>H1 / H2</b>: highly reactive</li><li><b>E</b>: extremely reactive</li><li><b>P</b>: problem sites, such as soft or uncontrolled fill</li></ul><p>Your engineer or certifier uses it to size the concrete pad footings under each stump.</p>`},
+  {h:'The stump grid', d:'grid', t:`<p>5 columns × 3 rows = <b>15 stumps</b>. Bearers run east–west along each row and span 1.8 m between stumps. Joists run north–south at <b>450 mm centres</b> and span 2.1 m between bearers. AS 1684 span tables give the timber sizes for those spans.</p>`}],
+ qs:[
+  {k:'num', q:'How many stumps are in a grid of 5 columns and 3 rows?', a:15, tol:0, u:'stumps', e:'5 × 3 = 15.'},
+  {k:'num', q:'Joists at 450 mm centres along a 7.2 m floor: how many joists, counting both ends?', a:17, tol:0, u:'joists', e:'7200 ÷ 450 = 16 spaces, so 17 joists.'},
+  {k:'match', q:'Match each site class to its soil.', p:[['A','Sand or rock, little movement'],['M','Moderately reactive clay'],['E','Extremely reactive clay'],['P','Problem site, e.g. soft fill']], e:'The more the soil moves, the bigger and deeper the footings.'},
+  {k:'mc', q:'Who sets the footing size for your soil?', o:['The engineer or certifier, from the site classification','Whatever fits the post-hole auger','The stump supplier','The timber yard'], a:0, e:'Footings are designed for the site class and the loads.'},
+  {k:'tf', q:'Bearers sit on the stumps, and joists sit on the bearers.', a:true, e:'Stump → bearer → joist → flooring.'}]},
+ {id:'u2b', title:'Stumps, ant caps and termites', ref:'AS 3660.1 Termite management — new building work · AS 1604 Preservative-treated timber', cards:[
+  {h:'Queensland has termites', d:'stump', t:`<p>Subterranean termites travel up from the soil. H2-treated pine framing resists them, and a raised floor lets you see their mud tunnels.</p><p>Every stump gets an <b>ant cap</b> (termite shield). It does not stop termites; it forces their tunnels out into the open where an inspection will find them.</p>`},
+  {h:'Clearance and inspection', t:`<p>Leave at least <b>400 mm</b> between the ground and the underside of the bearers so an inspector can see everything. Keep the space clear of stored timber and rubbish, and book regular termite inspections.</p><p>Treated timber hazard levels: <b>H2</b> inside the building, <b>H3</b> outdoors above ground, <b>H4</b> in ground contact, <b>H5</b> in ground with high moisture.</p>`}],
+ qs:[
+  {k:'tap', q:'Tap the ant cap.', d:'stump', a:'antcap', e:'The ant cap is the metal shield on top of the stump, under the bearer.'},
+  {k:'mc', q:'What does an ant cap actually do?', o:['Forces termite tunnels into view','Kills termites on contact','Stops termites completely','Seals the stump from rain'], a:0, e:'It is an inspection aid. Regular inspections are what catch termites.'},
+  {k:'num', q:'Minimum clearance from the ground to the underside of the bearers for termite inspection?', a:400, tol:0, u:'mm', e:'At least 400 mm lets an inspector see and reach the subfloor.'},
+  {k:'match', q:'Match the treated timber hazard level to its use.', p:[['H2','Framing inside the building'],['H3','Outdoors, above ground'],['H4','In contact with the ground'],['H5','In ground with high moisture']], e:'Higher H numbers resist harsher conditions.'},
+  {k:'tf', q:'A Queensland owner-builder can do the chemical termite treatment themselves.', a:false, e:'Pest control is licensed work; an owner-builder permit doesn\'t cover it.'}]},
+ {id:'u2c', title:'Bearers, joists and the floor', ref:'AS 1684.2 · flooring and compressed fibre cement manufacturer guides', cards:[
+  {h:'Tie the floor down', t:`<p>Bearers are bolted or strapped to the stumps. Joists are fixed to the bearers with framing anchors or straps. Each joint is a link that stops the wind lifting the cabin, and AS 1684 gives the tie-down details for your wind class.</p>`},
+  {h:'Floor sheets', t:`<p>Use structural plywood or particleboard flooring, glued and screwed, with joints staggered and landing on joists. In the bathroom use <b>compressed fibre cement (CFC)</b> sheet as the tile base.</p><p>Plan where drains drop through the floor under the bathroom and kitchen before the sheets go down.</p>`}],
+ qs:[
+  {k:'ord', q:'Put the floor build in order.', o:['Dig and pour pad footings','Set stumps with ant caps, level and plumb','Fix bearers with tie-downs','Lay and fix joists at 450 centres','Glue and screw the flooring'], e:'Ground up: footing, stump, bearer, joist, floor.'},
+  {k:'mc', q:'Best floor substrate for the tiled bathroom?', o:['Compressed fibre cement sheet','Standard particleboard','Hardboard','Untreated plywood'], a:0, e:'CFC is dense, stiff and handles moisture.'},
+  {k:'tf', q:'Flooring sheet joints should land on joists.', a:true, e:'An unsupported edge flexes and squeaks, and tiles crack.'},
+  {k:'tap', q:'Tap a bearer.', d:'stump', a:'bearer', e:'The bearer is the big horizontal member that sits on the stumps.'},
+  {k:'mc', q:'Why plan drain positions before laying the floor?', o:['Drains drop through the floor under wet areas, so joists and holes must suit','Drains run on top of the floor','Plumbers prefer to cut holes later','It only matters for slabs'], a:0, e:'Wastes must miss joists and fall correctly underneath.'}]}
+]});
+
+UNITS.push({id:'u3', title:'Wall frames', sub:'Studs, openings, bracing and the load path', lessons:[
+ {id:'u3a', title:'Anatomy of a wall frame', ref:'AS 1684.2 · fibre cement manufacturer installation guide', cards:[
+  {h:'The parts', d:'frame', t:`<p><b>Bottom plate</b>, <b>top plate</b> (often doubled), common <b>studs</b> at 450 or 600 mm centres and <b>noggings</b> at mid-height. Around an opening: full-height <b>jamb studs</b>, a <b>lintel</b> across the top, short <b>jack studs</b> above and below, and a <b>sill trimmer</b>.</p><p>Typical cabin framing is <b>90 × 45 MGP10</b> pine, H2 treated. MGP10 is a stress grade: machine-graded pine.</p>`},
+  {h:'Studs and fibro', t:`<p>Fibre cement cladding needs studs at no more than <b>600 mm centres</b> (check the maker's guide), and every vertical sheet joint must land on a stud. At 600 centres one 1200 mm sheet covers exactly two stud spaces.</p>`}],
+ qs:[
+  {k:'tap', q:'Tap the lintel.', d:'frame', a:'lintel', e:'The lintel is the deep member over the opening.'},
+  {k:'tap', q:'Tap a nogging.', d:'frame', a:'nogging', e:'Noggings are the short horizontal pieces between studs.'},
+  {k:'mc', q:'What does MGP10 on a length of pine mean?', o:['Machine-graded pine, stress grade 10','10% moisture content','Made in 2010','10 mm thick'], a:0, e:'MGP10 is a structural stress grade used in AS 1684 span tables.'},
+  {k:'num', q:'A 1200 mm sheet on studs at 600 mm centres covers how many stud spaces?', a:2, tol:0, u:'spaces', e:'1200 ÷ 600 = 2.'},
+  {k:'match', q:'Match each part to its job.', p:[['Lintel','Carries load over an opening'],['Jamb stud','Full-height stud beside an opening'],['Sill trimmer','Horizontal piece under a window'],['Top plate','Ties the stud tops together']], e:'Openings need extra framing to carry the load around them.'}]},
+ {id:'u3b', title:'Openings and lintels', ref:'AS 1684.2 lintel tables · window manufacturer\'s fitting guide', cards:[
+  {h:'Rough openings', t:`<p>Frame the opening a little bigger than the window, about <b>10 mm each side</b>, so it can be packed plumb and square. Keep window heads at one height (here <b>2100 mm</b>) so lintels and flashings line up.</p><p>Lintel size depends on the opening width and the roof load it carries; read it from AS 1684 tables or the truss supplier's specification.</p>`},
+  {h:'This cabin\'s openings', t:`<ul><li>North living: sliding door 2400 wide × 2100 high.</li><li>North bedroom: window 1200 × 1200, sill 900, head 2100.</li><li>South: small, higher windows to the bathroom and kitchen.</li><li>East and west: as little glass as possible.</li></ul>`}],
+ qs:[
+  {k:'num', q:'A window is 1810 mm wide. With a 10 mm gap each side, what is the rough opening width?', a:1830, tol:0, u:'mm', e:'1810 + 10 + 10 = 1830 mm.'},
+  {k:'num', q:'Window head at 2100 mm, window 1200 mm high. What is the sill height?', a:900, tol:0, u:'mm', e:'2100 − 1200 = 900 mm.'},
+  {k:'mc', q:'Lintel size depends on…', o:['The opening width and the roof load it carries','The window colour','The window brand','The cladding colour'], a:0, e:'Wider openings and bigger roof loads need deeper lintels.'},
+  {k:'tf', q:'Keeping all window heads at one height makes lintels and flashings line up.', a:true, e:'It also looks tidy under the eave.'},
+  {k:'ord', q:'Frame a window opening in order.', o:['Fix the jamb studs','Fit the lintel','Fit jack studs above the lintel','Fit the sill trimmer and short studs below'], e:'Jambs first, then the lintel they support, then fill above and below.'}]},
+ {id:'u3c', title:'Bracing and tie-down', ref:'AS 4055 Wind loads for housing · AS 1684.2 bracing and tie-down', cards:[
+  {h:'Wind pushes and lifts', d:'loadpath', t:`<p>Wind tries to <b>rack</b> walls sideways and <b>lift</b> the roof off. Bracing stops racking: tensioned diagonal metal strap, structural plywood panels, or some fibre cement claddings that are rated as bracing when fixed to the maker's schedule. Tie-downs (straps, framing anchors, bolts) stop uplift.</p>`},
+  {h:'A continuous load path', t:`<p>Every connection from roof sheet to footing is tied: sheet → batten → truss → top plate → studs → bottom plate → floor → bearer → stump → footing.</p><p>The site's wind class sets how strong each link must be: <b>N1–N6</b> non-cyclonic, <b>C1–C4</b> cyclonic (AS 4055).</p>`}],
+ qs:[
+  {k:'mc', q:'What does wall bracing stop?', o:['The frame racking sideways','Termites','Condensation','Rain getting in'], a:0, e:'Bracing keeps the frame square under sideways wind load.'},
+  {k:'tf', q:'Tie-downs only matter at the roof.', a:false, e:'Uplift must be carried all the way to the footings.'},
+  {k:'ord', q:'Put the load path in order, roof to ground.', o:['Roof sheet','Batten','Truss','Top plate','Studs','Floor frame','Stump and footing'], e:'Each link passes the load to the next.'},
+  {k:'match', q:'Match the term to its meaning.', p:[['N1–N6','Non-cyclonic wind classes'],['C1–C4','Cyclonic wind classes'],['AS 4055','Sets the house wind class'],['AS 1684','Framing and tie-down tables']], e:'Your certifier or engineer confirms the class for your site.'},
+  {k:'mc', q:'Which of these can act as wall bracing?', o:['Tensioned diagonal metal strap','Plasterboard nailed anywhere','A curtain rod','Wall wrap'], a:0, e:'Strap bracing and rated sheet bracing must be fixed exactly to the schedule.'}]}
+]});
+
+UNITS.push({id:'u4', title:'Roof and eaves', sub:'Trusses, the shading eaves, sheets and gutters', lessons:[
+ {id:'u4a', title:'The roof frame', ref:'AS 1562.1 Sheet roof and wall cladding (metal) · AS 4440 Installation of nailplated timber roof trusses', cards:[
+  {h:'Trusses', d:'truss', t:`<p>Engineered, factory-made trusses have <b>top chords</b>, a <b>bottom chord</b> and <b>webs</b>. Each sits on the top plate at its <b>heel</b> and is tied down there. This roof: 22.5° pitch, 4.2 m span, with the top chords running on to form the 900 mm eaves.</p><p>The truss supplier sets the spacing (often 900 mm for sheet roofs) and gives you the layout and tie-down details. Steel battens across the trusses carry the sheets.</p>`},
+  {h:'Corrugated steel', t:`<p>Corrugated sheet needs a minimum pitch of about <b>5°</b> (check the maker); 22.5° sheds water quickly and suits solar panels. On a roof, screws go through the <b>crests</b> so water runs away from the holes. On walls, sheets are fixed in the valleys.</p>`}],
+ qs:[
+  {k:'tap', q:'Tap the bottom chord.', d:'truss', a:'bottomchord', e:'The bottom chord is the horizontal member that also carries the ceiling.'},
+  {k:'tap', q:'Tap an eave overhang.', d:'truss', a:'overhang', e:'The top chord continues past the wall to make the eave.'},
+  {k:'mc', q:'On a corrugated steel roof, screws go through the…', o:['Crests','Valleys','Side laps only','Gutter'], a:0, e:'Fixing through crests keeps the holes out of the water path.'},
+  {k:'num', q:'Typical minimum pitch for corrugated roof sheeting?', a:5, tol:0, u:'°', e:'About 5°; always check the manufacturer\'s figure.'},
+  {k:'tf', q:'The truss supplier provides the layout and tie-down details.', a:true, e:'Trusses are engineered; follow their documentation.'}]},
+ {id:'u4b', title:'Eaves that shade the windows', ref:'YourHome — Shading (yourhome.gov.au/passive-design/shading)', cards:[
+  {h:'High summer sun, low winter sun', d:'eave', t:`<p>In Brisbane at noon the sun is <b>86°</b> high on 21 December, <b>62.5°</b> at the equinoxes and <b>39°</b> on 21 June. A north eave blocks the high summer sun but lets the low winter sun reach the glass.</p>`},
+  {h:'The rule of thumb', t:`<p>YourHome: eave width ≈ <b>45%</b> of the height from the window sill to the underside of the eave edge (at 27.5°S and further south), up to <b>50%</b> in hot climates further north. Its standard sizes give <b>900 mm</b> for heights from 1350 to 2100 mm.</p><p>This cabin: the 22.5° rafters drop about 370 mm over the overhang, so the eave edge sits near <b>2350 mm</b> above the floor. Sill 900 → height <b>1450 mm</b>. 45% = 650 mm, 50% = 725 mm, standard size = <b>900 mm</b>: generous summer shade.</p><p>YourHome also suggests a gap from window head to eave of at least <b>30% of the window height</b> so winter sun reaches the top of the glass. Here it is 250 mm against a 1200 mm window, so the top of the glass gets some winter shade: a fair trade in warm Brisbane, but in a cool climate you would lower the window head or shorten the eave. Try it in <b>Tools → Eave shade</b>.</p>`},
+  {h:'East and west', t:`<p>Low morning and afternoon sun gets under any eave. Keep east and west windows small, or shade them vertically: external blinds, screens, a verandah or planting.</p>`}],
+ qs:[
+  {k:'num', q:'Sill at 900 mm, eave edge at 2350 mm. Using the 45% rule, how wide should the eave be? (nearest 10 mm)', a:650, tol:6, u:'mm', e:'0.45 × (2350 − 900) = 0.45 × 1450 ≈ 650 mm. The cabin uses YourHome\'s standard 900 mm for extra summer shade.'},
+  {k:'num', q:'At equinox noon the sun is 62.5° high (tan ≈ 1.92). How far below the eave edge does a 900 mm eave\'s shadow reach on a north wall?', a:1729, tol:15, u:'mm', e:'900 × 1.92 ≈ 1,730 mm. From an edge at 2350 mm that reaches about 620 mm above the floor, below the 900 mm sill, so the whole window is shaded.'},
+  {k:'mc', q:'Why not make the north eave 3 m wide?', o:['It would block winter sun, cut daylight and add wind uplift','It would let in more rain','Eaves may never exceed 900 mm','Gutters won\'t fit'], a:0, e:'Wider isn\'t better: size the eave to the sun angles.'},
+  {k:'mc', q:'Best way to shade a west window?', o:['Vertical screens, external blinds or a verandah','A wider north eave','Curtains inside only','Nothing works, so add more glass'], a:0, e:'Low west sun needs vertical or adjustable shading outside the glass.'},
+  {k:'tf', q:'The window-head-to-eave gap should be at least 30% of the window height.', a:true, e:'Otherwise the top of the glass stays shaded even in winter.'}]},
+ {id:'u4c', title:'Roof sheets, gutters and heat', ref:'NCC 2022 ABCB Housing Provisions Part 7 (roof cladding, gutters and downpipes) · AS/NZS 3500.3 Stormwater drainage', cards:[
+  {h:'Keep the heat out', d:'roofl', t:`<p>Under the sheets goes a roofing blanket or reflective sarking, which cuts heat gain and condensation. A <b>light-coloured roof</b> reflects more sun. Ceiling batts and the ceiling lining finish the layers.</p>`},
+  {h:'Gutters and downpipes', t:`<p>Gutters run along the north and south eaves and fall to downpipes that feed the tank. Eaves gutters need a fall of at least <b>1:500</b>, and downpipes should be no more than <b>12 m</b> apart.</p><p>Gutters also need <b>overflow measures</b> (slotted fronts or a gap) so a downpour spills outside, not back into the eaves or walls.</p>`}],
+ qs:[
+  {k:'num', q:'An 8.1 m gutter at a 1:500 fall drops how much end to end?', a:16.2, tol:0.3, u:'mm', e:'8100 ÷ 500 = 16.2 mm.'},
+  {k:'tf', q:'A light-coloured roof absorbs less of the sun\'s heat than a dark one.', a:true, e:'Higher solar reflectance means less heat into the roof space.'},
+  {k:'mc', q:'What does the roof blanket under the sheets do?', o:['Reduces heat gain and condensation','Holds the sheets down','Stops termites','Carries rainwater'], a:0, e:'It insulates and stops condensation dripping from the sheets.'},
+  {k:'num', q:'Maximum spacing between downpipes along a gutter?', a:12, tol:0, u:'m', e:'No more than 12 m apart.'},
+  {k:'mc', q:'Why do gutters need overflow measures?', o:['Heavy rain spills outside instead of into the eaves or walls','To fill the tank faster','To stop leaves','Because downpipes are optional'], a:0, e:'A blocked or overloaded gutter must fail safely, away from the building.'}]}
+]});
+// ---------- COURSE CONTENT: units 5–8 ----------
+UNITS.push({id:'u5', title:'Fibro cladding', sub:'Safe cutting, sheet layout, eaves and wet areas', lessons:[
+ {id:'u5a', title:'Cutting fibre cement safely', ref:'WorkSafe Qld — Managing respirable crystalline silica dust exposure in construction (Code of Practice 2022) · asbestos.qld.gov.au', cards:[
+  {h:'Silica dust', t:`<p>Modern fibre cement has no asbestos, but it contains <b>crystalline silica</b> from sand. Power-cutting it makes fine dust that can cause silicosis. Use low-dust methods:</p><ul><li><b>Score and snap</b> with a tungsten-tipped knife for straight cuts.</li><li><b>Fibre cement shears</b> (hand or powered) for cuts and notches.</li><li>A <b>saw only with on-tool dust extraction</b>: WorkSafe Queensland describes a hand-held saw (blade 200 mm or less) with a partly enclosed blade connected to an <b>M- or H-class</b> vacuum.</li></ul><p>Cut outdoors, vacuum or wet-wipe instead of sweeping, and a P2 respirator adds protection.</p>`},
+  {h:'Old fibro is different', t:`<p>Pre-1990 fibro may be asbestos. In Queensland a homeowner may remove up to <b>10 m²</b> of bonded asbestos without a certificate, with precautions: wet it, wear a P2 respirator and disposable coveralls, keep sheets whole, bag the waste. More than 10 m² needs a certificate or a licensed removalist.</p><p>No power tools on asbestos (a cordless drill under 650 rpm with dust controls is the only exception), and never put it in household bins.</p>`}],
+ qs:[
+  {k:'mc', q:'Best low-dust way to make a long straight cut?', o:['Score and snap','Angle grinder','Circular saw without extraction','Sanding through it'], a:0, e:'Score-and-snap makes almost no airborne dust.'},
+  {k:'mc', q:'What is the main dust hazard when power-cutting modern fibre cement?', o:['Respirable crystalline silica','Asbestos','Lead','Formaldehyde'], a:0, e:'Silica comes from the sand in the sheet.'},
+  {k:'tf', q:'In Queensland a homeowner may remove more than 10 m² of bonded asbestos without a certificate.', a:false, e:'Over 10 m² needs a certificate or a licensed removalist.'},
+  {k:'match', q:'Match the method to what it is for.', p:[['Score and snap','Straight cuts, almost no dust'],['FC shears','Curves and notches'],['Saw + M/H-class extraction','Fast cuts with dust caught at the blade'],['P2 respirator','Extra lung protection']], e:'Pick the lowest-dust method that does the job.'},
+  {k:'tf', q:'Dry-sweeping fibre cement dust is fine if you are outdoors.', a:false, e:'Sweeping lifts fine silica back into the air. Vacuum with an M- or H-class unit or wet-wipe.'}]},
+ {id:'u5b', title:'Sheet layout and joints', ref:'Fibre cement manufacturer installation guide · AS 4200.1 / 4200.2 Pliable building membranes', cards:[
+  {h:'Lay out the sheets', d:'sheets', t:`<p>Sheets are 1200 mm wide in 2400, 2700 and 3000 lengths. With 2.7 m walls, one 2700 sheet runs the full height. Vertical joints land on studs and are covered with <b>battens</b> (the classic fibro look), PVC jointers or a flush-joint system.</p><p>Fix with the nails or screws the maker specifies, typically no closer than <b>12 mm</b> to an edge and <b>50 mm</b> to a corner, at their spacing.</p>`},
+  {h:'Keep the water out', t:`<p>A vapour-permeable <b>wall wrap</b> goes on the studs first, lapped like shingles so water runs outward. Flash over openings, seal cut edges, leave the specified gap at the base and paint with exterior acrylic.</p>`}],
+ qs:[
+  {k:'num', q:'How many 1200 mm sheets cover a 7.2 m wall with no openings?', a:6, tol:0, u:'sheets', e:'7200 ÷ 1200 = 6.'},
+  {k:'tf', q:'Vertical sheet joints must land on a stud.', a:true, e:'Both sheet edges need solid fixing.'},
+  {k:'tap', q:'Tap a cover batten over a sheet joint.', d:'sheets', a:'joint', e:'The battens cover the joints at 1200 mm.'},
+  {k:'mc', q:'What goes on the studs before the cladding?', o:['Vapour-permeable wall wrap','Plastic food wrap','Nothing','Ceiling batts'], a:0, e:'It sheds any water that gets behind the cladding, while letting vapour out.'},
+  {k:'num', q:'Typical minimum fixing distance from a sheet edge?', a:12, tol:0, u:'mm', e:'About 12 mm from edges and 50 mm from corners; follow the maker\'s figures.'}]},
+ {id:'u5c', title:'Eave linings and wet areas', ref:'AS 3740 Waterproofing of domestic wet areas · NCC 2022 Housing Provisions Part 10 (wet areas)', cards:[
+  {h:'Eave linings', t:`<p>The eave soffits are lined with thin fibre cement eave sheet fixed to eave trimmers. Fibre cement suits eaves because it handles moisture and weather.</p>`},
+  {h:'The bathroom', t:`<p>Line the walls with <b>wet-area fibre cement</b> sheet, not ordinary plasterboard, over a compressed fibre cement floor. A <b>waterproofing membrane</b> to AS 3740 goes on the substrate before the tiles: the whole shower floor, the shower walls to at least <b>1800 mm</b>, and the wall–floor junctions and floor waste.</p>`}],
+ qs:[
+  {k:'tf', q:'The whole shower floor must be waterproofed.', a:true, e:'Shower floors are fully waterproofed, with the membrane turned up the walls.'},
+  {k:'mc', q:'Where does the waterproofing membrane go?', o:['On the substrate, under the tiles','On top of the tiles','Inside the wall cavity','Under the floor joists'], a:0, e:'Tiles and grout are not waterproof; the membrane underneath is.'},
+  {k:'num', q:'Minimum height of waterproofing on shower walls?', a:1800, tol:0, u:'mm', e:'At least 1800 mm above the floor.'},
+  {k:'mc', q:'Which wall lining belongs in the shower?', o:['Wet-area fibre cement sheet','Standard plasterboard','Hardboard','Plywood'], a:0, e:'Wet-area FC stays stable when damp.'},
+  {k:'tf', q:'Fibre cement makes a good eave lining because it handles moisture.', a:true, e:'Eaves see humid air and wind-driven rain.'}]}
+]});
+
+UNITS.push({id:'u6', title:'Windows and comfort', sub:'Installing windows, insulation, star ratings and air', lessons:[
+ {id:'u6a', title:'Installing windows', ref:'AS 2047 Windows and external glazed doors · AS 1288 Glass in buildings', cards:[
+  {h:'Flash it, then fit it', d:'window', t:`<p>Order: wall wrap → sill tray or flashing → window packed plumb and square and fixed → head flashing → cladding. Water that gets past the cladding meets the flashings and is sent back outside.</p><p>Choose windows rated for the site's wind class (AS 2047). Use <b>safety glass</b> where people can hit it: doors, low panes and bathrooms (AS 1288).</p>`}],
+ qs:[
+  {k:'ord', q:'Put the window install in order.', o:['Wall wrap on the frame','Sill tray / flashing','Pack, plumb and fix the window','Head flashing over the window','Cladding'], e:'Each layer laps over the one below it.'},
+  {k:'tap', q:'Tap the head flashing.', d:'window', a:'headflash', e:'The head flashing sits over the top of the window frame.'},
+  {k:'mc', q:'Which glass belongs in a glazed door or shower screen?', o:['Safety glass (toughened or laminated)','Ordinary float glass','Mirror glass','Any glass under 4 mm'], a:0, e:'Safety glass breaks safely or holds together.'},
+  {k:'mc', q:'Windows are chosen to suit…', o:['The site\'s wind class (AS 2047)','The paint colour','The stump height','The battery size'], a:0, e:'Windows are rated for wind pressure and water resistance.'},
+  {k:'tf', q:'The head flashing directs water out over the window frame.', a:true, e:'It stops water running down the wall into the window head.'}]},
+ {id:'u6b', title:'Insulation and the star rating', ref:'QDC 4.1 Sustainable buildings · NCC 2022 H6 Energy efficiency · NatHERS', cards:[
+  {h:'R-values', t:`<p>An R-value is resistance to heat flow: higher is better. A typical cabin: <b>R4+</b> ceiling batts plus the roof blanket, R2.0–R2.5 batts in 90 mm walls, and insulation under the raised floor. Seal gaps and draughts, or the insulation can't do its job.</p>`},
+  {h:'Energy rating in Queensland', t:`<p>New houses are rated under QDC 4.1, which applies NCC 2022 (from 1 May 2024). Most need <b>7 stars</b> for the building shell plus a <b>Whole of Home</b> score of at least <b>60/100</b>.</p><p>Queensland has variations: <b>5 stars</b> for eligible small homes and <b>6 stars</b> for eligible houses with raised floor construction. An energy assessor rates your plans with NatHERS software; check eligibility with your certifier.</p>`}],
+ qs:[
+  {k:'tf', q:'A higher R-value means more resistance to heat flow.', a:true, e:'Higher R, slower heat flow.'},
+  {k:'mc', q:'Which Queensland variation could apply to a 30 m² cabin? (check eligibility)', o:['5 stars for eligible small homes','3 stars for all cabins','No rating for any house','10 stars'], a:0, e:'Queensland allows 5 stars for eligible small homes; confirm with your certifier.'},
+  {k:'mc', q:'Biggest summer comfort wins in Brisbane?', o:['Shading, cross-ventilation and roof insulation','Thick carpet','A dark roof','Big west windows'], a:0, e:'Keep the sun off, let breezes through, stop roof heat.'},
+  {k:'num', q:'Minimum Whole of Home score for new Queensland houses (out of 100)?', a:60, tol:0, u:'/100', e:'At least 60 out of 100.'},
+  {k:'tf', q:'Gaps and draughts reduce how well insulation works.', a:true, e:'Air leaks carry heat straight past the batts.'}]},
+ {id:'u6c', title:'Air, fans and condensation', ref:'NCC 2022 ABCB Housing Provisions Part 10.8 Condensation management', cards:[
+  {h:'Move the air', t:`<p>Openable windows on opposite walls give cross-ventilation. Ceiling fans in the living room and bedroom make 30 °C feel several degrees cooler, and 2.7 m ceilings leave room for them. The ventilated subfloor keeps the floor cool and dry.</p>`},
+  {h:'Exhaust to outside', t:`<p>Bathroom and kitchen exhaust fans must discharge to <b>outside air</b>, not into the roof space. Minimum flow: <b>25 L/s</b> for a bathroom, <b>40 L/s</b> for a kitchen.</p>`}],
+ qs:[
+  {k:'tf', q:'A bathroom exhaust fan may vent into the roof space.', a:false, e:'Moist air in the roof causes condensation and mould; duct it outside.'},
+  {k:'num', q:'Minimum bathroom exhaust flow?', a:25, tol:0, u:'L/s', e:'25 L/s.'},
+  {k:'num', q:'Minimum kitchen exhaust flow?', a:40, tol:0, u:'L/s', e:'40 L/s.'},
+  {k:'mc', q:'What gives cross-ventilation?', o:['Openable windows on opposite walls','One big fixed window','Sealing the house','A dark roof'], a:0, e:'Air needs a way in and a way out.'},
+  {k:'tf', q:'A ventilated raised floor helps keep the cabin cool and dry.', a:true, e:'Moving air under the floor carries off heat and damp.'}]}
+]});
+
+UNITS.push({id:'u7', title:'Water supply', sub:'Rainwater, pumps and filters, ready for town water', lessons:[
+ {id:'u7a', title:'Catching rain', ref:'AS/NZS 3500.3 Stormwater drainage · enHealth guidance on rainwater tanks', cards:[
+  {h:'Roof to tank', d:'rain', t:`<p>Roof → gutters with leaf guard → downpipe → <b>first-flush diverter</b> (dumps the dirtiest first water) → insect-proof inlet screen → tank → overflow to a <b>lawful point of discharge</b> (an approved stormwater point).</p>`},
+  {h:'How much water?', t:`<p>Yield (L) = roof area (m²) × rainfall (mm) × runoff factor (about 0.8).</p><p>This roof, eaves included, is 8.1 × 6.0 = <b>48.6 m²</b>. At 1,000 mm a year that's about <b>38,900 L</b>, roughly 107 L a day. Enough for one careful person, short for two typical users at 150 L each. A verandah or shed roof, or water saving, closes the gap. Try <b>Tools → Rain tank</b>.</p>`}],
+ qs:[
+  {k:'num', q:'Roof 48.6 m², rainfall 1000 mm a year, runoff 0.8. Litres per year?', a:38880, tol:100, u:'L', e:'48.6 × 1000 × 0.8 = 38,880 L.'},
+  {k:'mc', q:'What does a first-flush diverter do?', o:['Diverts the first, dirtiest rain away from the tank','Speeds up the gutter','Makes water drinkable','Stops overflow'], a:0, e:'The first rain washes dust, leaves and droppings off the roof.'},
+  {k:'tf', q:'Wider eaves add roof area, so they also catch more rain.', a:true, e:'Catchment is the plan area of the roof, eaves included.'},
+  {k:'mc', q:'Tank overflow must go to…', o:['A lawful point of discharge','The neighbour\'s yard','Under the cabin','The septic tank'], a:0, e:'Overflow is stormwater and goes to an approved stormwater point.'},
+  {k:'tap', q:'Tap the first-flush diverter.', d:'rain', a:'firstflush', e:'It is the vertical chamber on the downpipe before the tank.'}]},
+ {id:'u7b', title:'Pump, filters and drinking water', ref:'enHealth — Guidance on the use of rainwater tanks · AS/NZS 3500.1 Water services', cards:[
+  {h:'Tank to tap', t:`<p>A pressure pump supplies the cabin. For drinking water: <b>sediment filter → carbon filter → UV steriliser</b>. Keep gutters, screens and the first flush clean, and check the tank for sludge.</p>`},
+  {h:'Count the power', t:`<p>The pump and UV lamp run on solar power, so add them to your load list. Many UV units run all day: 30 W × 24 h = <b>720 Wh</b> a day.</p>`}],
+ qs:[
+  {k:'ord', q:'Put the water path in order, tank to tap.', o:['Tank','Pump','Sediment filter','Carbon filter','UV steriliser','Kitchen tap'], e:'Filter the sediment first so the UV light can reach the water.'},
+  {k:'num', q:'A UV steriliser draws 30 W all day. Energy per day?', a:720, tol:0, u:'Wh', e:'30 W × 24 h = 720 Wh.'},
+  {k:'tf', q:'UV needs clear water, so filter out sediment first.', a:true, e:'Particles shade germs from the UV light.'},
+  {k:'mc', q:'Why screen the tank inlet?', o:['Keeps out mosquitoes, animals and leaves','Makes the water colder','Raises pressure','Solar rules require it'], a:0, e:'Screens keep the tank clean and mosquito-free.'},
+  {k:'tap', q:'Tap the UV steriliser.', d:'rain', a:'uv', e:'The UV unit is the last treatment step before the house.'}]},
+ {id:'u7c', title:'Ready for town water', ref:'AS/NZS 3500.1 · Queensland Plumbing and Wastewater Code · local water authority rules', cards:[
+  {h:'Lay it now', d:'ready', t:`<p>Lay a water service pipe in a trench (or conduit) from the cabin to where the water meter will go at the front boundary, cap it, and record exactly where it is. Inside, plumb the cabin from a single cold-water supply point that can be switched later.</p>`},
+  {h:'Connect it later', t:`<p>The water authority fits the meter and a licensed plumber connects. If you keep the tank too, tank water must never flow back into the town main: an approved backflow device and a rain-to-mains switching arrangement are needed, under council plumbing approval.</p>`}],
+ qs:[
+  {k:'mc', q:'Why is backflow prevention needed when a tank and town water are both connected?', o:['To stop tank water flowing back into the town main','To raise pressure','To heat the water','To meter the rain'], a:0, e:'It protects everyone else\'s drinking water.'},
+  {k:'tf', q:'You can tee the tank pump straight into the town water pipe with a tap.', a:false, e:'Cross-connections need approved backflow protection, installed by a licensed plumber.'},
+  {k:'tap', q:'Tap the capped water service at the boundary.', d:'ready', a:'waterstub', e:'The blue line ends where the meter will go.'},
+  {k:'mc', q:'Who connects the cabin to the town water meter?', o:['A licensed plumber','The owner-builder','The tank supplier','The electrician'], a:0, e:'Water supply work is licensed plumbing.'},
+  {k:'tf', q:'Recording where capped services are buried saves digging later.', a:true, e:'Photos and measurements go on your as-built plan.'}]}
+]});
+
+UNITS.push({id:'u8', title:'Hot water and drains', sub:'Heat pump hot water, traps and vents, wastewater', lessons:[
+ {id:'u8a', title:'Hot water the off-grid way', ref:'AS/NZS 3500.4 Heated water services', cards:[
+  {h:'Heat pump on a timer', d:'hws', t:`<p>A heat pump water heater moves heat from the air into the water and uses about a third of the electricity of an element heater. Off-grid, run it on a timer in the <b>middle of the day</b>, straight from the panels. Solar thermal (evacuated tubes) is the other low-energy option.</p>`},
+  {h:'The temperature rules', t:`<ul><li>Store at <b>60 °C</b> or more to control Legionella.</li><li>Deliver no more than <b>50 °C</b> to bathroom fixtures in a new house, using a tempering valve.</li><li>The relief valve drains to a safe, visible place.</li><li>Put the heater close to the bathroom and kitchen: long hot pipes waste water and heat.</li></ul>`}],
+ qs:[
+  {k:'num', q:'Minimum storage temperature to control Legionella?', a:60, tol:0, u:'°C', e:'Store at 60 °C or above.'},
+  {k:'num', q:'Maximum hot water temperature at bathroom fixtures in a new house?', a:50, tol:0, u:'°C', e:'50 °C, via a tempering valve.'},
+  {k:'mc', q:'When should the heat pump run off-grid?', o:['Middle of the day, when solar is strongest','Midnight','Before sunrise','Only on cloudy days'], a:0, e:'Use solar directly instead of draining the battery.'},
+  {k:'tap', q:'Tap the tempering valve.', d:'hws', a:'tempering', e:'It mixes cold into hot to deliver 50 °C to the bathroom.'},
+  {k:'tf', q:'Putting the heater near the wet areas cuts wasted water and heat.', a:true, e:'Shorter hot runs mean less water run off waiting for heat.'}]},
+ {id:'u8b', title:'Drains, falls and vents', ref:'AS/NZS 3500.2 Sanitary plumbing and drainage', cards:[
+  {h:'Traps, vents and fall', d:'drain', t:`<p>Every fixture has a <b>trap</b>: a water seal that blocks sewer gas. <b>Vents</b> let air into the pipes so flowing water can't siphon the traps dry. Drains need a steady fall: <b>1:60</b> is the usual minimum for a 100 mm drain.</p><p><b>Inspection openings (IO)</b> allow cleaning. The <b>overflow relief gully (ORG)</b> outside sits at least 150 mm below the lowest fixture, so a blockage overflows outside instead of inside.</p>`},
+  {h:'Short runs', t:`<p>On a raised floor the drains run underneath, supported and protected from sunlight. Back the kitchen onto the bathroom so both share one short drain run.</p>`}],
+ qs:[
+  {k:'num', q:'A 100 mm drain runs 12 m at 1:60. How much does it fall?', a:200, tol:0, u:'mm', e:'12,000 ÷ 60 = 200 mm.'},
+  {k:'mc', q:'What does a trap do?', o:['Holds water that blocks sewer gas','Catches hair only','Measures flow','Stops the pipe freezing'], a:0, e:'The water seal keeps sewer air out of the room.'},
+  {k:'mc', q:'Why does the drainage need a vent?', o:['So flowing water doesn\'t siphon traps dry','To let rain in','To cool the pipes','To mark where the drain is'], a:0, e:'Without air, a draining fixture can suck the water out of other traps.'},
+  {k:'tap', q:'Tap the overflow relief gully.', d:'drain', a:'org', e:'The ORG is the grated gully outside, lower than every fixture.'},
+  {k:'tf', q:'The overflow relief gully must sit lower than the lowest fixture.', a:true, e:'So a blocked drain overflows outside first.'}]},
+ {id:'u8c', title:'Wastewater, sewer-ready', ref:'AS/NZS 1547:2012 On-site domestic wastewater management · Queensland Plumbing and Wastewater Code', cards:[
+  {h:'Off-grid options', d:'septic', t:`<p>With council plumbing approval and a design to AS/NZS 1547 and the Queensland Plumbing and Wastewater Code:</p><ul><li><b>Septic tank</b> + absorption trench</li><li><b>Aerobic treatment system (AWTS)</b> + irrigation</li><li><b>Composting toilet</b> + greywater treatment</li></ul><p>A site and soil evaluation by a qualified designer decides the system and where it goes, with setbacks from boundaries, buildings, bores and waterways.</p>`},
+  {h:'Sewer-ready', t:`<p>Run the house drain toward the side where the sewer connection would come, with an IO and a junction. A plumber can then redirect it to the sewer and decommission the septic without digging under the cabin.</p>`}],
+ qs:[
+  {k:'mc', q:'What happens inside a septic tank?', o:['Solids settle and partly digest; the effluent still needs dispersal','The water becomes drinkable','Waste is burned','Nothing; it only stores'], a:0, e:'The trench or irrigation area finishes the treatment in the soil.'},
+  {k:'match', q:'Match the option to how it works.', p:[['Septic tank','Settles solids; effluent to a trench'],['AWTS','Aerates and treats; effluent to irrigation'],['Composting toilet','No flush water; composts waste'],['Site and soil evaluation','Decides system type and location']], e:'Your soil and lot size decide which is allowed.'},
+  {k:'tf', q:'An on-site sewage system needs council plumbing approval in Queensland.', a:true, e:'Design, installation and inspection all go through council.'},
+  {k:'tap', q:'Tap the sludge layer.', d:'septic', a:'sludge', e:'Sludge settles at the bottom and is pumped out periodically.'},
+  {k:'mc', q:'Making the drain sewer-ready means…', o:['Routing it toward the sewer side with an IO and junction','Pouring concrete over it','Using a smaller pipe','Running it uphill'], a:0, e:'The future connection is then a short, simple job.'}]}
+]});
+// ---------- COURSE CONTENT: units 9–11 ----------
+UNITS.push({id:'u9', title:'Solar, off-grid', sub:'How it works, sizing it, and where the battery goes', lessons:[
+ {id:'u9a', title:'How the system works', ref:'AS/NZS 4509 Stand-alone power systems · AS/NZS 5033 Installation and safety of PV arrays', cards:[
+  {h:'Day, night and cloudy weeks', d:'offgrid', t:`<p><b>Day:</b> the panels make DC power. The MPPT charger inside the inverter-charger gets the most out of them, runs the cabin and charges the battery.</p><p><b>Night:</b> the battery feeds the inverter, which makes 230 V AC for the switchboard.</p><p><b>Long cloudy spell:</b> a generator plugs into the inverter's AC input and recharges the battery.</p>`},
+  {h:'Battery chemistry', t:`<p><b>Lithium iron phosphate (LFP)</b> is the usual choice now: thousands of cycles, about 90% usable capacity, and more thermally stable than other lithium types. Lead-acid costs less up front but should only be cycled to about 50%.</p>`}],
+ qs:[
+  {k:'tap', q:'Tap the battery.', d:'offgrid', a:'battery', e:'The battery sits below the inverter-charger.'},
+  {k:'mc', q:'What does an MPPT charger do?', o:['Adjusts the panels\' operating point for maximum power','Stores energy','Converts AC to DC for the fridge','Measures rainfall'], a:0, e:'MPPT = maximum power point tracking.'},
+  {k:'mc', q:'Where does the backup generator connect?', o:['The inverter-charger\'s AC input','Straight to the panels','The battery terminals with jumper leads','The water pump'], a:0, e:'The inverter-charger turns generator AC into battery charge.'},
+  {k:'tf', q:'LFP batteries tolerate deep discharge better than lead-acid.', a:true, e:'About 90% usable versus about 50% for lead-acid.'},
+  {k:'tap', q:'Tap the future grid connection.', d:'offgrid', a:'grid', e:'The dashed box is the grid connection waiting for later.'}]},
+ {id:'u9b', title:'Sizing: loads, battery, panels', ref:'AS/NZS 4509.2 Stand-alone power systems — system design', cards:[
+  {h:'Three steps', t:`<p><b>1. Loads:</b> watts × hours a day for every appliance = Wh/day. This cabin, with induction cooking and a heat pump, uses about <b>6 kWh a day</b>.</p><p><b>2. Battery:</b> daily use × days of autonomy ÷ usable fraction. 6 kWh × 2 days ÷ 0.9 ≈ <b>13.3 kWh</b>.</p><p><b>3. Panels:</b> daily use ÷ (worst-month sun hours × 0.75 for losses), then oversize 1.3–1.5× so the battery recovers after cloudy days. 6,000 ÷ (4.5 × 0.75) ≈ 1.8 kW, × 1.5 ≈ 2.7 kW, or 7 panels of 440 W. The north roof fits 8. Try <b>Tools → Solar sizer</b>.</p>`},
+  {h:'The inverter', t:`<p>Its <b>continuous</b> rating covers everything that runs at once (kettle + cooktop + fridge). Its <b>surge</b> rating covers motor starts (pump, fridge compressor). About 5 kW suits this cabin.</p>`}],
+ qs:[
+  {k:'num', q:'A 1,200 W kettle runs 15 minutes a day. Energy per day?', a:300, tol:0, u:'Wh', e:'1200 W × 0.25 h = 300 Wh.'},
+  {k:'num', q:'Battery for 6 kWh/day, 2 days of autonomy, 90% usable? (1 decimal)', a:13.3, tol:0.1, u:'kWh', e:'6 × 2 ÷ 0.9 = 13.3 kWh.'},
+  {k:'num', q:'6,000 Wh/day ÷ (4 sun hours × 0.75). Array size?', a:2000, tol:0, u:'W', e:'6000 ÷ 3 = 2000 W.'},
+  {k:'num', q:'The array needs 2,000 W. How many 440 W panels? (round up)', a:5, tol:0, u:'panels', e:'2000 ÷ 440 = 4.5, so 5 panels.'},
+  {k:'mc', q:'Why oversize the array beyond the daily need?', o:['To recharge the battery after cloudy days and cover winter','Panels only work at noon','To sell power','It isn\'t needed off-grid'], a:0, e:'Spare capacity refills the battery quickly when the sun returns.'}]},
+ {id:'u9c', title:'Battery placement and safety', ref:'AS/NZS 5139:2019 Safety of battery systems (Amendment 1, December 2025) · Solar Accreditation Australia', cards:[
+  {h:'Where it can go', d:'battery', t:`<p>AS/NZS 5139 controls where a home battery may be installed. Never in a habitable room, ceiling space, wall cavity, under stairs or in an exit path; keep the clear zones around windows, doors and other openings; add non-combustible barriers where required.</p><p>A shaded external wall or a separate enclosure is common. Heat shortens battery life, and this cabin's south wall stays shaded under the eave.</p>`},
+  {h:'Licensed and accredited', t:`<p>PV strings run at hundreds of volts DC and batteries can deliver huge fault currents. A licensed electrician installs, labels, isolates and tests the system, and an SAA-accredited designer and installer are needed for rebates. Keep the manual and the battery's safety data sheet on site.</p>`}],
+ qs:[
+  {k:'tf', q:'A lithium battery may go in the bedroom if it\'s quiet.', a:false, e:'Batteries are not allowed in habitable rooms.'},
+  {k:'mc', q:'Good spot for the battery and inverter at this cabin?', o:['Shaded south external wall, clear of window and door zones','Roof space above the kitchen','Inside a wall cavity','Under the bed'], a:0, e:'Shaded, ventilated, accessible, and outside the restricted zones.'},
+  {k:'mc', q:'Why keep batteries out of the sun?', o:['Heat shortens battery life and adds risk','Sunlight drains them','Looks only','Panels shade them anyway'], a:0, e:'Cooler batteries last longer.'},
+  {k:'tf', q:'Solar and battery installation needs a licensed electrician.', a:true, e:'High DC voltages and fault currents make it licensed work.'},
+  {k:'tap', q:'Tap the battery cabinet.', d:'battery', a:'cabinet', e:'It sits between the window and door zones, under the eave.'}]}
+]});
+
+UNITS.push({id:'u10', title:'Wiring the cabin', sub:'Switchboard, earthing, smoke alarms and outlets', lessons:[
+ {id:'u10a', title:'Switchboard and circuits', ref:'AS/NZS 3000:2018 Wiring Rules — Section 2 (control and protection)', cards:[
+  {h:'Main switch and RCBOs', d:'board', t:`<p>After the main switch, each final circuit gets an <b>RCBO</b>: a 30 mA RCD and a circuit breaker in one.</p><ul><li>The <b>RCD</b> protects people. It trips when current leaks to earth instead of returning on the neutral.</li><li>The <b>circuit breaker</b> protects the cable from overload and short circuits.</li></ul><p>AS/NZS 3000 requires RCD protection on final subcircuits in homes.</p>`},
+  {h:'This cabin\'s circuits', t:`<p>Lights + smoke alarms, kitchen power, general power, cooktop, heat pump hot water, water pump, and air-con if fitted. Separate circuits mean one fault doesn't black out everything, and big loads can be switched off when the battery is low.</p>`}],
+ qs:[
+  {k:'mc', q:'What does an RCD protect against?', o:['Electric shock from earth leakage','Lightning','Too many lights','A flat battery'], a:0, e:'It compares active and neutral current and trips on a difference.'},
+  {k:'mc', q:'What does a circuit breaker protect?', o:['The cable, from overload and short circuit','People, from small leakage','The battery, from discharge','The panels, from shade'], a:0, e:'Breakers stop cables overheating.'},
+  {k:'num', q:'RCD trip current used for protecting people?', a:30, tol:0, u:'mA', e:'30 mA.'},
+  {k:'tap', q:'Tap the main switch.', d:'board', a:'main', e:'The main switch isolates the whole board.'},
+  {k:'tf', q:'Separate circuits let you shed big loads when the battery is low.', a:true, e:'You can turn off the cooktop or air-con and keep lights and fridge running.'}]},
+ {id:'u10b', title:'Earthing and the MEN link', ref:'AS/NZS 3000:2018 — Section 5 Earthing arrangements · AS/NZS 4509.1', cards:[
+  {h:'Why earth?', d:'earth', t:`<p>Earthing gives fault current a low-resistance path so the protection trips fast. The main earthing conductor runs to an <b>earth electrode</b>. On a grid supply the <b>MEN link</b> (multiple earthed neutral) joins neutral and earth at the main switchboard, in one place only. Exposed metal and conductive water pipes are bonded.</p>`},
+  {h:'Off-grid now, grid later', t:`<p>Off-grid, the inverter is the source, and its neutral–earth arrangement must suit the installation (AS/NZS 4509 and AS/NZS 3000). When grid power arrives the electrician sets the MEN link and the inverter's earthing mode so each source still has exactly one neutral–earth connection. This is licensed work.</p>`}],
+ qs:[
+  {k:'mc', q:'Why does earthing matter?', o:['Fault current flows so protection trips fast','It charges the battery','It stops termites','It lowers the power bill'], a:0, e:'A good earth path turns a dangerous fault into a quick trip.'},
+  {k:'tap', q:'Tap the MEN link.', d:'earth', a:'men', e:'The MEN link joins the neutral bar and the earth bar.'},
+  {k:'tf', q:'On a grid supply there is exactly one MEN link, at the main switchboard.', a:true, e:'More than one link splits neutral current into the earthing system.'},
+  {k:'tap', q:'Tap the earth electrode.', d:'earth', a:'electrode', e:'The electrode is driven into the ground.'},
+  {k:'tf', q:'An owner-builder may do the earthing after watching a video.', a:false, e:'Earthing is licensed electrical work.'}]},
+ {id:'u10c', title:'Smoke alarms, lights and outlets', ref:'Queensland Fire Department smoke alarm requirements · AS 3786-2014 · AS/NZS 3000:2018 Section 6', cards:[
+  {h:'Smoke alarms in Queensland', t:`<p><b>Photoelectric</b> alarms to AS 3786-2014, all <b>interconnected</b>, in every bedroom, in hallways joining bedrooms to the rest of the home, and on every storey. Hardwired alarms (with backup battery) are installed by an electrician. All Queensland homes must comply by <b>1 January 2027</b>.</p>`},
+  {h:'Lights and outlets', t:`<p>The electrician keeps power points and switches out of the zones around the shower (AS/NZS 3000 Section 6, damp situations). LED lights keep loads tiny: a 7 W LED replaces a 50 W halogen. Plan outlets at the kitchen bench, beside the bed, and for the fridge and washing machine.</p>`}],
+ qs:[
+  {k:'mc', q:'Which smoke alarm does Queensland require?', o:['Photoelectric to AS 3786-2014, interconnected','Ionisation','Any battery alarm','Heat detector only'], a:0, e:'Ionisation alarms do not comply.'},
+  {k:'mc', q:'Where are smoke alarms required?', o:['Every bedroom, hallways joining bedrooms, every storey','Kitchen only','Bathroom only','Outside only'], a:0, e:'Bedrooms, connecting hallways and each storey.'},
+  {k:'tf', q:'All Queensland homes must have interconnected photoelectric alarms by 1 January 2027.', a:true, e:'The phase-in finishes on 1 January 2027.'},
+  {k:'num', q:'Eight 7 W LED lights run 5 hours a day. Energy per day?', a:280, tol:0, u:'Wh', e:'8 × 7 × 5 = 280 Wh.'},
+  {k:'mc', q:'Which Wiring Rules section covers bathrooms and showers?', o:['Section 6 – Damp situations','Section 8 – Verification','Section 1 – Scope','Section 3 – Wiring systems'], a:0, e:'Section 6 sets the zones around baths and showers.'}]}
+]});
+
+UNITS.push({id:'u11', title:'Mains-ready', sub:'Grid, water and sewer ready to connect, then handover', lessons:[
+ {id:'u11a', title:'Electricity: ready for the grid', ref:'AS/NZS 4777.1 and 4777.2 Grid connection via inverters · Queensland Electricity Connection Manual (QECM) and Metering Manual (QEMM)', cards:[
+  {h:'Do it now', d:'ready', t:`<ul><li>Choose an inverter-charger that complies with <b>AS/NZS 4777.2</b> and is approved for grid connection, so it becomes a grid-tied hybrid later instead of being replaced.</li><li>Mount a <b>meter enclosure</b> on an outside wall where the network rules allow (Queensland: QECM and QEMM).</li><li>Lay heavy-duty <b>consumer mains conduit</b> with a draw cord and marker tape, at Wiring Rules depth, from the meter position to where supply will come.</li></ul>`},
+  {h:'When the grid comes', t:`<p>The electrician applies to the distributor (<b>Energex</b> in south-east Queensland, Ergon elsewhere). You choose a retailer, the meter is fitted, and the inverter is set to the grid settings and tested. AS/NZS 4777.1 covers the installation.</p>`}],
+ qs:[
+  {k:'mc', q:'Why choose an AS/NZS 4777.2-compliant inverter now?', o:['It can connect to the grid later without being replaced','It runs cheaper off-grid','It needs no battery','It removes the need for an electrician'], a:0, e:'Grid-connection compliance is built into the inverter.'},
+  {k:'ord', q:'Put the grid connection in order.', o:['Electrician applies to the distributor','Approval received','Consumer mains pulled through the conduit','Meter fitted','Inverter set to grid settings and tested'], e:'Approval first; testing last.'},
+  {k:'tap', q:'Tap the consumer mains conduit.', d:'ready', a:'conduit', e:'The orange dashed line runs from the meter box to the boundary pit.'},
+  {k:'tf', q:'A draw cord left in the conduit makes pulling cables later easier.', a:true, e:'Without one, someone has to push a fish tape through.'},
+  {k:'mc', q:'Who is the electricity distributor in south-east Queensland?', o:['Energex','Sydney Water','QBCC','Your retailer\'s call centre'], a:0, e:'Energex runs the network in SEQ; Ergon covers regional Queensland.'}]},
+ {id:'u11b', title:'Water and sewer: ready to connect', ref:'AS/NZS 3500.1 / 3500.2 / 3500.3 · Queensland Plumbing and Wastewater Code', cards:[
+  {h:'Checklist', t:`<ul><li>Capped water service to the meter position.</li><li>House drain toward the sewer side, with an IO and a junction.</li><li>Stormwater to a lawful point of discharge.</li><li>Photos and measurements of everything before backfilling, drawn onto an as-built plan.</li></ul>`},
+  {h:'Connecting', t:`<p>Water: the authority fits the meter, a plumber connects and installs backflow protection. Sewer: a licensed drainer connects with council or utility approval, and the septic is pumped out and decommissioned.</p>`}],
+ qs:[
+  {k:'tf', q:'Photos and measurements of buried services before backfilling belong in the as-built record.', a:true, e:'They save guesswork and digging later.'},
+  {k:'tap', q:'Tap the sewer junction and IO.', d:'ready', a:'sewerjunction', e:'The brown circle marks the junction ready for the sewer.'},
+  {k:'mc', q:'What happens to the septic when the sewer is connected?', o:['Pumped out and decommissioned by a licensed plumber','Left full','Used as a rainwater tank straight away','Joined to the town water'], a:0, e:'Decommissioning follows council requirements.'},
+  {k:'match', q:'Match each item to its role.', p:[['Water meter','Fitted by the water authority'],['Backflow device','Protects the town supply'],['Sewer connection','Licensed drainer, with approval'],['As-built plan','Records buried services']], e:'Each connection has its own party and approval.'},
+  {k:'tf', q:'Stormwater may be piped into the sewer.', a:false, e:'Stormwater must stay out of the sewer; it goes to a lawful point of discharge.'}]},
+ {id:'u11c', title:'Testing and handover', ref:'AS/NZS 3000:2018 Section 8 Verification · Electrical Safety Regulation 2013 (Qld)', cards:[
+  {h:'Sign-offs', t:`<ul><li><b>Electrical:</b> visual checks, earth continuity, insulation resistance, polarity and RCD tests (AS/NZS 3000 Section 8), then a certificate of testing and safety.</li><li><b>Solar:</b> commissioning tests and system documentation from the accredited installer.</li><li><b>Plumbing:</b> council inspections and the plumber's compliance paperwork.</li><li><b>Building:</b> the certifier's final inspection and certificate.</li></ul>`},
+  {h:'The cabin manual', t:`<p>Keep the drawings, as-builts, certificates, appliance manuals and battery data sheet together, with a maintenance list: gutters and first flush, filters, UV lamp (about yearly), septic pump-outs, termite inspections and smoke alarm tests.</p>`}],
+ qs:[
+  {k:'ord', q:'Put the final steps in order.', o:['Electrician tests and certifies','Plumbing final inspection','Certifier\'s final inspection','Move in with your cabin manual'], e:'Trade sign-offs come before the building final.'},
+  {k:'mc', q:'Which test checks that RCDs trip correctly?', o:['RCD trip test','Rainfall test','Termite test','Water pressure test'], a:0, e:'The electrician times each RCD\'s trip.'},
+  {k:'match', q:'Match each party to its paperwork.', p:[['Electrician','Certificate of testing and safety'],['Plumber','Compliance paperwork for council'],['Certifier','Final building inspection'],['Solar installer','System documentation']], e:'Keep all of these in the cabin manual.'},
+  {k:'tf', q:'Smoke alarms should be tested regularly after you move in.', a:true, e:'Press the test button and keep them clean.'},
+  {k:'mc', q:'How often is a UV steriliser lamp typically replaced?', o:['About yearly (check the maker)','Never','Every week','Only when it smells'], a:0, e:'UV output fades even while the lamp still glows.'}]}
+]});
+// ---------- TOOLS: shared ----------
+const Tools = {};
+// [name, latitude, approx worst-month peak sun hours on a tilted array, approx annual rainfall mm]
+const CITIES = [['Darwin',-12.5,5.5,1700],['Cairns',-16.9,4.5,2000],['Townsville',-19.3,5.0,1100],['Brisbane',-27.5,4.5,1150],['Perth',-32.0,3.5,730],['Sydney',-33.9,3.5,1200],['Adelaide',-34.9,3.0,540],['Canberra',-35.3,3.0,620],['Melbourne',-37.8,2.3,650],['Hobart',-42.9,2.0,620]];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MDAYS = [31,28,31,30,31,30,31,31,30,31,30,31];
+const DOY21 = MDAYS.map((_,i)=>MDAYS.slice(0,i).reduce((a,b)=>a+b,0)+21);
+const WALLS = [['North',0],['North-east',45],['East',90],['South-east',135],['South',180],['South-west',225],['West',270],['North-west',315]];
+const rad = Math.PI/180;
+const fmt = (n,d=0) => Number(n).toLocaleString('en-AU',{minimumFractionDigits:d,maximumFractionDigits:d});
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function sunPos(lat, doy, hr){
+  const dec = 23.44*Math.sin(rad*360/365*(284+doy)), H = 15*(hr-12);
+  const la = lat*rad, d = dec*rad, h = H*rad;
+  const sa = Math.sin(la)*Math.sin(d)+Math.cos(la)*Math.cos(d)*Math.cos(h);
+  const alt = Math.asin(Math.max(-1,Math.min(1,sa)));
+  let ca = (Math.sin(d)-sa*Math.sin(la))/(Math.cos(alt)*Math.cos(la)); ca = Math.max(-1,Math.min(1,ca));
+  let az = Math.acos(ca)/rad; if(H>0) az = 360-az;
+  return {alt:alt/rad, az, dec};
+}
+// fraction of window (sill..head) in eave shadow; P = eave width, E = eave edge height (m)
+function shadeOf(sp, wallAz, P, E, sill, head){
+  if(sp.alt <= 0) return {f:1, why:'night'};
+  const daz = ((sp.az - wallAz + 540) % 360) - 180;
+  if(Math.abs(daz) >= 90) return {f:1, why:'behind'};
+  const vsa = Math.atan(Math.tan(sp.alt*rad)/Math.cos(daz*rad));
+  const d = P*Math.tan(vsa), ys = E - d;
+  const f = head>sill ? Math.max(0,Math.min(1,(head-Math.max(sill,ys))/(head-sill))) : 0;
+  return {f, d, ys, vsa:vsa/rad, daz};
+}
+const compass = az => ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'][Math.round(az/22.5)%16];
+const hhmm = t => String(Math.floor(t)).padStart(2,'0')+':'+(t%1?'30':'00');
+const kv = (v,l) => `<div class="kv"><b>${v}</b><span>${l}</span></div>`;
+
+// ---------- Eave shade tool ----------
+Tools.eave = el => {
+  el.innerHTML = `<h3>Eave shade</h3><p>See how much of a window the eave shades at any time of year. Sun angles are calculated for the place you pick, in solar time (12:00 is when the sun is highest).</p>
+  <div class="fields">
+   <label class="field"><span class="lab">Place</span><select id="e-city">${CITIES.map((c,i)=>`<option value="${i}"${c[0]==='Brisbane'?' selected':''}>${c[0]} (${Math.abs(c[1])}°S)</option>`).join('')}</select></label>
+   <label class="field"><span class="lab">Wall faces</span><select id="e-wall">${WALLS.map(w=>`<option value="${w[1]}">${w[0]}</option>`).join('')}</select></label>
+   <label class="field"><span class="lab">Date</span><select id="e-mon">${MONTHS.map((m,i)=>`<option value="${i}"${i===5?' selected':''}>21 ${m}</option>`).join('')}</select></label>
+   <label class="field"><span class="lab">Solar time <span id="e-tl" class="num">12:00</span></span><input type="range" id="e-time" min="6" max="18" step="0.5" value="12"></label>
+   <label class="field"><span class="lab">Eave width (mm)</span><input type="number" id="e-p" value="900" min="0" max="4000" step="50"></label>
+   <label class="field"><span class="lab">Eave edge height (mm)</span><input type="number" id="e-h" value="2350" min="1000" max="6000" step="50"></label>
+   <label class="field"><span class="lab">Window head (mm)</span><input type="number" id="e-head" value="2100" min="300" max="6000" step="50"></label>
+   <label class="field"><span class="lab">Window sill (mm)</span><input type="number" id="e-sill" value="900" min="0" max="5000" step="50"></label>
+  </div>
+  <div class="out" id="e-out"></div>
+  <div class="svgbox" id="e-svg"></div>
+  <div class="lab" style="margin-top:1rem">Share of the window in shade on the 21st of each month, at the chosen time</div>
+  <div class="svgbox" id="e-chart"></div>
+  <p class="note">Eave width runs from the wall face to the outer edge. Edge height is the underside of the fascia or gutter, where the shadow starts; on this cabin the 22.5° rafters drop about 370 mm over a 900 mm eave, so the edge sits near 2350 mm. The calculation assumes the eave runs well past both sides of the window. YourHome's rule for north windows: eave width about 45% of the sill-to-edge height, up to 50% in hot climates north of 27.5°S.</p>`;
+  const q = id => el.querySelector('#'+id), n = id => Math.max(0, +q(id).value || 0);
+  const upd = () => {
+    const c = CITIES[+q('e-city').value], wall = +q('e-wall').value, mon = +q('e-mon').value, t = +q('e-time').value;
+    const Pw = n('e-p')/1000, E = n('e-h')/1000, hd = n('e-head')/1000, sl = n('e-sill')/1000;
+    q('e-tl').textContent = hhmm(t);
+    const sp = sunPos(c[1], DOY21[mon], t), sh = shadeOf(sp, wall, Pw, E, sl, hd);
+    const H = Math.max(0, E-sl);
+    const shadeTxt = sh.why==='night' ? 'Sun down' : sh.why==='behind' ? 'No sun on wall' : Math.round(sh.f*100)+'%';
+    q('e-out').innerHTML = kv(sp.alt>0?fmt(sp.alt,1)+'°':'—','Sun height') + kv(sp.alt>0?compass(sp.az)+' '+fmt(sp.az)+'°':'—','Sun direction (from north)') + kv(shadeTxt,'Window in shade') + kv(fmt(0.45*H*1000)+' mm','45% rule eave') + kv(fmt(0.5*H*1000)+' mm','50% rule eave');
+    q('e-svg').innerHTML = eaveSection(sp, sh, Pw, E, sl, hd);
+    q('e-chart').innerHTML = eaveChart(c[1], wall, t, Pw, E, sl, hd);
+  };
+  el.querySelectorAll('input,select').forEach(i => i.addEventListener('input', upd));
+  upd();
+};
+function eaveSection(sp, sh, Pw, E, sl, hd){
+  const top = Math.max(E, hd) + 0.5, k = 205/top, fy = 250, wx = 300, Y = m => fy - m*k, fx = wx - Pw*k, ye = Y(E);
+  let g = R(0,fy,440,30,'var(--ground)','none',0) + R(wx, Y(top-0.2), 12, fy-Y(top-0.2), 'var(--fibro)','var(--ink)',1.2);
+  if(hd>sl) g += R(wx-2, Y(hd), 16, (hd-sl)*k, 'var(--sky)','var(--ink)',1.5);
+  g += P(`M${fx-4} ${ye-6} L${wx+140} ${ye-6-(140+Pw*k)*0.414}`,'none','var(--roof)',6) + L(fx,ye,wx,ye,'var(--ink)',2) + R(fx-5,ye-10,7,14,'var(--sheet)','var(--ink)',1);
+  if(!sh.why){
+    const t = Math.tan(sh.vsa*rad); let hx = wx, hy = ye + Pw*k*t; if(hy>fy){ hy = fy; hx = fx + (fy-ye)/t; }
+    g += `<path d="M${fx} ${ye} L${wx} ${ye} L${wx} ${hy} ${hx<wx?`L${hx} ${hy}`:''}z" fill="var(--ink)" opacity=".12"/>`;
+    if(hd>sl){ const shTop = Y(hd), shBot = Math.min(Y(sl), Math.max(Y(hd), hy)); if(shBot>shTop) g += `<rect x="${wx-2}" y="${shTop}" width="16" height="${shBot-shTop}" fill="var(--ink)" opacity=".35"/>`; if(Y(sl)>shBot) g += `<rect x="${wx-2}" y="${shBot}" width="16" height="${Y(sl)-shBot}" fill="var(--sun)" opacity=".55"/>`; }
+    const sx = fx - (ye-14)/t; g += L(Math.max(sx,-50),14,hx,hy,'var(--sun)',2.5) + C(Math.max(sx,14)+0,Math.max(sx,14)===sx?14:14+(14-sx)*t,10,'var(--sun)','none',0);
+    g += T(16,fy+20,`profile angle ${fmt(sh.vsa,1)}°`,{s:11,c:'var(--ink2)'});
+  } else g += T(20,40,sh.why==='night'?'Sun is below the horizon':'Sun is behind this wall: no direct sun',{s:12,c:'var(--ink2)'});
+  g += DIM(fx,ye-26,wx,ye-26,fmt(Pw*1000)+' eave') + DIM(wx+40,ye,wx+40,fy,fmt(E*1000)+' edge');
+  g += T(8,16,'OUTSIDE',{s:10,c:'var(--ink2)'}) + T(432,16,'INSIDE',{s:10,a:'end',c:'var(--ink2)'});
+  return S(440,280,g,'Section through the wall, eave and window with the sun ray');
+}
+function eaveChart(lat, wall, t, Pw, E, sl, hd){
+  const W=440, Hh=170, x0=34, y0=14, ch=120, bw=(W-x0-10)/12;
+  let g=''; [0,50,100].forEach(v=>{ const y=y0+ch-v/100*ch; g+=L(x0,y,W-6,y,'var(--line)',1)+T(x0-6,y+4,v+'%',{s:10,a:'end',c:'var(--ink2)'}); });
+  MONTHS.forEach((m,i)=>{ const sh = shadeOf(sunPos(lat,DOY21[i],t),wall,Pw,E,sl,hd), x=x0+i*bw+4, h=sh.f*ch;
+    g += R(x,y0+ch-h,bw-8,h, sh.why?'var(--galv)':'var(--teal)','none',0,'rx="2"') + T(x+(bw-8)/2,y0+ch+14,m,{s:10,a:'middle',c:'var(--ink2)'});
+    g += T(x+(bw-8)/2,y0+ch-h-4, sh.why?'—':Math.round(sh.f*100),{s:9.5,a:'middle'}); });
+  g += T(x0,Hh-2,'grey = no direct sun on this wall at that time',{s:9.5,c:'var(--ink2)'});
+  return S(W,Hh,g,'Monthly share of window shaded');
+}
+
+// ---------- Solar sizer ----------
+const LOADS0 = [['LED lights',7,5,8],['Fridge (average draw)',40,24,1],['Induction cooktop',1800,0.6,1],['Heat pump water heater',800,1.5,1],['Ceiling fans',30,6,2],['Router / modem',10,24,1],['TV + laptop',100,4,1],['Water pump',600,0.5,1],['UV steriliser',30,24,1],['Washing machine (cold)',500,0.5,1],['Kettle',2000,0.15,1]];
+Tools.solar = el => {
+  const rows = LOADS0.map(r=>r.slice());
+  el.innerHTML = `<h3>Solar sizer</h3><p>List what you'll run, then size the battery and the panels the way an off-grid designer starts (AS/NZS 4509.2 method, simplified). Edit any number.</p>
+  <div class="tablebox"><table class="codes num" id="s-tab"></table></div>
+  <div class="row" style="margin-top:.6rem"><button class="btn ghost" id="s-add">Add appliance</button><button class="btn ghost" id="s-reset">Reset list</button></div>
+  <div class="fields" style="margin-top:1rem">
+   <label class="field"><span class="lab">Place (sun hours)</span><select id="s-city">${CITIES.map((c,i)=>`<option value="${i}"${c[0]==='Brisbane'?' selected':''}>${c[0]} · ${c[2]} h</option>`).join('')}</select></label>
+   <label class="field"><span class="lab">Worst-month sun hours</span><input type="number" id="s-psh" value="4.5" min="0.5" max="8" step="0.1"></label>
+   <label class="field"><span class="lab">Days of autonomy</span><input type="number" id="s-days" value="2" min="0.5" max="7" step="0.5"></label>
+   <label class="field"><span class="lab">Usable battery (%)</span><input type="number" id="s-dod" value="90" min="20" max="100" step="5"></label>
+   <label class="field"><span class="lab">System derating</span><input type="number" id="s-der" value="0.75" min="0.4" max="1" step="0.01"></label>
+   <label class="field"><span class="lab">Oversize factor</span><input type="number" id="s-over" value="1.4" min="1" max="3" step="0.1"></label>
+   <label class="field"><span class="lab">Panel size (W)</span><input type="number" id="s-pw" value="440" min="100" max="700" step="10"></label>
+  </div>
+  <div class="out" id="s-out"></div>
+  <p class="note" id="s-msg"></p>
+  <div class="lab" style="margin-top:1rem">Energy per day by appliance</div>
+  <div class="svgbox" id="s-chart"></div>
+  <p class="note">Sun hours are rough worst-month figures for a tilted, unshaded north array; use your site's data for a real design. Inverter losses are taken as 6%. A licensed electrician and an SAA-accredited designer finalise the system.</p>`;
+  const q = id => el.querySelector('#'+id), n = id => Math.max(0, +q(id).value || 0);
+  const table = () => {
+    q('s-tab').innerHTML = `<thead><tr><th>Appliance</th><th>Watts</th><th>Hours/day</th><th>Qty</th><th>Wh/day</th><th></th></tr></thead><tbody>${rows.map((r,i)=>`<tr>
+      <td><input aria-label="Appliance name" id="s-n${i}" value="${esc(r[0])}" style="width:11rem;max-width:40vw" data-i="${i}" data-c="0"></td>
+      <td><input aria-label="Watts" id="s-w${i}" type="number" min="0" step="1" value="${r[1]}" style="width:5.5rem" data-i="${i}" data-c="1"></td>
+      <td><input aria-label="Hours per day" id="s-h${i}" type="number" min="0" max="24" step="0.05" value="${r[2]}" style="width:5rem" data-i="${i}" data-c="2"></td>
+      <td><input aria-label="Quantity" id="s-q${i}" type="number" min="0" step="1" value="${r[3]}" style="width:4rem" data-i="${i}" data-c="3"></td>
+      <td id="s-e${i}">${fmt(r[1]*r[2]*r[3])}</td><td><button class="ib" data-del="${i}" aria-label="Remove ${esc(r[0])}">×</button></td></tr>`).join('')}</tbody>`;
+    q('s-tab').querySelectorAll('input').forEach(inp => inp.addEventListener('input', e => { const i=+e.target.dataset.i, c=+e.target.dataset.c; rows[i][c] = c===0 ? e.target.value : Math.max(0, +e.target.value||0); const ce = q('s-e'+i); if(ce) ce.textContent = fmt(rows[i][1]*rows[i][2]*rows[i][3]); calc(); }));
+    q('s-tab').querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => { rows.splice(+b.dataset.del,1); table(); calc(); }));
+  };
+  const calc = () => {
+    const eac = rows.reduce((a,r)=>a+r[1]*r[2]*r[3],0), edc = eac/0.94, peak = rows.reduce((a,r)=>a+r[1]*r[3],0);
+    const psh = Math.max(0.1,n('s-psh')), days = n('s-days'), dod = Math.max(0.05,n('s-dod')/100), der = Math.max(0.1,n('s-der')), over = Math.max(1,n('s-over')), pw = Math.max(1,n('s-pw'));
+    const bu = edc*days/1000, bn = bu/dod, amin = edc/(psh*der), arec = amin*over, np = Math.ceil(arec/pw), roofMax = 8;
+    q('s-out').innerHTML = kv(fmt(eac/1000,1)+' kWh','Daily use') + kv(fmt(bu,1)+' kWh','Battery, usable') + kv(fmt(bn,1)+' kWh','Battery, nameplate') + kv(fmt(amin/1000,2)+' kW','Array, minimum') + kv(fmt(arec/1000,2)+' kW','Array, recommended') + kv(np+' × '+fmt(pw)+' W','Panels') + kv(fmt(peak/1000,1)+' kW','Everything on at once');
+    q('s-msg').innerHTML = (np<=roofMax ? `<b>Fits:</b> the north roof takes ${roofMax} panels of about 1.76 × 1.13 m (2 rows of 4).` : `<b>Too big for the north roof</b> (${roofMax} panels). Cut loads, add a verandah or shed roof, or use a ground-mounted array.`) + ` Choose an inverter whose continuous rating covers what you will actually run together (about 5 kW suits this cabin) and whose surge rating covers motor starts.`;
+    const sorted = rows.map(r=>[r[0],r[1]*r[2]*r[3]]).filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]), mx = Math.max(1,...sorted.map(r=>r[1])), rh=22, W=440;
+    let g=''; sorted.forEach((r,i)=>{ const y=6+i*rh, w=(W-190)*r[1]/mx; g += T(150,y+14,esc(r[0]).slice(0,24),{s:10.5,a:'end'}) + R(156,y+3,Math.max(1,w),rh-8,'var(--sun)','none',0,'rx="2"') + T(160+w,y+14,fmt(r[1])+' Wh',{s:10,c:'var(--ink2)'}); });
+    q('s-chart').innerHTML = S(W, Math.max(40,sorted.length*rh+10), g, 'Daily energy per appliance');
+  };
+  q('s-add').addEventListener('click', () => { rows.push(['New item',100,1,1]); table(); calc(); });
+  q('s-reset').addEventListener('click', () => { rows.splice(0,rows.length,...LOADS0.map(r=>r.slice())); table(); calc(); });
+  q('s-city').addEventListener('input', () => { q('s-psh').value = CITIES[+q('s-city').value][2]; calc(); });
+  ['s-psh','s-days','s-dod','s-der','s-over','s-pw'].forEach(id => q(id).addEventListener('input', calc));
+  table(); calc();
+};
+// ---------- Rain tank tool ----------
+const BNE_RAIN = [159,158,140,92,73,68,57,45,45,75,97,133]; // long-term monthly averages, Brisbane (mm)
+const BNE_SUM = BNE_RAIN.reduce((a,b)=>a+b,0);
+function rainSim(area, annual, runoff, people, lpd, cap){
+  const rain = BNE_RAIN.map(r => r*annual/BNE_SUM);
+  let lvl = cap/2, out = [];
+  for(let y=0;y<3;y++){ out = []; rain.forEach((r,i)=>{ const inflow = area*r*runoff, dem = people*lpd*MDAYS[i]; let next = lvl + inflow - dem, short = 0; if(next<0){ short = -next; next = 0; } if(next>cap) next = cap; lvl = next; out.push({inflow, dem, lvl, short}); }); }
+  return out;
+}
+Tools.rain = el => {
+  el.innerHTML = `<h3>Rain tank</h3><p>Check whether the roof can supply the cabin, and how big a tank carries you through the dry months.</p>
+  <div class="fields">
+   <label class="field"><span class="lab">Place (sets rainfall)</span><select id="r-city">${CITIES.map((c,i)=>`<option value="${i}"${c[0]==='Brisbane'?' selected':''}>${c[0]} · ${fmt(c[3])} mm</option>`).join('')}</select></label>
+   <label class="field"><span class="lab">Annual rainfall (mm)</span><input type="number" id="r-rain" value="1150" min="100" max="4000" step="10"></label>
+   <label class="field"><span class="lab">Roof catchment (m²)</span><input type="number" id="r-area" value="48.6" min="5" max="1000" step="0.1"></label>
+   <label class="field"><span class="lab">Runoff factor</span><input type="number" id="r-run" value="0.8" min="0.3" max="0.95" step="0.05"></label>
+   <label class="field"><span class="lab">People</span><input type="number" id="r-ppl" value="2" min="1" max="10" step="1"></label>
+   <label class="field"><span class="lab">Litres per person per day</span><input type="number" id="r-lpd" value="120" min="20" max="400" step="5"></label>
+   <label class="field"><span class="lab">Tank size (L)</span><input type="number" id="r-cap" value="22500" min="1000" max="300000" step="500"></label>
+  </div>
+  <div class="out" id="r-out"></div><p class="note" id="r-msg"></p>
+  <div class="svgbox" id="r-chart"></div>
+  <p class="note">Monthly balance using the long-term Brisbane rainfall pattern, scaled to your annual figure, run until it settles. Real droughts are worse than averages, so tank designers use daily records from the Bureau of Meteorology. The default roof is this cabin: 8.1 × 6.0 m including eaves.</p>`;
+  const q = id => el.querySelector('#'+id), n = id => Math.max(0, +q(id).value || 0);
+  const calc = () => {
+    const area=n('r-area'), annual=n('r-rain'), run=n('r-run'), ppl=Math.max(1,n('r-ppl')), lpd=n('r-lpd'), cap=Math.max(100,n('r-cap'));
+    const sim = rainSim(area, annual, run, ppl, lpd, cap), yieldL = area*annual*run, demand = ppl*lpd*365, shortM = sim.filter(m=>m.short>0).length, low = Math.min(...sim.map(m=>m.lvl));
+    let need = null; if(yieldL >= demand){ for(let c=2500;c<=400000;c+=2500){ if(rainSim(area,annual,run,ppl,lpd,c).every(m=>m.short===0)){ need=c; break; } } }
+    q('r-out').innerHTML = kv(fmt(yieldL)+' L','Roof yield per year') + kv(fmt(demand)+' L','Use per year') + kv(fmt(yieldL/365)+' L','Yield per day') + kv(Math.round(100*yieldL/Math.max(1,demand))+'%','Yield ÷ use') + kv(shortM+' of 12','Months running dry') + kv(fmt(low)+' L','Lowest tank level');
+    q('r-msg').innerHTML = yieldL < demand ? `<b>The roof can't keep up:</b> a year's rain on ${fmt(area,1)} m² gives less than you use, so no tank size fixes it. Add catchment (verandah, shed) or cut use; ${fmt(yieldL/ppl/365)} L per person per day balances.` : need ? `<b>Tank size that rides through the average year:</b> about ${fmt(need)} L. Add a margin for dry years.` : 'Use is close to supply; even a very large tank struggles.';
+    const W=460, x0=50, ch=110, bw=(W-x0-10)/12, mx=Math.max(...sim.map(m=>Math.max(m.inflow,m.dem)),1);
+    let g=''; [0,0.5,1].forEach(v=>{ const y=14+ch-v*ch; g+=L(x0,y,W-6,y,'var(--line)',1)+T(x0-6,y+4,fmt(v*mx/1000)+'k',{s:9.5,a:'end',c:'var(--ink2)'}); });
+    sim.forEach((m,i)=>{ const x=x0+i*bw+3, hI=m.inflow/mx*ch, hD=m.dem/mx*ch; g += R(x,14+ch-hI,bw/2-3,hI,'var(--water)','none',0,'rx="2"') + R(x+bw/2-2,14+ch-hD,bw/2-3,hD,'var(--galv)','none',0,'rx="2"') + T(x+bw/2-3,14+ch+13,MONTHS[i],{s:9.5,a:'middle',c:'var(--ink2)'}); });
+    const y2=170, h2=70; g += T(x0,y2-6,'Tank level, end of month (% full)',{s:10,c:'var(--ink2)'}) + L(x0,y2+h2,W-6,y2+h2,'var(--line)',1) + L(x0,y2,W-6,y2,'var(--line)',1) + T(x0-6,y2+4,'100%',{s:9.5,a:'end',c:'var(--ink2)'}) + T(x0-6,y2+h2+4,'0',{s:9.5,a:'end',c:'var(--ink2)'});
+    const pts = sim.map((m,i)=>`${x0+i*bw+bw/2},${y2+h2-m.lvl/cap*h2}`).join(' ');
+    g += `<polyline points="${pts}" fill="none" stroke="var(--teal)" stroke-width="2.5"/>` + sim.map((m,i)=>C(x0+i*bw+bw/2,y2+h2-m.lvl/cap*h2,3.2,m.short?'var(--bad)':'var(--teal)','none',0)).join('');
+    g += R(x0,252,10,10,'var(--water)','none',0)+T(x0+14,261,'rain into tank',{s:10}) + R(x0+110,252,10,10,'var(--galv)','none',0)+T(x0+124,261,'water used',{s:10}) + C(x0+220,257,4,'var(--bad)','none',0)+T(x0+228,261,'ran dry that month',{s:10});
+    q('r-chart').innerHTML = S(W,270,g,'Monthly rain, use and tank level');
+  };
+  q('r-city').addEventListener('input', () => { q('r-rain').value = CITIES[+q('r-city').value][3]; calc(); });
+  ['r-rain','r-area','r-run','r-ppl','r-lpd','r-cap'].forEach(id => q(id).addEventListener('input', calc));
+  calc();
+};
+
+// ---------- Plans: floor plan with layers, section, elevation ----------
+const Plans = {};
+const pxm = x => 110 + x*70, pym = y => 100 + y*70;
+const I = (txt, inner) => `<g data-i="${esc(txt)}" tabindex="0" style="cursor:pointer">${inner}</g>`;
+Plans.plan = on => {
+  const X=pxm, Y=pym; let g='';
+  if(on.shade){ g += `<rect x="${X(-0.45)}" y="${Y(-0.9)}" width="${8.1*70}" height="${6*70}" fill="var(--ink)" opacity=".06"/>` + R(X(-0.45),Y(-0.9),8.1*70,6*70,'none','var(--ink2)',1.2,'stroke-dasharray="6 4"');
+    g += I('900 mm eaves on the north and south. At Brisbane noon they shade the north glass from about the September equinox to the March equinox, and still let low winter sun in.', R(X(0),Y(-0.9),7.2*70,0.9*70,'url(#hatch)','none',0,'opacity=".5"') + T(X(3.6),Y(-0.45)+4,'900 eave: shades north glass in summer',{s:11,a:'middle',w:800}));
+    g += T(X(3.6),Y(4.65)+4,'900 eave (south)',{s:11,a:'middle',c:'var(--ink2)'}) + T(X(-0.22),Y(2.1),'450',{s:10,a:'middle',c:'var(--ink2)'}); }
+  g += R(X(0),Y(0),7.2*70,4.2*70,'var(--sheet)','none',0);
+  // fixtures
+  g += I('Bedroom 3.0 × 2.4 m: north window for winter sun, ceiling fan, two power points.', R(X(0.15),Y(0.3),1.6*70,1.9*70,'var(--sheet2)','var(--ink2)',1,'rx="4"') + T(X(0.95),Y(1.3),'bed',{s:10,a:'middle',c:'var(--ink2)'}));
+  g += I('Shower 900 × 900: fully waterproofed floor, walls to 1800 mm.', R(X(0.1),Y(3.2),0.9*70,0.9*70,'none','var(--ink2)',1) + L(X(0.1),Y(3.2),X(1.0),Y(4.1),'var(--ink2)',.8));
+  g += I('Toilet.', `<ellipse cx="${X(1.5)}" cy="${Y(3.85)}" rx="11" ry="15" fill="none" stroke="var(--ink2)" stroke-width="1"/>`);
+  g += I('Vanity basin.', R(X(0.3),Y(2.48),0.7*70,0.45*70,'none','var(--ink2)',1,'rx="3"'));
+  g += I('Laundry nook: washing machine, shares the plumbing wall with the bathroom and kitchen.', R(X(2.2),Y(3.45),0.65*70,0.65*70,'none','var(--ink2)',1) + C(X(2.525),Y(3.775),12,'none','var(--ink2)',1));
+  g += I('Kitchen bench 2.4 m with sink under the south window, induction cooktop and rangehood.', R(X(3.0),Y(3.6),2.4*70,0.6*70,'var(--sheet2)','var(--ink2)',1) + R(X(4.5),Y(3.68),0.6*70,0.42*70,'none','var(--ink2)',1,'rx="4"') + R(X(3.3),Y(3.68),0.6*70,0.45*70,'none','var(--ink2)',1) + C(X(3.45),Y(3.82),5,'none','var(--ink2)',.8)+C(X(3.75),Y(3.82),5,'none','var(--ink2)',.8));
+  g += I('Fridge space with its own power point.', R(X(5.5),Y(3.5),0.7*70,0.65*70,'none','var(--ink2)',1));
+  // rooms
+  [['BEDROOM',1.5,0.45],['BATH',0.7,2.75+0.25],['LDRY',2.55,2.75],['KITCHEN',4.2,3.35],['LIVING',5.4,1.2]].forEach(([s,x,y])=>{ g += T(X(x),Y(y),s,{s:11,a:'middle',w:800,c:'var(--ink2)'}); });
+  // walls
+  const wall = (x1,y1,x2,y2,w=7) => L(X(x1),Y(y1),X(x2),Y(y2),'var(--ink)',w);
+  g += wall(0,0,7.2,0)+wall(7.2,0,7.2,4.2)+wall(7.2,4.2,0,4.2)+wall(0,4.2,0,0) + `<rect x="${X(0)-3.5}" y="${Y(0)-3.5}" width="7" height="7" fill="var(--ink)"/>`;
+  g += wall(3.0,0,3.0,1.5,4)+wall(3.0,2.3,3.0,2.4,4)+wall(0,2.4,3.0,2.4,4)+wall(2.1,2.4,2.1,2.6,4)+wall(2.1,3.4,2.1,4.2,4);
+  const win = (x1,y1,x2,y2,txt) => { const h = y1===y2; const r = h ? R(X(x1),Y(y1)-4,(x2-x1)*70,8,'var(--sheet)','none',0)+L(X(x1),Y(y1)-1.5,X(x2),Y(y1)-1.5,'var(--water)',1.2)+L(X(x1),Y(y1)+1.5,X(x2),Y(y1)+1.5,'var(--water)',1.2) : R(X(x1)-4,Y(y1),8,(y2-y1)*70,'var(--sheet)','none',0)+L(X(x1)-1.5,Y(y1),X(x1)-1.5,Y(y2),'var(--water)',1.2)+L(X(x1)+1.5,Y(y1),X(x1)+1.5,Y(y2),'var(--water)',1.2); g += I(txt, r); };
+  win(0.75,0,1.95,0,'Bedroom window 1200 × 1200, sill 900, head 2100, under the north eave.');
+  win(3.9,0,6.3,0,'Sliding door 2400 × 2100 to the north deck. The eave shades it in summer.');
+  win(4.2,4.2,5.4,4.2,'Kitchen window 1200 wide, sill above the bench.');
+  win(0,3.2,0,3.7,'Small high bathroom window on the west wall, obscure glass.');
+  win(7.2,1.2,7.2,2.0,'Small east window, 800 wide: east glass kept small because low morning sun gets under eaves.');
+  const door = (x,y,w,dir) => { g += I('Internal door.', (dir==='v'? R(X(x)-3,Y(y),6,w*70,'var(--sheet)','none',0)+P(`M${X(x)} ${Y(y)} A${w*70} ${w*70} 0 0 1 ${X(x)+w*70} ${Y(y)+w*70}`,'none','var(--ink2)',1,'stroke-dasharray="3 3"')+L(X(x),Y(y),X(x)+w*70,Y(y),'var(--ink2)',1.2) : '')); };
+  door(3.0,1.5,0.8,'v'); door(2.1,2.6,0.8,'v');
+  // layers
+  if(on.elec){ const E='var(--elec)';
+    const light = (x,y,t) => I(t||'LED ceiling light (about 7 W).', C(X(x),Y(y),7,'var(--sheet)',E,1.5)+L(X(x)-5,Y(y)-5,X(x)+5,Y(y)+5,E,1.2)+L(X(x)+5,Y(y)-5,X(x)-5,Y(y)+5,E,1.2));
+    g += light(1.0,3.3) + light(2.55,3.0) + light(4.2,3.25) + light(5.1,-0.45,'Deck light under the eave.');
+    const fan = (x,y) => I('Ceiling fan with light. Fans make warm days feel several degrees cooler.', C(X(x),Y(y),11,'var(--sheet)',E,1.5)+T(X(x),Y(y)+4,'F',{s:11,a:'middle',w:800,c:E}));
+    g += fan(1.5,1.1) + fan(5.2,1.7);
+    const sa = (x,y) => I('Smoke alarm: photoelectric to AS 3786-2014, hardwired and interconnected.', C(X(x),Y(y),9,'var(--sun-soft)',E,1.5)+T(X(x),Y(y)+3.5,'SA',{s:8,a:'middle',w:800}));
+    g += sa(2.4,0.6) + sa(3.6,1.95);
+    const gpo = (x,y,t) => I(t||'Double power point.', R(X(x)-6,Y(y)-4,12,8,E,'var(--ink)',.8));
+    g += gpo(0.12,0.35,'Bedside power point.')+gpo(2.0,0.12)+gpo(3.6,4.08,'Kitchen bench power point.')+gpo(5.25,4.08,'Kitchen bench power point.')+gpo(5.85,4.08,'Fridge power point.')+gpo(2.55,4.08,'Washing machine power point.')+gpo(7.08,3.0)+gpo(3.12,0.6)+gpo(1.15,2.52,'Vanity power point, kept out of the shower zones.');
+    g += I('Exhaust fan ducted to outside, at least 25 L/s.', R(X(0.45)-8,Y(2.95)-8,16,16,'var(--sheet)',E,1.4)+T(X(0.45),Y(2.95)+3,'EF',{s:7.5,a:'middle',w:800,c:E}));
+    g += I('Rangehood ducted outside, at least 40 L/s.', R(X(3.6)-9,Y(3.6)-14,18,10,'var(--sheet)',E,1.4)+T(X(3.6),Y(3.6)-6,'RH',{s:7,a:'middle',w:800,c:E}));
+    g += I('Main switchboard: main switch and an RCBO for each circuit.', R(X(2.3),Y(4.2)-16,0.5*70,10,'var(--sun-soft)','var(--ink)',1.2)+T(X(2.55),Y(4.2)-21,'SB',{s:9,a:'middle',w:800}));
+    g += I('Inverter-charger and LFP battery on the shaded south wall, clear of windows, doors and the hot water unit (AS/NZS 5139).', R(X(0.2),Y(4.2)+8,1.0*70,16,'var(--ok-soft)','var(--ink)',1.2)+T(X(0.7),Y(4.2)+20,'INV + BATT',{s:9,a:'middle',w:800}));
+    g += I('Future meter box on the west wall, with heavy-duty consumer mains conduit laid to the boundary.', R(X(0)-24,Y(2.55),14,22,'none','var(--ink)',1.2,'stroke-dasharray="3 2"')+T(X(0)-17,Y(2.55)-5,'M',{s:10,a:'middle',w:800})+P(`M${X(0)-17} ${Y(2.55)+22} L${X(0)-17} ${Y(5.8)}`,'none',E,2,'stroke-dasharray="6 4"'));
+    g += P(`M${X(0.7)} ${Y(4.2)+8} L${X(0.7)} ${Y(4.2)} L${X(2.3)} ${Y(4.2)-11}`,'none',E,1.5,'stroke-dasharray="4 3"'); }
+  if(on.plumb){ const Wc='var(--water)', Hc='var(--hot)', Tc='var(--warn)';
+    g += I('Rainwater tank beside the west wall, fed by all four downpipes.', C(X(-1.25),Y(3.0),0.55*70,'var(--sheet2)',Wc,2)+T(X(-1.25),Y(3.0)+4,'TANK',{s:10,a:'middle',w:800,c:Wc}));
+    g += I('Pump, sediment and carbon filters and UV steriliser.', R(X(-1.05),Y(3.75),0.45*70,0.3*70,'var(--sheet)',Wc,1.5)+T(X(-0.83),Y(3.75)+15,'P',{s:10,a:'middle',w:800,c:Wc}));
+    g += I('Cold water to every fixture.', P(`M${X(-0.6)} ${Y(3.9)} L${X(0.05)} ${Y(3.9)} L${X(0.05)} ${Y(4.05)} L${X(5.0)} ${Y(4.05)} M${X(0.65)} ${Y(4.05)} L${X(0.65)} ${Y(2.6)} M${X(1.5)} ${Y(4.05)} L${X(1.5)} ${Y(3.95)}`,'none',Wc,2.2));
+    g += I('Heat pump water heater outside the laundry nook, close to the bathroom and kitchen.', C(X(2.6),Y(4.2)+22,13,'var(--sheet)',Hc,2)+T(X(2.6),Y(4.2)+26,'HW',{s:9,a:'middle',w:800,c:Hc}));
+    g += I('Hot water straight to the kitchen sink.', P(`M${X(2.8)} ${Y(4.2)+16} L${X(4.8)} ${Y(4.2)+8} L${X(4.8)} ${Y(4.1)}`,'none',Hc,2.2));
+    g += I('Tempering valve: bathroom hot water limited to 50 °C.', C(X(2.2),Y(4.2)+18,6,'var(--sheet)',Tc,2) + P(`M${X(2.13)} ${Y(4.2)+18} L${X(0.55)} ${Y(4.2)+30}`,'none',Tc,2.2,'stroke-dasharray="1 0"')); }
+  if(on.drain){ const Dc='var(--waste)';
+    g += I('Sanitary drain under the floor, 100 mm, falling at 1:60 or more toward the outlet.', P(`M${X(0.55)} ${Y(3.65)} L${X(0.55)} ${Y(3.97)} L${X(5.6)} ${Y(3.97)} L${X(5.6)} ${Y(4.75)} L${X(6.9)} ${Y(5.6)}`,'none',Dc,3.2) + P(`M${X(0.65)} ${Y(2.7)} L${X(0.65)} ${Y(3.97)} M${X(1.5)} ${Y(3.85)} L${X(1.5)} ${Y(3.97)} M${X(2.5)} ${Y(3.8)} L${X(2.5)} ${Y(3.97)} M${X(4.8)} ${Y(3.88)} L${X(4.8)} ${Y(3.97)}`,'none',Dc,2.2));
+    g += I('Vent stack through the roof keeps the traps sealed.', C(X(2.05),Y(3.97),7,'var(--sheet)',Dc,2)+T(X(2.05),Y(3.97)+3.5,'V',{s:8,a:'middle',w:800,c:Dc}));
+    g += I('Inspection opening for rodding the drain.', R(X(5.6)-6,Y(4.55)-6,12,12,'var(--sheet)',Dc,2)+T(X(5.6)+10,Y(4.55)+4,'IO',{s:10,w:800,c:Dc}));
+    g += I('Overflow relief gully: below the lowest fixture so a blockage overflows outside.', C(X(6.1),Y(4.92),7,'var(--galv)',Dc,2)+T(X(6.1)+10,Y(4.92)+4,'ORG',{s:10,w:800,c:Dc}));
+    g += I('To the septic and trench now; a capped junction lets a plumber turn it to the sewer later.', A(X(6.6),Y(5.4),X(6.95),Y(5.65),Dc,2)+T(X(6.6),Y(5.85),'septic now · sewer later',{s:10,a:'middle',c:Dc})); }
+  if(on.solar){ const Pc='var(--dc)';
+    g += R(X(-0.45),Y(-0.9),8.1*70,6*70,'none','var(--galv)',1.5) + L(X(-0.45),Y(2.1),X(7.65),Y(2.1),'var(--galv)',1.2,'8 4') + T(X(7.6),Y(2.1)-5,'ridge',{s:9.5,a:'end',c:'var(--ink2)'});
+    let pv=''; for(let r=0;r<2;r++) for(let i=0;i<4;i++){ const x=0.05+i*1.78, y=-0.15+r*1.06; pv += R(X(x),Y(y),1.76*70,1.044*70,'var(--dc)','var(--ink)',1,'opacity=".55"'); }
+    g += I('8 × 440 W panels (about 3.5 kW) on the north roof plane, 2 rows of 4, kept back from the roof edges.', pv);
+    g += I('Gutters on the north and south eaves, falling at least 1:500.', L(X(-0.45),Y(-0.9),X(7.65),Y(-0.9),'var(--galv)',4)+L(X(-0.45),Y(5.1),X(7.65),Y(5.1),'var(--galv)',4));
+    let dp=''; [[-0.45,-0.9],[7.65,-0.9],[-0.45,5.1],[7.65,5.1]].forEach(([x,y])=>{ dp += C(X(x),Y(y),6,'var(--sheet)','var(--ink)',1.5); });
+    g += I('Downpipes at each corner, no more than 12 m apart, piped to the tank.', dp + P(`M${X(-0.45)} ${Y(-0.9)} L${X(-1.25)} ${Y(2.45)} M${X(-0.45)} ${Y(5.1)} L${X(-1.25)} ${Y(3.55)} M${X(7.65)} ${Y(5.1)} L${X(7.65)} ${Y(5.35)} L${X(-1.0)} ${Y(5.35)} L${X(-1.2)} ${Y(3.55)}`,'none','var(--water)',1.5,'stroke-dasharray="5 4"'));
+    g += I('PV cable from the array to the inverter, in conduit through the roof space, with DC isolation.', P(`M${X(0.4)} ${Y(0.4)} L${X(0.4)} ${Y(4.25)}`,'none',Pc,2,'stroke-dasharray="7 4"')); }
+  g += A(X(7.6),Y(-0.3),X(7.6),Y(-0.85)) + T(X(7.6),Y(-0.1),'N',{s:13,a:'middle',w:800});
+  g += L(X(0),Y(5.95),X(2),Y(5.95),'var(--ink)',2) + L(X(0),Y(5.88),X(0),Y(6.02),'var(--ink)',2) + L(X(1),Y(5.9),X(1),Y(6.0),'var(--ink)',1.5) + L(X(2),Y(5.88),X(2),Y(6.02),'var(--ink)',2) + T(X(1),Y(5.95)-6,'2 m',{s:10,a:'middle'});
+  g += DIM(X(0),Y(-1.1)+2,X(7.2),Y(-1.1)+2,'7200') + DIM(X(7.65)+14,Y(0),X(7.65)+14,Y(4.2),'4200');
+  return S(680,530,g,'Floor plan of the cabin with service layers');
+};
+Plans.section = () => {
+  const k=70, xN=170, xS=170+4.2*k, xc=(xN+xS)/2, gy=395, fy=333, yT=fy-2.7*k, apex=yT-0.87*k, ov=0.9*k, edge=yT+0.9*k*0.414;
+  let g = R(0,gy,680,35,'var(--ground)','none',0);
+  for(const x of [xN+4,xc,xS-4]){ g += R(x-12,gy+4,24,22,'url(#hatch)','var(--ink2)',1,'stroke-dasharray="3 2"') + R(x-3,gy-31,6,31,'var(--galv)','var(--ink)',1) + P(`M${x-10} ${gy-31} L${x+10} ${gy-31} L${x+7} ${gy-27} L${x-7} ${gy-27}z`,'var(--sun)','var(--ink)',.8) + R(x-6,gy-45,12,14,'var(--timber)','var(--ink)',1); }
+  g += R(xN,gy-58,xS-xN,13,'var(--timber)','var(--ink)',1) + R(xN,fy-2,xS-xN,4,'var(--fibro)','var(--ink)',1);
+  g += R(xN,yT,8,fy-yT,'var(--fibro)','var(--ink)',1.2) + R(xS-8,yT,8,fy-yT,'var(--fibro)','var(--ink)',1.2);
+  g += R(xN+1,fy-2.1*k,6,2.1*k,'var(--sky)','var(--ink)',1) + R(xS-7,fy-2.1*k,6,1.0*k,'var(--sky)','var(--ink)',1);
+  g += R(xS-8-0.6*k,fy-0.9*k,0.6*k,0.9*k,'var(--sheet2)','var(--ink)',1) + T(xS-8-0.3*k,fy-0.45*k+4,'bench',{s:9,a:'middle',c:'var(--ink2)'});
+  g += R(xN+8,yT-12,xS-xN-16,12,'var(--sun-soft)','none',0,'rx="4"') + L(xN,yT,xS,yT,'var(--timber)',4);
+  g += P(`M${xN-ov} ${edge} L${xc} ${apex} L${xS+ov} ${edge}`,'none','var(--timber)',5) + P(`M${xN-ov-4} ${edge-7} L${xc} ${apex-7} L${xS+ov+4} ${edge-7}`,'none','var(--roof)',4);
+  g += L(xN-ov,edge,xN,edge,'var(--ink)',1.5) + L(xS,edge,xS+ov,edge,'var(--ink)',1.5) + R(xN-ov-8,edge-6,8,16,'var(--galv)','var(--ink)',1) + R(xS+ov,edge-6,8,16,'var(--galv)','var(--ink)',1);
+  const t1=0.25, t2=0.85, sx1=(xN-ov)+(xc-(xN-ov))*t1, sy1=edge-13+(apex-edge)*t1, sx2=(xN-ov)+(xc-(xN-ov))*t2, sy2=edge-13+(apex-edge)*t2;
+  g += L(sx1,sy1,sx2,sy2,'var(--dc)',7);
+  g += L(xc,yT,xc,yT+14,'var(--ink)',1.5) + P(`M${xc-26} ${yT+16} L${xc+26} ${yT+16}`,'none','var(--ink)',3);
+  const fx=xN-ov; const sR=(deg,c,lab)=>{ const t=Math.tan(deg*rad); let ex, ey; const wallHit = edge+ov*t; if(wallHit<fy){ ex=xN+8+(fy-wallHit)/t; ey=fy; g += L(fx-(edge-30)/t,30,xN,wallHit,c,2,'6 3') + L(xN,wallHit,ex,ey,c,2,'6 3'); } else { ex=fx+(gy-edge)/t; ey=gy; g += L(fx-(edge-30)/t,30,ex,ey,c,2,'6 3'); } g += T(Math.max(8,fx-(edge-30)/t)+4,26,lab,{s:10.5,c}); };
+  sR(39,'var(--water)','winter noon 39°'); sR(86,'var(--hot)','summer noon 86°');
+  const lab=(x,y,tx,ty,s,a)=>{ g += CO(x,y,tx,ty,s,a||'start'); };
+  lab(sx2-20,sy2-8,330,40,'PV panels on the north plane'); lab(xc+60,apex+30,420,64,'Corrugated steel + roof blanket'); lab(xc+80,yT-6,520,120,'Ceiling batts'); lab(xS-4,fy-150,560,170,'Fibre cement on wall wrap'); lab(xS+ov,edge+4,600,214,'Gutter → tank'); lab(xc+8,yT+16,420,236,'Ceiling fan'); lab(xS-4,gy-29,560,300,'Steel stump + ant cap'); lab(xc,gy-52,420,330,'Bearer and joists');
+  g += DIM(xN,gy+40,xS,gy+40,'4200') + DIM(xN+30,yT,xN+30,fy,'2700',{}) + DIM(xN-ov,edge+24,xN,edge+24,'900') + DIM(xS+ov+24,gy-31,xS+ov+24,gy,'≥ 400');
+  g += T(xN-ov,gy+28,'NORTH',{s:10,c:'var(--ink2)'}) + T(xS+ov,gy+28,'SOUTH',{s:10,a:'end',c:'var(--ink2)'}) + T(xc,apex-20,'22.5°',{s:10,a:'middle',c:'var(--ink2)'});
+  return S(680,450,g,'North-south section through the living room');
+};
+// ---------- APP: state, shell, path ----------
+D.heroFull = () => D.hero(11);
+const KEY = 'stumps2solar.v1';
+const store = { get(){ try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch(e){ return null; } }, set(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} } };
+const st = Object.assign({xp:0, done:{}, streak:0, last:'', zoom:1, theme:'system', unlock:false}, store.get() || {});
+const save = () => store.set(st);
+const $ = id => document.getElementById(id);
+const LESSONS = [];
+UNITS.forEach((u,ui) => u.lessons.forEach((l,li) => LESSONS.push(Object.assign({}, l, {unit:u, ui, li}))));
+const STAGES = ['Bare site','Set out','Stumps and bearers','Floor and wall frames','Roof and eaves','Fibro cladding','Windows and doors','Rainwater','Drains and hot water','Solar and battery','Wired and lit','Mains-ready'];
+const ICON = {
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  zoom:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg>'
+};
+const today = () => { const d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
+const yesterday = () => { const d = new Date(Date.now()-864e5); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
+const unitDone = ui => UNITS[ui].lessons.every(l => st.done[l.id]);
+const stage = () => { let s=0; while(s<UNITS.length && unitDone(s)) s++; return s; };
+const nextIdx = () => { const i = LESSONS.findIndex(l => !st.done[l.id]); return i<0 ? LESSONS.length : i; };
+const unlocked = i => st.unlock || i <= nextIdx();
+let toastT;
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,2400); }
+
+// theme, zoom, fullscreen
+function applyTheme(){ const r=document.documentElement; if(st.theme==='system') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', st.theme); }
+function isDark(){ return st.theme==='dark' || (st.theme==='system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+function applyZoom(){ st.zoom = Math.min(1.6, Math.max(0.8, Math.round(st.zoom*100)/100)); document.documentElement.style.setProperty('--z', st.zoom); $('zlab').textContent = Math.round(st.zoom*100)+'%'; const zs=$('pz'); if(zs){ zs.value = st.zoom; $('pzl').textContent = Math.round(st.zoom*100)+'%'; } }
+$('zin').onclick = () => { st.zoom += 0.1; applyZoom(); save(); };
+$('zout').onclick = () => { st.zoom -= 0.1; applyZoom(); save(); };
+$('theme').onclick = () => { st.theme = isDark() ? 'light' : 'dark'; applyTheme(); save(); const s=$('pth'); if(s) s.value=st.theme; };
+$('fs').onclick = () => {
+  const d = document, el = d.documentElement;
+  if(d.fullscreenElement || d.webkitFullscreenElement){ (d.exitFullscreen || d.webkitExitFullscreen).call(d); return; }
+  const req = el.requestFullscreen || el.webkitRequestFullscreen;
+  if(!req){ toast('Fullscreen isn\'t available in this view'); return; }
+  try { const p = req.call(el); if(p && p.catch) p.catch(()=>toast('Fullscreen isn\'t available in this view')); } catch(e){ toast('Fullscreen isn\'t available in this view'); }
+};
+
+// stats + hero + path
+function renderStats(){ $('xp').textContent = st.xp; $('streak').textContent = st.streak; }
+function renderHero(){
+  const s = stage(), n = LESSONS.filter(l=>st.done[l.id]).length, ni = nextIdx();
+  $('heroArt').innerHTML = D.hero(s);
+  $('stageLab').textContent = 'Stage '+s+' · '+STAGES[s];
+  $('pbar').style.width = (100*n/LESSONS.length)+'%';
+  $('plab').textContent = n+' of '+LESSONS.length+' lessons';
+  const b = $('goNext');
+  if(ni >= LESSONS.length){ b.textContent = 'Review: '+LESSONS[0].title; b.onclick = () => openLesson(0); }
+  else { const l = LESSONS[ni]; b.textContent = (n? 'Continue: ' : 'Start: ')+l.title; b.onclick = () => openLesson(ni); }
+}
+function renderPath(){
+  const ni = nextIdx(), off = [-64,0,64,0]; let h='';
+  UNITS.forEach((u,ui) => {
+    const first = LESSONS.findIndex(l => l.unit===u), locked = !unlocked(first), dn = u.lessons.filter(l=>st.done[l.id]).length;
+    h += `<section class="unit${locked?' ulocked':''}"><div class="uhead"><span class="ustamp">${String(ui+1).padStart(2,'0')}</span><div><h2>${u.title}</h2><p>${u.sub} · ${dn}/${u.lessons.length} done</p></div></div><div class="nodes">`;
+    u.lessons.forEach((l,li) => {
+      const gi = first+li, done = !!st.done[l.id], lock = !unlocked(gi), nx = gi===ni && !st.unlock || (st.unlock && gi===ni);
+      const x = off[(li + ui) % 4];
+      h += `<button class="node${done?' done':''}${lock?' locked':''}${nx&&!done?' next':''}" data-l="${gi}" style="transform:translateX(${x}px)" aria-label="${l.title}${lock?' (locked)':done?' (done)':''}">
+        <span class="dot">${lock?ICON.lock:done?ICON.check:(li+1)}${done&&st.done[l.id].n>1?`<span class="crowns num">×${st.done[l.id].n}</span>`:''}</span>
+        <span>${l.title}</span>${done?`<small>${st.done[l.id].best}% best</small>`:''}</button>`;
+    });
+    h += '</div></section>';
+  });
+  $('path').innerHTML = h;
+  $('path').querySelectorAll('.node').forEach(b => b.onclick = () => { const i=+b.dataset.l; if(!unlocked(i)){ toast('Finish the lessons before this one first'); return; } openLesson(i); });
+}
+function renderLearn(){ renderStats(); renderHero(); renderPath(); }
+
+// views + hash routing
+const VIEWS = ['learn','plans','tools','codes','prefs'], rendered = {};
+function show(v){
+  if(!VIEWS.includes(v)) v='learn';
+  VIEWS.forEach(x => { $('v-'+x).hidden = x!==v; });
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.view===v ? 'true':'false'));
+  if(!rendered[v]){ rendered[v]=true; ({plans:renderPlans, tools:renderTools, codes:renderCodes, prefs:renderPrefs}[v]||(()=>{}))(); }
+  if(v==='learn') renderLearn();
+}
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { if(location.hash.slice(1)!==t.dataset.view) location.hash = t.dataset.view; else show(t.dataset.view); window.scrollTo(0,0); });
+window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+
+// diagram modal
+let dz = 1;
+function openDiagram(svg, title){ dz = 1; $('dtitle').textContent = title || 'Diagram'; $('dview').innerHTML = svg; sizeDiagram(); $('dmodal').hidden = false; }
+function sizeDiagram(){ const s = $('dview').querySelector('svg'); if(s) s.style.width = (100*dz)+'%'; }
+$('dzi').onclick = () => { dz = Math.min(4, dz+0.5); sizeDiagram(); };
+$('dzo').onclick = () => { dz = Math.max(1, dz-0.5); sizeDiagram(); };
+$('dclose').onclick = () => { $('dmodal').hidden = true; };
+$('dmodal').addEventListener('click', e => { if(e.target.id==='dmodal') $('dmodal').hidden = true; });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ if(!$('dmodal').hidden) $('dmodal').hidden = true; else if(!$('lesson').hidden) closeLesson(); } });
+// ---------- APP: lesson engine ----------
+let LS = null;
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+const figHTML = (key, title) => D[key] ? `<div class="fig">${D[key]()}<button class="ib zoomit" data-zoom="${key}" aria-label="Enlarge diagram" title="Enlarge">${ICON.zoom}</button></div>` : '';
+function openLesson(i){
+  const l = LESSONS[i];
+  LS = { i, l, queue:[...l.cards.map(c=>({t:'card',c})), ...l.qs.map((q,qi)=>({t:'q',q,qi,tries:0}))], pos:0, first:0, retries:0, xp:0, seen:{} };
+  $('lesson').hidden = false; document.body.style.overflow = 'hidden';
+  renderStep();
+}
+function closeLesson(){ $('lesson').hidden = true; document.body.style.overflow = ''; LS = null; renderLearn(); }
+$('lclose').onclick = closeLesson;
+function setFoot(state, html, label, enabled){
+  const f = $('lfoot'); f.className = 'lfoot' + (state ? ' '+state : '');
+  $('fb').innerHTML = html || ''; const b = $('lbtn'); b.textContent = label; b.disabled = !enabled;
+}
+function renderStep(){
+  const s = LS.queue[LS.pos], c = $('lcontent'), l = LS.l;
+  $('lprog').style.width = (100*LS.pos/LS.queue.length)+'%'; $('lxp').textContent = LS.xp+' XP';
+  $('lbody').scrollTop = 0;
+  const kick = `<div class="kicker">Unit ${l.ui+1} · ${l.title}</div>`;
+  if(s.t==='card'){
+    c.innerHTML = kick + `<div class="card"><h2 class="qtitle">${s.c.h}</h2>${s.c.d?figHTML(s.c.d, s.c.h):''}${s.c.t}</div>` + (LS.pos===l.cards.length-1 ? `<div class="ref">Reference: ${l.ref}</div>` : '');
+    setFoot('', '', 'Continue', true); LS.check = null; LS.next = advance;
+  } else renderQ(s, c, kick);
+  c.querySelectorAll('[data-zoom]').forEach(b => b.onclick = () => openDiagram(D[b.dataset.zoom](), 'Diagram'));
+}
+function advance(){ LS.pos++; if(LS.pos >= LS.queue.length) finish(); else renderStep(); }
+$('lbtn').onclick = () => { if(!LS) return; if(LS.check){ const f = LS.check; LS.check = null; f(); } else if(LS.next) LS.next(); };
+document.addEventListener('keydown', e => {
+  if(!LS || $('lesson').hidden || !$('dmodal').hidden) return;
+  if(e.key==='Enter' && !$('lbtn').disabled && document.activeElement.tagName!=='BUTTON'){ e.preventDefault(); $('lbtn').click(); }
+  if(/^[1-9]$/.test(e.key) && document.activeElement.tagName!=='INPUT'){ const o = $('lcontent').querySelectorAll('.opts .opt:not([disabled])')[+e.key-1]; if(o) o.click(); }
+});
+function renderQ(s, c, kick){
+  const q = s.q; let ans = null; const ready = ok => { $('lbtn').disabled = !ok; };
+  c.innerHTML = kick + `<h2 class="qtitle">${q.q}</h2><div id="qa"></div>`;
+  const qa = c.querySelector('#qa');
+  setFoot('', s.tries ? '<span class="muted">Second try. You have got this.</span>' : '', 'Check', false);
+  const grade = (ok, reveal) => {
+    if(reveal) reveal(ok);
+    const gain = ok ? (s.tries ? 5 : 10) : 0; LS.xp += gain; $('lxp').textContent = LS.xp+' XP';
+    if(ok && !s.tries) LS.first++;
+    if(!ok){ s.tries++; LS.retries++; if(s.tries < 3) LS.queue.push(s); }
+    setFoot(ok?'ok':'bad', `<h4>${ok?'Correct':'Not quite'}${gain?` · +${gain} XP`:''}</h4><div>${q.e||''}</div>${!ok&&s.tries<3?'<div class="muted" style="margin-top:.2rem">This one comes back at the end.</div>':''}`, 'Continue', true);
+    LS.next = advance;
+  };
+  if(q.k==='mc' || q.k==='tf'){
+    const opts = q.k==='tf' ? [['True',true],['False',false]] : shuffle(q.o.map((o,i)=>[o,i]));
+    qa.innerHTML = `<div class="opts${q.k==='tf'?' tf':''}">${opts.map((o,i)=>`<button class="opt" data-k="${i}">${esc(o[0])}</button>`).join('')}</div>`;
+    const btns = qa.querySelectorAll('.opt');
+    btns.forEach(b => b.onclick = () => { btns.forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); ans = opts[+b.dataset.k][1]; ready(true); });
+    LS.check = () => { const ok = ans === q.a; grade(ok, () => btns.forEach(b => { b.disabled = true; const v = opts[+b.dataset.k][1]; if(v===q.a) b.classList.add('right'); else if(b.classList.contains('sel')) b.classList.add('wrong'); })); };
+  }
+  else if(q.k==='num'){
+    qa.innerHTML = `<div class="numin"><input id="numa" inputmode="decimal" autocomplete="off" aria-label="Your answer" placeholder="?"><span>${q.u||''}</span></div>`;
+    const inp = qa.querySelector('#numa'); setTimeout(()=>{ try{ inp.focus({preventScroll:true}); }catch(e){} }, 50);
+    inp.oninput = () => { const v = parseFloat(inp.value.replace(/[, $]/g,'')); ans = isNaN(v) ? null : v; ready(ans!==null); };
+    inp.onkeydown = e => { if(e.key==='Enter' && ans!==null){ e.preventDefault(); $('lbtn').click(); } };
+    LS.check = () => { const ok = Math.abs(ans - q.a) <= (q.tol||0) + 1e-9; inp.disabled = true; inp.style.borderColor = ok ? 'var(--ok)' : 'var(--bad)'; grade(ok, ok ? null : () => { qa.insertAdjacentHTML('beforeend', `<p class="muted">Answer: <b>${fmt(q.a, q.a%1?String(q.a).split('.')[1].length:0)} ${q.u||''}</b></p>`); }); };
+  }
+  else if(q.k==='ord'){
+    const pool = shuffle(q.o.map((o,i)=>[o,i])), picked = [];
+    const draw = () => {
+      qa.innerHTML = `<div class="lab">Your order</div><div class="ordl" id="ordl">${picked.length?picked.map((p,n)=>`<button class="opt" data-p="${n}"><b>${n+1}</b>${esc(p[0])}</button>`).join(''):'<span class="muted">Tap the steps below in order.</span>'}</div><div class="opts">${pool.filter(p=>!picked.includes(p)).map(p=>`<button class="opt" data-o="${p[1]}">${esc(p[0])}</button>`).join('')}</div>`;
+      qa.querySelectorAll('[data-o]').forEach(b => b.onclick = () => { picked.push(pool.find(p=>p[1]===+b.dataset.o)); draw(); });
+      qa.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { picked.splice(+b.dataset.p,1); draw(); });
+      ready(picked.length === q.o.length);
+    };
+    draw();
+    LS.check = () => { const ok = picked.every((p,n)=>p[1]===n); grade(ok, () => { qa.querySelectorAll('[data-p]').forEach((b,n)=>{ b.disabled = true; b.classList.add(picked[n][1]===n?'right':'wrong'); }); if(!ok) qa.insertAdjacentHTML('beforeend', `<p class="muted">Correct order: ${q.o.map((o,n)=>`<b>${n+1}</b> ${esc(o)}`).join(' → ')}</p>`); }); };
+  }
+  else if(q.k==='match'){
+    const L1 = shuffle(q.p.map((p,i)=>[p[0],i])), R1 = shuffle(q.p.map((p,i)=>[p[1],i]));
+    let selL = null, miss = 0, got = 0;
+    qa.innerHTML = `<div class="match"><div class="opts">${L1.map(p=>`<button class="opt" data-ml="${p[1]}">${esc(p[0])}</button>`).join('')}</div><div class="opts">${R1.map(p=>`<button class="opt" data-mr="${p[1]}">${esc(p[0])}</button>`).join('')}</div></div>`;
+    $('lbtn').textContent = 'Match all pairs'; ready(false);
+    qa.querySelectorAll('[data-ml]').forEach(b => b.onclick = () => { qa.querySelectorAll('[data-ml]').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); selL = +b.dataset.ml; });
+    qa.querySelectorAll('[data-mr]').forEach(b => b.onclick = () => {
+      if(selL===null){ toast('Pick an item on the left first'); return; }
+      const lb = qa.querySelector(`[data-ml="${selL}"]`);
+      if(+b.dataset.mr === selL){ lb.classList.remove('sel'); lb.classList.add('right','gone'); b.classList.add('right','gone'); selL = null; got++;
+        if(got === q.p.length){ const ok = miss===0; if(!ok){ s.tries++; } const gain = miss===0 ? 10 : 5; LS.xp += gain; if(miss===0) LS.first++; $('lxp').textContent = LS.xp+' XP';
+          setFoot(ok?'ok':'ok', `<h4>All matched · +${gain} XP</h4><div>${miss?miss+' wrong pick'+(miss>1?'s':'')+' along the way. ':''}${q.e||''}</div>`, 'Continue', true); LS.next = advance; } }
+      else { miss++; b.classList.add('wrong'); setTimeout(()=>b.classList.remove('wrong'), 450); }
+    });
+    LS.check = null;
+  }
+  else if(q.k==='tap'){
+    qa.innerHTML = `<div class="fig tapfig">${D[q.d]()}</div><p class="muted">Tap the part on the drawing, then Check.</p>`;
+    const svg = qa.querySelector('svg');
+    svg.addEventListener('click', e => { const g = e.target.closest('[data-hit]'); if(!g) return; svg.querySelectorAll('.picked').forEach(x=>x.classList.remove('picked')); g.classList.add('picked'); ans = g.dataset.hit; ready(true); });
+    LS.check = () => { const ok = ans === q.a; grade(ok, () => { const r = svg.querySelector(`[data-hit="${q.a}"]`); if(r){ r.classList.add('picked'); r.style.filter = 'drop-shadow(0 0 5px var(--ok))'; } }); };
+  }
+}
+function finish(){
+  const l = LS.l, nq = l.qs.length, acc = Math.round(100*LS.first/Math.max(1,nq)), wasDone = !!st.done[l.id], sBefore = stage();
+  const bonus = 10 + (acc===100 ? 5 : 0); LS.xp += bonus; st.xp += LS.xp;
+  const rec = st.done[l.id] || {n:0, best:0}; rec.n++; rec.best = Math.max(rec.best, acc); st.done[l.id] = rec;
+  const t = today(); if(st.last !== t){ st.streak = st.last === yesterday() ? st.streak+1 : 1; st.last = t; }
+  save(); renderStats();
+  const sAfter = stage(), up = sAfter > sBefore, nextI = nextIdx();
+  $('lprog').style.width = '100%';
+  $('lcontent').innerHTML = `<div class="donebox"><div class="big">${up?'STAGE UP':'DONE'}</div><h2 class="qtitle">${up? 'Stage '+sAfter+': '+STAGES[sAfter] : l.title+' complete'}</h2>
+    <div class="trophies">${kv('+'+LS.xp,'XP earned')}${kv(acc+'%','First-try accuracy')}${kv(st.streak+(st.streak===1?' day':' days'),'Streak')}</div>
+    ${up? `<div class="fig">${D.hero(sAfter)}</div><p>The cabin grows. ${sAfter>=UNITS.length?'It is finished, off-grid and ready for town services.':'Next up: '+UNITS[sAfter].title+'.'}</p>` : wasDone ? '<p>Practice round logged. Repeat lessons to keep the knowledge fresh.</p>' : ''}
+    <div class="ref">Reference: ${l.ref}</div></div>`;
+  setFoot('', '', nextI < LESSONS.length ? 'Next lesson' : 'Back to the path', true);
+  LS.check = null;
+  LS.next = () => { if(nextI < LESSONS.length && nextI !== LS.i) openLesson(nextI); else closeLesson(); };
+  $('lfoot').querySelector('.fb').innerHTML = `<button class="btn ghost" id="toPath">Back to the path</button>`;
+  $('toPath').onclick = closeLesson;
+}
+// ---------- APP: plans, tools, codes, preferences, start ----------
+function renderPlans(){
+  const el = $('v-plans'), on = {elec:true, plumb:false, drain:false, solar:false, shade:true};
+  el.innerHTML = `<div class="sub-tabs" role="group" aria-label="Drawing">
+    <button data-p="plan" aria-pressed="true">Floor plan</button><button data-p="section" aria-pressed="false">Section</button><button data-p="elev" aria-pressed="false">North elevation</button></div>
+    <div class="panel" id="planPane"></div>`;
+  const pane = el.querySelector('#planPane');
+  const lay = [['elec','Electrical','var(--elec)'],['plumb','Water and hot water','var(--water)'],['drain','Drainage','var(--waste)'],['solar','Roof, solar and gutters','var(--dc)'],['shade','Eave shade','var(--galv)']];
+  const draw = p => {
+    el.querySelectorAll('[data-p]').forEach(b => b.setAttribute('aria-pressed', b.dataset.p===p ? 'true':'false'));
+    if(p==='plan'){
+      pane.innerHTML = `<div class="row" style="justify-content:space-between"><div class="layers">${lay.map(([k,n,c])=>`<label><input type="checkbox" id="lay-${k}" data-k="${k}"${on[k]?' checked':''}><i style="background:${c}"></i>${n}</label>`).join('')}</div><button class="ib" id="planZoom" aria-label="Enlarge plan">${ICON.zoom}</button></div>
+        <div class="svgbox" id="planSvg"></div><div class="info" id="planInfo"><span class="muted">Tap anything on the plan for details. North is up; the cabin is 7.2 × 4.2 m with 900 mm eaves.</span></div>`;
+      const paint = () => { pane.querySelector('#planSvg').innerHTML = Plans.plan(on); hook(); };
+      const hook = () => pane.querySelectorAll('#planSvg [data-i]').forEach(g => { const f = () => { pane.querySelector('#planInfo').textContent = g.dataset.i; }; g.addEventListener('click', f); g.addEventListener('keydown', e => { if(e.key==='Enter') f(); }); });
+      pane.querySelectorAll('[data-k]').forEach(cb => cb.onchange = () => { on[cb.dataset.k] = cb.checked; paint(); });
+      pane.querySelector('#planZoom').onclick = () => openDiagram(Plans.plan(on), 'Floor plan');
+      paint();
+    } else if(p==='section'){
+      pane.innerHTML = `<div class="row" style="justify-content:space-between"><b>North–south section through the living room</b><button class="ib" id="secZoom" aria-label="Enlarge section">${ICON.zoom}</button></div><div class="svgbox">${Plans.section()}</div>
+        <p class="note">Winter noon sun (39°) passes under the 900 mm eave and reaches about 2 m into the room; summer noon sun (86°) lands outside the wall. The raised floor keeps at least 400 mm clear under the bearers for termite inspection.</p>`;
+      pane.querySelector('#secZoom').onclick = () => openDiagram(Plans.section(), 'Section');
+    } else {
+      pane.innerHTML = `<div class="row" style="justify-content:space-between"><b>North elevation, finished cabin</b><button class="ib" id="elZoom" aria-label="Enlarge elevation">${ICON.zoom}</button></div><div class="svgbox">${D.hero(11)}</div>
+        <p class="note">Panels on the north roof plane, eaves shading the north glass, tank on the west, vent pipe through the roof, and capped services to the boundary.</p>`;
+      pane.querySelector('#elZoom').onclick = () => openDiagram(D.hero(11), 'North elevation');
+    }
+  };
+  el.querySelectorAll('[data-p]').forEach(b => b.onclick = () => draw(b.dataset.p));
+  draw('plan');
+}
+function renderTools(){
+  const el = $('v-tools');
+  el.innerHTML = `<div class="sub-tabs" role="group" aria-label="Tool"><button data-t="eave" aria-pressed="true">Eave shade</button><button data-t="solar" aria-pressed="false">Solar sizer</button><button data-t="rain" aria-pressed="false">Rain tank</button></div>
+    <div class="panel tool" id="tool-eave"></div><div class="panel tool" id="tool-solar" hidden></div><div class="panel tool" id="tool-rain" hidden></div>`;
+  const made = {};
+  const pick = t => { ['eave','solar','rain'].forEach(x => { el.querySelector('#tool-'+x).hidden = x!==t; }); el.querySelectorAll('[data-t]').forEach(b => b.setAttribute('aria-pressed', b.dataset.t===t?'true':'false')); if(!made[t]){ made[t]=true; Tools[t](el.querySelector('#tool-'+t)); } };
+  el.querySelectorAll('[data-t]').forEach(b => b.onclick = () => pick(b.dataset.t));
+  pick('eave');
+}
+const CODES = [
+ ['NCC 2022 Volume Two + ABCB Housing Provisions','Rules for houses (Class 1): structure, weatherproofing, fire, health, energy','The whole design; your certifier checks against it. Queensland applies it with the Queensland Development Code.'],
+ ['QDC 4.1 Sustainable buildings','Queensland energy efficiency: 7 stars, with 5- and 6-star variations; Whole of Home 60/100','Energy rating of the cabin'],
+ ['AS 2870','Residential slabs and footings; site classes A to P','Pad footings'],
+ ['AS 1684.2','Timber framing, non-cyclonic: spans, bracing, tie-down','Floor, walls and roof framing'],
+ ['AS 4055','Wind loads for housing: N1–N6, C1–C4','Wind class for framing, windows, roofing'],
+ ['AS 3660.1','Termite management for new buildings','Ant caps, inspection clearance'],
+ ['AS 1562.1','Metal roof and wall cladding','Corrugated steel roof'],
+ ['AS 4200.1 / 4200.2','Pliable building membranes and underlays','Wall wrap and roof blanket'],
+ ['AS 3740','Waterproofing of domestic wet areas','Bathroom'],
+ ['AS 2047 · AS 1288','Windows and external glazed doors · Glass in buildings','Windows, safety glass'],
+ ['AS/NZS 3000:2018','The Wiring Rules','All electrical work'],
+ ['AS/NZS 4509','Stand-alone power systems','Off-grid design'],
+ ['AS/NZS 5033','Installation and safety of PV arrays','Panels and DC wiring'],
+ ['AS/NZS 5139:2019 (Amdt 1, Dec 2025)','Safety and location of battery systems','Battery placement'],
+ ['AS/NZS 4777.1 / 4777.2','Grid connection of inverters: installation; inverter requirements','Mains-ready inverter'],
+ ['AS 3786-2014','Smoke alarms','Photoelectric, interconnected alarms'],
+ ['AS/NZS 3500.1–3500.4','Water services, sanitary drainage, stormwater, heated water','All plumbing and drainage'],
+ ['AS/NZS 1547:2012','On-site domestic wastewater management','Septic or treatment system'],
+ ['Queensland Plumbing and Wastewater Code','Queensland plumbing and on-site sewage rules','Plumbing approval in Queensland'],
+ ['QECM / QEMM','Queensland Electricity Connection and Metering Manuals','Meter position and consumer mains']];
+const WHO = [
+ ['Set-out, stumps, framing, roof frame, cladding, windows, insulation, painting','Owner-builder (with a QBCC permit over $11,000) or a licensed builder','diy','Owner-builder OK'],
+ ['Building approval and stage inspections','Private building certifier','cert','Approval'],
+ ['Chemical termite treatment','Licensed pest controller','lic','Licensed'],
+ ['Fixed wiring, switchboard, hardwired smoke alarms','Licensed electrician','lic','Licensed'],
+ ['Solar and battery design and installation','Licensed electrician; SAA-accredited designer and installer for rebates','lic','Licensed'],
+ ['Water supply, sanitary plumbing, drainage, on-site sewage','Licensed plumber / drainer, with council plumbing approval','lic','Licensed'],
+ ['Removing more than 10 m² of asbestos','Certificate holder or licensed removalist','lic','Licensed'],
+ ['Grid connection','Electrician + distributor (Energex / Ergon) + your retailer','cert','Approval'],
+ ['Town water and sewer connection','Water authority + licensed plumber','cert','Approval']];
+const SOURCES = [
+ ['YourHome — Shading','https://www.yourhome.gov.au/passive-design/shading'],
+ ['QBCC — About owner-building','https://www.qbcc.qld.gov.au/ru/node/661'],
+ ['Queensland Government — Smoke alarms','https://www.qld.gov.au/emergency/safety/smoke-alarms'],
+ ['Asbestos (Queensland) — Tips when home renovating','https://www.asbestos.qld.gov.au/practical-guidance/homeowners-and-home-renovators/tips-when-home-renovating'],
+ ['WorkSafe Queensland — Saws for cutting fibre cement board','https://www.worksafe.qld.gov.au/safety-and-prevention/hazards/hazardous-exposures/handheld-power-saws-for-cutting-fibre-cement-board-with-a-blade-diameter-of-200mm-or-less'],
+ ['Business Queensland — Energy efficiency standards for houses','https://www.business.qld.gov.au/industries/building-property-development/building-construction/laws-codes-standards/sustainable-housing/energy-equivalence/7-star-houses'],
+ ['Clean Energy Regulator — Solar Accreditation Australia','https://cer.gov.au/news-and-media/news/2024/march/solar-accreditation-australia-announced-new-accreditation-scheme-operator'],
+ ['Energex — Queensland Electricity Connection Manual','https://www.energex.com.au/contractors/electrical-contractors/queensland-electricity-connection-manual-qecm'],
+ ['NSW Government — Changes to the battery standard (AS/NZS 5139 Amendment 1)','https://www.nsw.gov.au/housing-and-construction/compliance-and-regulation/electricians/electrical-standards-rules-and-notes/changes-to-battery-standard']];
+function renderCodes(){
+  $('v-codes').innerHTML = `<div class="panel"><h2 style="font-size:1.3rem;margin-bottom:.4rem">Who does what</h2><p class="muted" style="margin:0 0 .8rem">You can learn every system here. Some work is yours to do; some must be done or signed off by licensed people. Queensland rules shown.</p>
+    <div class="tablebox"><table><thead><tr><th>Work</th><th>Who</th><th></th></tr></thead><tbody>${WHO.map(w=>`<tr><td>${w[0]}</td><td>${w[1]}</td><td><span class="tag ${w[2]}">${w[3]}</span></td></tr>`).join('')}</tbody></table></div></div>
+    <div class="panel" style="margin-top:1rem"><h2 style="font-size:1.3rem;margin-bottom:.4rem">Standards and codes used in the course</h2>
+    <div class="tablebox"><table><thead><tr><th>Document</th><th>Covers</th><th>In this cabin</th></tr></thead><tbody>${CODES.map(c=>`<tr><td><b>${c[0]}</b></td><td>${c[1]}</td><td>${c[2]}</td></tr>`).join('')}</tbody></table></div>
+    <p class="note">Australian Standards are sold by Standards Australia's distributors; the NCC is free to read at ncc.abcb.gov.au. Editions and amendments change, so check the current version with your certifier.</p></div>
+    <div class="panel" style="margin-top:1rem"><h2 style="font-size:1.3rem;margin-bottom:.4rem">Official pages checked for this course</h2><ul>${SOURCES.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('')}</ul>
+    <p class="note">Stumps to Solar teaches how a small fibro cabin goes together. It is not a design for your site: your certifier, engineer and licensed trades make the final calls.</p></div>`;
+}
+function renderPrefs(){
+  $('v-prefs').innerHTML = `<div class="panel" style="max-width:40rem"><h2 style="font-size:1.3rem;margin-bottom:.8rem">Settings</h2>
+    <div class="fields" style="grid-template-columns:1fr">
+      <label class="field"><span class="lab">Text and drawing size <span id="pzl" class="num">100%</span></span><input type="range" id="pz" min="0.8" max="1.6" step="0.05"></label>
+      <label class="field"><span class="lab">Theme</span><select id="pth"><option value="system">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label class="row" style="gap:.5rem"><input type="checkbox" id="pun"> <span>Unlock every lesson (browse in any order)</span></label>
+    </div>
+    <div class="row" style="margin-top:1rem"><button class="btn ghost" id="pfs">Go fullscreen</button><button class="btn ghost" id="preset">Reset progress</button></div>
+    <p class="note">Progress is saved in this browser only. Fullscreen works in desktop browsers; some app views don't allow it.</p></div>`;
+  const z = $('pz'), th = $('pth'), un = $('pun'), rs = $('preset');
+  z.value = st.zoom; $('pzl').textContent = Math.round(st.zoom*100)+'%'; th.value = st.theme; un.checked = !!st.unlock;
+  z.oninput = () => { st.zoom = +z.value; applyZoom(); save(); };
+  th.onchange = () => { st.theme = th.value; applyTheme(); save(); };
+  un.onchange = () => { st.unlock = un.checked; save(); toast(un.checked ? 'All lessons unlocked' : 'Lessons unlock in order'); };
+  $('pfs').onclick = () => $('fs').click();
+  let armed = false;
+  rs.onclick = () => { if(!armed){ armed = true; rs.textContent = 'Tap again to erase all progress'; setTimeout(()=>{ armed=false; rs.textContent='Reset progress'; }, 4000); return; }
+    st.xp = 0; st.done = {}; st.streak = 0; st.last = ''; save(); armed = false; rs.textContent = 'Reset progress'; toast('Progress reset'); renderStats(); };
+}
+// start
+applyTheme(); applyZoom();
+if(window.matchMedia){ try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {}); } catch(e){} }
+show(location.hash.slice(1) || 'learn');
+</script>
+
+</body></html>
