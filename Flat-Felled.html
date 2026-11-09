@@ -1,0 +1,1358 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Flat-Felled</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500..900;1,6..96,500..900&family=Lexend:wght@300..700&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Layout: sticky stat bar + tabs; Learn = a shirt that assembles itself on a cutting mat above a path of buttons that get sewn on as you finish; lessons open full-screen. */
+:root{
+  --z:1;
+  --paper:#EDF0F6; --sheet:#FBFCFE; --sheet2:#E2E7F1; --ink:#17203A; --ink2:#4C5571; --line:#C9D0E0;
+  --teal:#2C4B8E; --on-teal:#FFFFFF; --mint:#AFC1E6; --galv:#7D879F; --sun:#E9B227; --sun-soft:#FAEAB6;
+  --ok:#2C7F50; --ok-soft:#D8EDE0; --bad:#B0392B; --bad-soft:#F5DBD5; --warn:#8E6610;
+  --fab:#9DB2DC; --fab2:#D4DDF0; --pat:#F0E6CC; --int:#EFEDE4; --thread:#C3382C; --mat:#2E6A54; --matline:#4E8A72; --chalk:#F7F7F2;
+  --sky:#DDE6F4;
+  --f-disp:'Bodoni Moda','Didot','Bodoni 72',Georgia,serif;
+  --f-body:'Lexend',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-stamp:'Courier Prime','Courier New',ui-monospace,monospace;
+  --r:10px; --sh:0 1px 0 rgba(23,32,58,.06),0 8px 22px rgba(23,32,58,.08);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1220; --sheet:#151B2D; --sheet2:#1E2539; --ink:#E6EAF5; --ink2:#A5AEC6; --line:#2D3550;
+  --teal:#94AEEC; --on-teal:#0C1224; --mint:#3E5487; --galv:#8C96B0; --sun:#F2C54E; --sun-soft:#4A3B12;
+  --ok:#62C690; --ok-soft:#183324; --bad:#F2806C; --bad-soft:#3B1F1A; --warn:#E8B54F;
+  --fab:#5A75AD; --fab2:#33405F; --pat:#4A4334; --int:#45453F; --thread:#F07D6B; --mat:#1C4636; --matline:#2E6652; --chalk:#E9E9E2;
+  --sky:#1C2538; --sh:0 1px 0 rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E1220; --sheet:#151B2D; --sheet2:#1E2539; --ink:#E6EAF5; --ink2:#A5AEC6; --line:#2D3550;
+  --teal:#94AEEC; --on-teal:#0C1224; --mint:#3E5487; --galv:#8C96B0; --sun:#F2C54E; --sun-soft:#4A3B12;
+  --ok:#62C690; --ok-soft:#183324; --bad:#F2806C; --bad-soft:#3B1F1A; --warn:#E8B54F;
+  --fab:#5A75AD; --fab2:#33405F; --pat:#4A4334; --int:#45453F; --thread:#F07D6B; --mat:#1C4636; --matline:#2E6652; --chalk:#E9E9E2;
+  --sky:#1C2538; --sh:0 1px 0 rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.35); color-scheme:dark}
+html{font-size:calc(16px * var(--z))}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.55;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--sheet)}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-disp);text-wrap:balance;margin:0;line-height:1.15}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--ink2)}
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--sheet);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:.6rem;padding-block:.5rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.55rem;min-width:0;margin-right:auto}
+.brand .mark{font-family:var(--f-stamp);font-weight:800;font-size:1rem;letter-spacing:.04em;color:var(--teal);border:2px solid currentColor;border-radius:4px;padding:.05rem .35rem;line-height:1.2;transform:rotate(-3deg)}
+.brand b{font-family:var(--f-disp);font-stretch:85%;font-weight:850;font-size:1.2rem;letter-spacing:-.01em;white-space:nowrap}
+.stats{display:flex;gap:.4rem;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:.3rem;background:var(--sheet2);border-radius:999px;padding:.2rem .6rem;font-family:var(--f-disp);font-weight:700;font-size:.85rem;white-space:nowrap}
+.chip svg{width:1rem;height:1rem}
+.ctrls{display:flex;gap:.25rem;align-items:center}
+.ib{border:1px solid var(--line);background:var(--sheet);border-radius:8px;min-width:2.1rem;height:2.1rem;display:inline-grid;place-items:center;cursor:pointer;padding:0 .4rem;font-family:var(--f-disp);font-weight:700;font-size:.85rem}
+.ib:hover{background:var(--sheet2)}
+.ib svg{width:1.05rem;height:1.05rem}
+.zl{min-width:2.8rem;text-align:center;font-family:var(--f-disp);font-size:.8rem;font-weight:700}
+.tabs{display:flex;gap:.25rem;overflow-x:auto;padding-bottom:.45rem;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;background:transparent;padding:.4rem .85rem;border-radius:999px;cursor:pointer;font-family:var(--f-disp);font-weight:750;font-size:.95rem;color:var(--ink2);white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--teal);color:var(--on-teal)}
+main{padding-block:1rem 4rem}
+.view[hidden]{display:none!important}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1.25rem;align-items:center;margin-bottom:1.5rem}
+.hero .art{background:var(--sky);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.hero .art svg{display:block;width:100%;height:auto}
+.hero h1{font-size:clamp(1.8rem,4.5vw,2.8rem);font-stretch:80%;font-weight:900;letter-spacing:-.02em}
+.hero p{margin:.6rem 0 0;max-width:34rem}
+.stage{font-family:var(--f-stamp);font-weight:800;color:var(--teal);letter-spacing:.06em;font-size:1rem;text-transform:uppercase}
+.bar{height:.6rem;background:var(--sheet2);border-radius:999px;overflow:hidden;margin-top:.9rem}
+.bar i{display:block;height:100%;background:var(--teal);border-radius:999px;transition:width .4s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:0;border-radius:12px;padding:.75rem 1.2rem;font-family:var(--f-disp);font-weight:800;font-size:1rem;cursor:pointer;background:var(--teal);color:var(--on-teal);box-shadow:0 3px 0 color-mix(in srgb,var(--teal) 60%,#000)}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.ghost{background:var(--sheet);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+/* path */
+.unit{margin-top:2rem}
+.uhead{display:flex;gap:.9rem;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:.8rem 1rem}
+.ustamp{font-family:var(--f-stamp);font-weight:800;font-size:1.9rem;line-height:1;color:var(--teal);border:2.5px solid currentColor;border-radius:6px;padding:.15rem .4rem;transform:rotate(-4deg);flex:none}
+.uhead h2{font-size:1.25rem;font-stretch:90%;font-weight:850}
+.uhead p{margin:.15rem 0 0;font-size:.9rem;color:var(--ink2)}
+.ulocked .ustamp{color:var(--galv)}
+.nodes{display:flex;flex-direction:column;align-items:center;gap:1.1rem;padding:1.3rem 0 .4rem}
+.node{display:flex;flex-direction:column;align-items:center;gap:.35rem;background:none;border:0;cursor:pointer;max-width:15rem;text-align:center}
+.node .dot{width:4.4rem;height:4.4rem;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--on-teal);box-shadow:0 5px 0 color-mix(in srgb,var(--teal) 55%,#000);font-family:var(--f-stamp);font-weight:800;font-size:1.5rem;position:relative}
+.node .dot svg{width:1.9rem;height:1.9rem}
+.node.done .dot{background:var(--sun);color:#2A1E00;box-shadow:0 5px 0 color-mix(in srgb,var(--sun) 55%,#000)}
+.node.locked .dot{background:var(--sheet2);color:var(--galv);box-shadow:0 5px 0 var(--line)}
+.node.next .dot::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:3px solid var(--teal);opacity:.6;animation:pulse 1.8s infinite}
+@keyframes pulse{0%{transform:scale(.92);opacity:.7}100%{transform:scale(1.12);opacity:0}}
+.node span{font-family:var(--f-disp);font-weight:750;font-size:.92rem;line-height:1.25}
+.node small{font-size:.75rem;color:var(--ink2)}
+.crowns{position:absolute;bottom:-.4rem;right:-.5rem;background:var(--sheet);border:1px solid var(--line);border-radius:999px;font:700 .7rem var(--f-disp);color:var(--ink);padding:.05rem .35rem}
+/* generic panels */
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:1rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem}
+.lab{font-family:var(--f-disp);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.field{display:flex;flex-direction:column;gap:.25rem;min-width:0}
+.field input,.field select{font:inherit;border:1px solid var(--line);border-radius:8px;padding:.45rem .55rem;background:var(--paper);color:var(--ink);min-width:0;width:100%}
+.field input[type=range]{padding:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.7rem}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8.5rem),1fr));gap:.6rem;margin-top:.9rem}
+.kv{background:var(--sheet2);border-radius:8px;padding:.55rem .7rem}
+.kv b{display:block;font-family:var(--f-disp);font-size:1.35rem;font-weight:850;font-variant-numeric:tabular-nums;line-height:1.15}
+.kv span{font-size:.78rem;color:var(--ink2)}
+.svgbox{overflow-x:auto;border-radius:8px;background:var(--paper);border:1px solid var(--line);margin-top:.8rem}
+.svgbox svg{display:block;width:100%;height:auto;min-width:20rem}
+.tool h3{font-size:1.2rem;font-stretch:90%;font-weight:850;margin-bottom:.35rem}
+.tool p{margin:.2rem 0 .8rem;font-size:.92rem;color:var(--ink2);max-width:46rem}
+.note{font-size:.82rem;color:var(--ink2);margin-top:.7rem}
+.sub-tabs{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:1rem}
+.sub-tabs button{border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:.35rem .8rem;cursor:pointer;font:700 .88rem var(--f-disp)}
+.sub-tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.layers{display:flex;gap:.4rem;flex-wrap:wrap}
+.layers label{display:inline-flex;gap:.35rem;align-items:center;border:1px solid var(--line);border-radius:999px;padding:.25rem .65rem;font-size:.85rem;cursor:pointer;background:var(--sheet)}
+.layers i{width:.75rem;height:.75rem;border-radius:3px;display:inline-block}
+.info{margin-top:.7rem;min-height:3rem;font-size:.92rem}
+.codes table{width:100%;border-collapse:collapse;font-size:.9rem}
+.codes th,.codes td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+.codes th{font-family:var(--f-disp);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+.tablebox{overflow-x:auto}
+.tag{display:inline-block;font:700 .7rem var(--f-disp);letter-spacing:.04em;text-transform:uppercase;border-radius:4px;padding:.1rem .4rem;white-space:nowrap}
+.tag.lic{background:var(--bad-soft);color:var(--bad)}
+.tag.diy{background:var(--ok-soft);color:var(--ok)}
+.tag.cert{background:var(--sun-soft);color:var(--warn)}
+/* lesson overlay */
+.lesson{position:fixed;inset:0;z-index:60;background:var(--paper);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.lesson[hidden]{display:none!important}
+.lbar{display:flex;align-items:center;gap:.8rem;padding-block:.7rem}
+.lbar .bar{flex:1;margin:0;height:.8rem}
+.lbody{flex:1;overflow-y:auto}
+.lbody .wrap{max-width:44rem;padding-block:.5rem 1.5rem}
+.lfoot{border-top:1px solid var(--line);background:var(--sheet)}
+.lfoot .wrap{max-width:44rem;padding-block:.8rem;display:flex;gap:.8rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.lfoot.ok{background:var(--ok-soft)} .lfoot.bad{background:var(--bad-soft)}
+.fb{flex:1 1 16rem;min-width:0;font-size:.92rem}
+.fb h4{font-size:1.1rem;margin-bottom:.15rem}
+.lfoot.ok h4{color:var(--ok)} .lfoot.bad h4{color:var(--bad)}
+.kicker{font-family:var(--f-stamp);font-weight:800;letter-spacing:.06em;color:var(--teal);text-transform:uppercase;font-size:.95rem}
+.qtitle{font-size:1.35rem;font-stretch:92%;font-weight:850;margin:.3rem 0 1rem}
+.card p{margin:.5rem 0}
+.card ul{margin:.4rem 0;padding-left:1.2rem}
+.card li{margin:.2rem 0}
+.fig{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:.4rem;margin:.6rem 0;position:relative}
+.fig svg{display:block;width:100%;height:auto}
+.fig .zoomit{position:absolute;top:.4rem;right:.4rem}
+.ref{font-size:.8rem;color:var(--ink2);border-left:3px solid var(--mint);padding:.3rem .6rem;margin-top:1rem;background:var(--sheet)}
+.opts{display:grid;gap:.6rem}
+.opt{border:2px solid var(--line);border-bottom-width:4px;background:var(--sheet);border-radius:12px;padding:.75rem .9rem;text-align:left;cursor:pointer;font-size:1rem;line-height:1.35}
+.opt:hover{border-color:var(--mint)}
+.opt.sel{border-color:var(--teal);background:color-mix(in srgb,var(--teal) 10%,var(--sheet))}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt[disabled]{cursor:default}
+.tf{grid-template-columns:1fr 1fr}
+.ordl{display:grid;gap:.45rem;margin-bottom:.9rem;min-height:2.6rem;border:2px dashed var(--line);border-radius:12px;padding:.5rem}
+.ordl .opt{padding:.55rem .75rem;font-size:.95rem}
+.ordl .opt b{font-family:var(--f-stamp);color:var(--teal);margin-right:.4rem}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.match .opt{padding:.6rem .7rem;font-size:.92rem}
+.match .opt.gone{opacity:.25;pointer-events:none}
+.numin{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.numin input{font:800 1.4rem var(--f-disp);width:10rem;max-width:100%;padding:.5rem .7rem;border:2px solid var(--line);border-radius:12px;background:var(--sheet);color:var(--ink)}
+.numin span{font:700 1.1rem var(--f-disp);color:var(--ink2)}
+.tapfig svg [data-hit]{cursor:pointer}
+.tapfig svg [data-hit]:hover{filter:drop-shadow(0 0 3px var(--sun))}
+.tapfig svg .picked{filter:drop-shadow(0 0 4px var(--teal))}
+.donebox{text-align:center;padding-block:2rem}
+.donebox .big{font-family:var(--f-stamp);font-size:3rem;color:var(--teal);font-weight:800}
+.trophies{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin:1rem 0}
+/* modal */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(10,16,14,.6);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal[hidden]{display:none!important}
+.mbox{background:var(--sheet);border-radius:var(--r);width:min(70rem,100%);max-height:100%;display:flex;flex-direction:column;overflow:hidden}
+.mhead{display:flex;gap:.5rem;align-items:center;padding:.6rem .8rem;border-bottom:1px solid var(--line)}
+.mhead b{margin-right:auto;font-family:var(--f-disp)}
+.mview{overflow:auto;flex:1;background:var(--paper)}
+.mview svg{display:block;transform-origin:0 0}
+.toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:.55rem 1rem;border-radius:999px;font:700 .9rem var(--f-disp);z-index:90}
+.toast[hidden]{display:none!important}
+.svgt{font-family:var(--f-disp);font-weight:700}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.brand b{font-size:1.05rem}.ctrls .hide-s{display:none}.match{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Flat-Felled overrides ---- */
+.brand .mark{border:0;transform:none;padding:0;width:1.9rem;height:1.9rem;display:inline-block}
+.brand .mark svg{width:100%;height:100%;display:block}
+.brand b{font-weight:800;font-size:1.3rem;letter-spacing:0}
+.hero h1{font-weight:800;letter-spacing:-.01em}
+.hero .art{background:var(--mat)}
+.ustamp{font-family:var(--f-stamp);font-weight:700;font-size:1rem;color:var(--ink);border:1.5px dashed var(--ink2);border-radius:4px;padding:.35rem .5rem;transform:none;background:var(--pat);letter-spacing:.04em}
+.uhead h2{font-weight:800;font-size:1.3rem}
+.qtitle{font-weight:800}
+.nodes{position:relative}
+.nodes::before{content:"";position:absolute;left:50%;top:.4rem;bottom:.4rem;border-left:2px dashed var(--line);transform:translateX(-1px)}
+.node{position:relative;z-index:1}
+.node span:not(.dot){background:var(--paper);padding:0 .3rem;border-radius:4px}
+.node .dot{background:transparent;box-shadow:none;width:4.6rem;height:4.6rem}
+.node .dot svg{width:100%;height:100%}
+.node.done .dot,.node.locked .dot{background:transparent;box-shadow:none}
+.node .num-badge{position:absolute;top:-.3rem;left:-.3rem;background:var(--sheet);border:1px solid var(--line);border-radius:999px;font:700 .72rem var(--f-stamp);padding:.05rem .4rem;color:var(--ink)}
+.node.optional{opacity:.6}
+.node.optional small{font-style:italic}
+.method{margin:.8rem 0;border:1px solid var(--line);border-radius:var(--r);background:var(--sheet);overflow:hidden}
+.mtabs{display:flex;border-bottom:1px solid var(--line)}
+.mtabs button{flex:1;border:0;background:transparent;padding:.55rem .6rem;font:600 .9rem var(--f-body);cursor:pointer;color:var(--ink2)}
+.mtabs button[aria-pressed="true"]{background:var(--sheet2);color:var(--ink);box-shadow:inset 0 -3px 0 var(--teal)}
+.mpane{padding:.15rem .9rem .5rem}
+.mpane h5{margin:.6rem 0 .1rem;font:700 .8rem var(--f-stamp);letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}
+.mchoice{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--sheet);flex-wrap:wrap}
+.mchoice button{border:0;background:none;padding:.45rem .85rem;font:600 .88rem var(--f-body);cursor:pointer;color:var(--ink2)}
+.mchoice button[aria-pressed="true"]{background:var(--teal);color:var(--on-teal)}
+.qtag{display:inline-block;font:700 .7rem var(--f-stamp);text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line);border-radius:4px;padding:.05rem .35rem;margin-left:.4rem;color:var(--ink2);vertical-align:middle}
+.stitchpick{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.8rem}
+.stitchpick button{border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:.35rem .75rem;cursor:pointer;font:600 .85rem var(--f-body)}
+.stitchpick button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.stitchmeta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:.6rem;margin-top:.8rem}
+.steps{margin:.6rem 0 0;padding-left:1.3rem}
+.steps li{margin:.25rem 0}
+.steps li.on{font-weight:600;color:var(--teal)}
+.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.6rem}
+.gloss div{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:.6rem .75rem}
+.gloss b{font-family:var(--f-disp);font-size:1.05rem}
+.gloss p{margin:.2rem 0 0;font-size:.9rem;color:var(--ink2)}
+.order{counter-reset:o;list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
+.order li{counter-increment:o;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:.6rem .75rem .6rem 3rem;position:relative}
+.order li::before{content:counter(o);position:absolute;left:.7rem;top:.55rem;font:700 1rem var(--f-stamp);color:var(--teal)}
+.order small{display:block;color:var(--ink2)}
+.svgt{font-family:var(--f-body);font-weight:600}
+.svgm{font-family:var(--f-stamp);font-weight:700;letter-spacing:.03em}
+.ib,.zl,.chip,.btn,.tab,.sub-tabs button{font-family:var(--f-body)}
+.ib{font-weight:600;font-size:1rem}
+.btn{font-weight:600}
+.tab{font-weight:600;font-size:.9rem;padding:.4rem .7rem}
+.chip{font-weight:600}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="var(--teal)"/><circle cx="16" cy="16" r="10.5" fill="none" stroke="var(--on-teal)" stroke-opacity=".35" stroke-width="1.2"/><g fill="var(--on-teal)"><circle cx="12.5" cy="12.5" r="1.9"/><circle cx="19.5" cy="12.5" r="1.9"/><circle cx="12.5" cy="19.5" r="1.9"/><circle cx="19.5" cy="19.5" r="1.9"/></g><path d="M12.5 12.5 19.5 19.5M19.5 12.5 12.5 19.5" stroke="var(--sun)" stroke-width="1.8" stroke-linecap="round"/></svg></span><b>Flat-Felled</b></div>
+    <div class="stats">
+      <span class="chip" title="Experience points"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="var(--sun)"/></svg><span id="xp" class="num">0</span> XP</span>
+      <span class="chip" title="Day streak"><svg viewBox="0 0 24 24" fill="none" stroke="var(--thread)" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h3M9 12h3M15 12h3M21 12h0"/><path d="M4 7c4-4 12-4 16 0" stroke-dasharray="3 3"/></svg><span id="streak" class="num">0</span></span>
+    </div>
+    <div class="ctrls">
+      <button class="ib" id="zout" aria-label="Zoom out">−</button>
+      <span class="zl num" id="zlab">100%</span>
+      <button class="ib" id="zin" aria-label="Zoom in">+</button>
+      <button class="ib" id="fs" aria-label="Fullscreen" title="Fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="ib" id="theme" aria-label="Switch light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></svg></button>
+    </div>
+  </div>
+  <div class="wrap">
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-view="learn" aria-selected="true">Learn</button>
+      <button class="tab" role="tab" data-view="pieces" aria-selected="false">Pieces</button>
+      <button class="tab" role="tab" data-view="stitches" aria-selected="false">Stitches</button>
+      <button class="tab" role="tab" data-view="tools" aria-selected="false">Tools</button>
+      <button class="tab" role="tab" data-view="prefs" aria-selected="false">Settings</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="view" id="v-learn">
+    <div class="hero">
+      <div class="art" id="heroArt"></div>
+      <div>
+        <div class="stage" id="stageLab">Stage 0 · Pattern on paper</div>
+        <h1>Sew a short-sleeved shirt that lasts.</h1>
+        <p>One chest pocket, a camp collar, a double yoke and flat-felled seams throughout, sewn on a machine, by hand, or both. The shirt on the cutting mat comes together as you finish each unit.</p>
+        <div class="row" style="margin-top:.8rem"><span class="lab">I'll sew</span><div class="mchoice" id="heroMethod" role="group" aria-label="Sewing method"><button data-m="machine">By machine</button><button data-m="hand">By hand</button><button data-m="both">Show both</button></div></div>
+        <div class="bar" aria-label="Course progress"><i id="pbar" style="width:0%"></i></div>
+        <div class="row" style="margin-top:.9rem">
+          <button class="btn" id="goNext">Start lesson 1</button>
+          <span class="muted num" id="plab">0 of 0 lessons</span>
+        </div>
+      </div>
+    </div>
+    <div id="path"></div>
+  </section>
+  <section class="view" id="v-pieces" hidden></section>
+  <section class="view" id="v-stitches" hidden></section>
+  <section class="view" id="v-tools" hidden></section>
+  <section class="view" id="v-prefs" hidden></section>
+</main>
+
+<div class="lesson" id="lesson" hidden>
+  <div class="wrap lbar">
+    <button class="ib" id="lclose" aria-label="Close lesson"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="bar"><i id="lprog" style="width:0%"></i></div>
+    <span class="chip num" id="lxp">0 XP</span>
+  </div>
+  <div class="lbody" id="lbody"><div class="wrap" id="lcontent"></div></div>
+  <div class="lfoot" id="lfoot"><div class="wrap"><div class="fb" id="fb"></div><button class="btn" id="lbtn">Continue</button></div></div>
+</div>
+
+<div class="modal" id="dmodal" hidden>
+  <div class="mbox">
+    <div class="mhead"><b id="dtitle">Diagram</b>
+      <button class="ib" id="dzo" aria-label="Zoom diagram out">−</button>
+      <button class="ib" id="dzi" aria-label="Zoom diagram in">+</button>
+      <button class="ib" id="dclose" aria-label="Close diagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="mview" id="dview"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script>
+// ---------- SVG helpers ----------
+const D = {};
+const S = (w,h,inner,label) => `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${label}"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink2)" stroke-width="1"/></pattern></defs>${inner}</svg>`;
+const T = (x,y,s,o={}) => `<text x="${x}" y="${y}" class="svgt" font-size="${o.s||12}" fill="${o.c||'var(--ink)'}" text-anchor="${o.a||'start'}"${o.w?` font-weight="${o.w}"`:''}>${s}</text>`;
+const L = (x1,y1,x2,y2,c='var(--ink)',w=1.5,d='') => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}"${d?` stroke-dasharray="${d}"`:''}/>`;
+const R = (x,y,w,h,f,s='var(--ink)',sw=1.2,ex='') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}" stroke="${s}" stroke-width="${sw}" ${ex}/>`;
+const P = (d,f='none',s='var(--ink)',sw=1.5,ex='') => `<path d="${d}" fill="${f}" stroke="${s}" stroke-width="${sw}" ${ex}/>`;
+const C = (cx,cy,r,f,s='var(--ink)',sw=1.2) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${f}" stroke="${s}" stroke-width="${sw}"/>`;
+const H = (id,inner) => `<g data-hit="${id}">${inner}</g>`;
+const A = (x1,y1,x2,y2,c='var(--ink)',w=1.5) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}" marker-end="url(#ah)"/>`;
+// callout: leader from point to label
+const CO = (x,y,tx,ty,s,a='start') => L(x,y,tx,ty,'var(--ink2)',1) + C(x,y,2.2,'var(--ink)','none',0) + T(tx+(a==='start'?3:a==='end'?-3:0),ty+4,s,{s:11,a});
+// dimension line with end ticks
+const DIM = (x1,y1,x2,y2,s,o={}) => {
+  const vert = Math.abs(x1-x2) < Math.abs(y1-y2);
+  const t = 5; let g = L(x1,y1,x2,y2,'var(--ink2)',1);
+  g += vert ? L(x1-t,y1,x1+t,y1,'var(--ink2)',1)+L(x2-t,y2,x2+t,y2,'var(--ink2)',1) : L(x1,y1-t,x1,y1+t,'var(--ink2)',1)+L(x2,y2-t,x2,y2+t,'var(--ink2)',1);
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  g += vert ? T(mx+(o.left?-6:6),my+4,s,{s:11,a:o.left?'end':'start',c:'var(--ink2)'}) : T(mx,my-6,s,{s:11,a:'middle',c:'var(--ink2)'});
+  return g;
+};
+const corr = (x,y,w,h,step=6) => { let g=''; for(let i=x+step/2;i<x+w;i+=step) g+=L(i,y,i,y+h,'var(--ink)',.5); return g; };
+
+const TM = (x,y,s,o={}) => `<text x="${x}" y="${y}" class="svgm" font-size="${o.s||10}" fill="${o.c||'var(--ink)'}" text-anchor="${o.a||'start'}">${s}</text>`;
+// ---------- Pattern piece shapes (local coords) ----------
+const PATHS = {
+  front: 'M20 0 L62 10 Q60 50 84 62 L84 200 L-24 200 L-24 46 L0 40 Q16 36 20 0 Z',
+  backFull: 'M-80 46 Q-68 34 -70 0 L70 0 Q68 34 80 46 L80 170 L-80 170 Z',
+  backHalf: 'M0 0 L70 0 Q68 34 80 46 L80 170 L0 170 Z',
+  yokeFull: 'M-74 36 L-76 10 L-24 0 Q-16 8 0 8 Q16 8 24 0 L76 10 L74 36 Z',
+  yokeHalf: 'M0 8 Q16 8 24 0 L76 10 L74 36 L0 36 Z',
+  sleeve: 'M0 52 Q30 0 60 0 Q90 0 120 52 L108 96 L12 96 Z',
+  collarFull: 'M-74 34 L-60 2 L60 2 L74 34 Z',
+  collarHalf: 'M0 2 L60 2 L74 34 L0 34 Z',
+  pocket: 'M0 0 L40 0 L40 40 L20 48 L0 40 Z'
+};
+const piece = (name, ox, oy, s, fill, stroke, dash, mir, ex='') => `<g transform="translate(${ox} ${oy}) scale(${mir?-s:s} ${s})"><path d="${PATHS[name]}" fill="${fill}" stroke="${stroke}" stroke-width="1.4" vector-effect="non-scaling-stroke"${dash?` stroke-dasharray="${dash}"`:''} ${ex}/></g>`;
+const HERO_PIECES = [['front',126,70,1,true,'FRONT R'],['front',196,70,1,false,'FRONT L'],['backFull',375,70,1,false,'BACK'],['yokeFull',550,70,1,false,'YOKE ×2'],['sleeve',480,122,1,false,'SLEEVE'],['sleeve',480,226,1,false,'SLEEVE'],['collarFull',375,262,1,false,'COLLAR ×2']];
+
+// ---------- HERO: the shirt comes together on a cutting mat ----------
+D.hero = (s=0) => {
+  let g = R(0,0,640,360,'var(--mat)','none',0);
+  for(let x=20;x<640;x+=20) g += L(x,0,x,360,'var(--matline)',x%100===0?1:.4);
+  for(let y=20;y<360;y+=20) g += L(0,y,640,y,'var(--matline)',y%100===0?1:.4);
+  const labels = (c) => HERO_PIECES.map(p => { const lx = p[0]==='front' ? (p[4]? p[1]-30 : p[2]&&p[1]+30) : p[1]+(p[0]==='sleeve'?60:0); const ly = p[2]+(p[0]==='front'?120:p[0]==='backFull'?100:p[0]==='sleeve'?66:p[0]==='yokeFull'?26:22); return TM(lx,ly,p[5],{s:9,a:'middle',c}); }).join('');
+  if(s===0){ g += R(26,52,588,292,'var(--pat)','var(--ink2)',1,'rx="3"');
+    HERO_PIECES.forEach(p => g += piece(p[0],p[1],p[2],p[3],'none','var(--ink)','6 4',p[4]));
+    g += piece('pocket',60,288,1,'none','var(--ink)','6 4') + labels('var(--ink)') + TM(80,346,'POCKET',{s:9,a:'middle'}) + TM(40,44,'PATTERN · SIZE M',{s:10,c:'var(--chalk)'});
+  } else if(s===1){ g += R(26,52,588,292,'var(--fab)','var(--ink)',1); for(let x=30;x<612;x+=8){ g += C(x,56,.9,'var(--ink2)','none',0)+C(x,340,.9,'var(--ink2)','none',0); }
+    HERO_PIECES.forEach(p => g += piece(p[0],p[1],p[2],p[3],'none','var(--chalk)','5 4',p[4]));
+    g += piece('pocket',60,288,1,'none','var(--chalk)','5 4') + labels('var(--chalk)') + A(250,330,350,330,'var(--chalk)',1.5) + TM(300,322,'GRAIN',{s:9,a:'middle',c:'var(--chalk)'}) + TM(40,44,'FABRIC · PRE-WASHED, PRESSED',{s:10,c:'var(--chalk)'});
+  } else if(s<5){
+    HERO_PIECES.forEach(p => g += piece(p[0],p[1],p[2],p[3],'var(--fab)','var(--ink)','',p[4]));
+    g += labels('var(--ink)');
+    if(s<4) g += piece('pocket',60,288,1,'var(--fab)','var(--ink)','') + TM(80,346,'POCKET',{s:9,a:'middle'});
+    else g += piece('pocket',206,104,0.9,'var(--fab)','var(--ink)','') + L(209,107,215,107,'var(--thread)',2) + L(239,107,233,107,'var(--thread)',2) + P('M208 106 L208 140 L224 147 L240 140 L240 106','none','var(--thread)',1,'stroke-dasharray="2 2"');
+    if(s>=3){ g += R(140,292,120,22,'var(--fab)','var(--ink)',1)+R(140,314,120,22,'var(--fab2)','var(--ink)',1) + L(140,312,260,312,'var(--thread)',1.2,'3 2') + L(140,318,260,318,'var(--thread)',1.2,'3 2') + TM(200,350,'FLAT-FELL SAMPLE',{s:8.5,a:'middle',c:'var(--chalk)'}); }
+    g += TM(40,44,s===2?'PIECES CUT':s===3?'SEAMS PRACTISED':'POCKET ON',{s:10,c:'var(--chalk)'});
+  } else {
+    if(s>=10){ g += P('M320 30 L320 18 Q320 8 330 10','none','var(--galv)',3) + P('M228 86 L320 34 L412 86','none','var(--galv)',4); }
+    if(s>=7){ g += P('M236 84 L172 134 L198 166 L222 150 Z','var(--fab)','var(--ink)',1.4) + P('M404 84 L468 134 L442 166 L418 150 Z','var(--fab)','var(--ink)',1.4);
+      g += L(176,138,200,162,'var(--thread)',1,'3 2') + L(464,138,440,162,'var(--thread)',1,'3 2'); }
+    g += P('M294 60 L236 84 Q214 118 222 150 L216 332 L424 332 L418 150 Q426 118 404 84 L346 60 Q320 70 294 60 Z','var(--fab)','var(--ink)',1.6);
+    g += P('M294 60 Q302 100 318 130 L322 130 Q338 100 346 60 Q320 70 294 60 Z','var(--fab2)','var(--ink)',1);
+    g += L(294,60,236,84,'var(--ink2)',1) + L(346,60,404,84,'var(--ink2)',1) + L(296,64,238,88,'var(--thread)',1,'3 2') + L(344,64,402,88,'var(--thread)',1,'3 2');
+    g += L(324,130,324,332,'var(--ink)',1.2) + L(330,130,330,332,'var(--thread)',.8,'3 2');
+    g += P('M348 118 L386 118 L386 160 L367 168 L348 160 Z','var(--fab)','var(--ink)',1.3) + P('M350 120 L350 158 L367 165 L384 158 L384 120','none','var(--thread)',.9,'stroke-dasharray="2 2"') + P('M348 118 L353 118 L348 124 Z M386 118 L381 118 L386 124 Z','var(--thread)','none',0);
+    if(s>=7){ g += L(219,152,213,330,'var(--thread)',1,'3 2') + L(421,152,427,330,'var(--thread)',1,'3 2'); }
+    if(s>=6){ g += P('M296 56 C286 58 272 66 262 76 L280 124 L304 106 Q300 84 296 56 Z','var(--fab)','var(--ink)',1.4) + P('M344 56 C354 58 368 66 378 76 L360 124 L336 106 Q340 84 344 56 Z','var(--fab)','var(--ink)',1.4) + P('M296 56 Q320 48 344 56 L344 62 Q320 56 296 62 Z','var(--fab)','var(--ink)',1.2); }
+    if(s>=8){ g += L(218,324,422,324,'var(--thread)',1,'3 2'); }
+    if(s>=9){ [130,161,192,223,254,285].forEach(y => { g += L(320,y-5,320,y+5,'var(--ink)',1.6) + C(320,y,5.5,'var(--chalk)','var(--ink)',1.2) + C(318.5,y-1.5,.9,'var(--ink)','none',0)+C(321.5,y-1.5,.9,'var(--ink)','none',0)+C(318.5,y+1.5,.9,'var(--ink)','none',0)+C(321.5,y+1.5,.9,'var(--ink)','none',0); }); }
+    if(s>=10){ g += R(312,64,16,9,'var(--chalk)','var(--ink)',.8) + TM(320,71,'FF',{s:6.5,a:'middle'}); }
+    if(s<6) g += P('M294 60 Q320 70 346 60','none','var(--thread)',1,'stroke-dasharray="2 2"');
+    g += TM(40,44,['','','','','','YOKE AND SHOULDERS','COLLAR ON','SLEEVES AND SIDES','HEMMED','BUTTONS ON','FINISHED'][s],{s:10,c:'var(--chalk)'});
+  }
+  return S(640,360,g,'The shirt on a cutting mat, stage '+s);
+};
+
+// ---------- Sewing kit ----------
+D.kit = () => {
+  let g = '';
+  g += H('shears', P('M70 74 L170 44 L74 82 Z','var(--galv)','var(--ink)',1)+P('M70 78 L170 66 L66 70 Z','var(--galv)','var(--ink)',1)+C(38,60,12,'none','var(--thread)',4)+C(44,98,12,'none','var(--thread)',4)+L(48,66,70,74,'var(--thread)',4)+L(54,92,70,78,'var(--thread)',4)) + TM(100,120,'SHEARS',{s:9,a:'middle'});
+  g += H('thread', R(206,40,28,42,'var(--thread)','var(--ink)',1)+R(200,34,40,7,'var(--pat)','var(--ink)',1)+R(200,82,40,7,'var(--pat)','var(--ink)',1)) + TM(220,104,'THREAD',{s:9,a:'middle'});
+  g += H('pins', C(300,70,22,'var(--bad)','var(--ink)',1)+L(290,52,282,34,'var(--galv)',1.5)+C(282,34,3,'var(--sun)','none',0)+L(304,50,308,30,'var(--galv)',1.5)+C(308,30,3,'var(--teal)','none',0)+L(314,58,328,42,'var(--galv)',1.5)+C(328,42,3,'var(--ok)','none',0)) + TM(300,104,'PINS',{s:9,a:'middle'});
+  g += H('thimble', P('M372 94 L374 60 Q386 48 398 60 L400 94 Z','var(--galv)','var(--ink)',1.2)+[0,1,2].map(r=>[0,1,2].map(c=>C(380+c*6,66+r*9,1.2,'var(--ink)','none',0)).join('')).join('')) + TM(386,110,'THIMBLE',{s:9,a:'middle'});
+  g += H('chalk', P('M40 172 L74 132 L98 172 Z','var(--chalk)','var(--ink)',1.2)) + TM(70,190,'CHALK',{s:9,a:'middle'});
+  g += H('ripper', L(128,172,186,142,'var(--teal)',8)+L(186,142,204,130,'var(--galv)',2)+L(188,146,206,140,'var(--galv)',2)+C(206,140,2.5,'var(--bad)','none',0)) + TM(168,190,'SEAM RIPPER',{s:9,a:'middle'});
+  g += H('iron', P('M236 176 L330 176 Q326 140 296 136 L264 136 Q246 150 236 176 Z','var(--sheet2)','var(--ink)',1.2)+P('M266 136 Q280 116 306 120 L310 136','none','var(--ink)',3)) + TM(284,192,'IRON',{s:9,a:'middle'});
+  g += H('needle', L(352,178,420,122,'var(--galv)',2.5)+`<ellipse cx="416" cy="125" rx="3" ry="1.4" transform="rotate(-40 416 125)" fill="var(--sheet)" stroke="var(--ink)" stroke-width=".8"/>`+P('M416 125 Q440 150 400 168 Q380 176 390 196','none','var(--thread)',1.5)) + TM(386,192,'NEEDLE',{s:9,a:'middle'});
+  let ticks=''; for(let i=0;i<=40;i++){ const t=i/40, x=20+t*400, y=214+Math.sin(t*Math.PI*2)*10; ticks += L(x,y-7,x,y-(i%5?3:0),'var(--ink)',.8); }
+  g += H('tape', P('M20 214 C120 194 220 244 420 214','none','var(--sun)',16)+ticks) + TM(220,248,'TAPE MEASURE',{s:9,a:'middle'});
+  return S(440,256,g,'Sewing kit: shears, thread, pins, thimble, chalk, seam ripper, iron, needle, tape measure');
+};
+
+// ---------- Grain ----------
+D.grain = () => {
+  let g = R(30,50,380,150,'var(--fab)','var(--ink)',1.2);
+  let dots=''; for(let x=34;x<410;x+=6) dots += C(x,55,1,'var(--ink2)','none',0);
+  g += H('selvedge', R(30,50,380,10,'var(--fab2)','var(--ink)',1)+dots);
+  let dots2=''; for(let x=34;x<410;x+=6) dots2 += C(x,195,1,'var(--ink2)','none',0);
+  g += H('selvedge', R(30,190,380,10,'var(--fab2)','var(--ink)',1)+dots2);
+  g += A(50,78,170,78,'var(--ink)',2) + T(52,72,'lengthwise grain',{s:11});
+  g += A(380,74,380,180,'var(--ink)',2) + T(374,128,'crossgrain',{s:11,a:'end'});
+  g += A(54,182,124,112,'var(--thread)',2) + T(96,170,'bias 45°',{s:11,c:'var(--thread)'});
+  g += R(180,98,140,80,'var(--pat)','var(--ink)',1.2,'opacity=".95"') + A(198,140,302,140,'var(--ink)',1.8) + A(302,140,198,140,'var(--ink)',1.8) + TM(250,132,'GRAINLINE',{s:9,a:'middle'});
+  g += DIM(198,60,198,140,'12 cm',{left:true}) + DIM(302,60,302,140,'12 cm');
+  g += T(36,40,'selvedge (finished edge)',{s:11,c:'var(--ink2)'}) + T(36,222,'Equal measurements at both ends = on grain',{s:11,c:'var(--ink2)'});
+  return S(440,236,g,'Fabric grain: selvedge, lengthwise grain, crossgrain, bias and a grainline check');
+};
+
+// ---------- Body measurements ----------
+D.measure = () => {
+  let g = C(160,40,22,'var(--sheet2)','var(--ink2)',1.2) + R(150,60,20,16,'var(--sheet2)','none',0);
+  g += P('M150 74 L96 84 Q86 120 76 196 L94 198 L104 120 L110 200 Q102 230 104 252 L216 252 Q218 230 210 200 L216 120 L226 198 L244 196 Q234 120 224 84 L170 74 Z','var(--sheet2)','var(--ink2)',1.2);
+  const Y='var(--sun)';
+  g += H('neck', `<ellipse cx="160" cy="72" rx="15" ry="4" fill="none" stroke="${Y}" stroke-width="3"/>`) + T(182,64,'neck',{s:11});
+  g += H('shoulder', L(98,86,222,86,Y,3)) + T(228,90,'shoulder',{s:11});
+  g += H('chest', `<ellipse cx="160" cy="118" rx="56" ry="7" fill="none" stroke="${Y}" stroke-width="3"/>`) + T(222,122,'chest',{s:11});
+  g += H('waist', `<ellipse cx="160" cy="196" rx="50" ry="6" fill="none" stroke="${Y}" stroke-width="3"/>`) + T(216,200,'waist',{s:11});
+  g += H('hip', `<ellipse cx="160" cy="244" rx="56" ry="6" fill="none" stroke="${Y}" stroke-width="3"/>`) + T(222,248,'hip',{s:11});
+  g += H('bicep', `<ellipse cx="91" cy="132" rx="11" ry="4" transform="rotate(-80 91 132)" fill="none" stroke="${Y}" stroke-width="3"/>`) + T(40,132,'bicep',{s:11});
+  g += H('length', L(290,70,290,300,Y,3)+L(282,70,298,70,Y,2)+L(282,300,298,300,Y,2)) + `<text x="304" y="185" class="svgt" font-size="11" fill="var(--ink)" transform="rotate(90 304 185)" text-anchor="middle">back length: neck base to hem</text>`;
+  return S(330,320,g,'Where to measure: neck, shoulder, chest, waist, hip, bicep, back length');
+};
+
+// ---------- Pattern pieces ----------
+D.pieces = () => {
+  let g = R(0,0,470,310,'var(--pat)','none',0);
+  const lab = (x,y,a,b) => TM(x,y,a,{s:9.5,a:'middle'}) + TM(x,y+12,b,{s:8.5,a:'middle',c:'var(--ink2)'});
+  const fold = (x,y1,y2) => L(x-6,y1,x-6,y2,'var(--ink)',1) + L(x-6,y1,x,y1,'var(--ink)',1) + L(x-6,y2,x,y2,'var(--ink)',1) + `<text x="${x-10}" y="${(y1+y2)/2}" class="svgm" font-size="8" fill="var(--ink)" text-anchor="middle" transform="rotate(-90 ${x-10} ${(y1+y2)/2})">PLACE ON FOLD</text>`;
+  g += H('front', piece('front',52,24,0.95,'var(--sheet)','var(--ink)','',false)) + L(52,62,52,214,'var(--ink2)',1,'4 3') + L(60,62,60,214,'var(--thread)',.8,'2 2') + A(90,90,90,190) + A(90,190,90,90) + lab(80,150,'FRONT','CUT 2');
+  g += P('M110 67 l6 -4 l0 8 z','var(--ink)','none',0) + [[66,70],[100,70],[66,108],[100,108]].map(([x,y])=>C(x,y,2,'var(--ink)','none',0)).join('');
+  g += H('back', piece('backHalf',180,24,0.95,'var(--sheet)','var(--ink)','',false)) + fold(180,30,180) + A(210,70,210,170) + A(210,170,210,70) + lab(222,120,'BACK','CUT 1');
+  g += P('M253 70 l6 -2 l0 8 z M255 80 l6 -2 l0 8 z','var(--ink)','none',0);
+  g += H('yoke', piece('yokeHalf',300,24,1.2,'var(--sheet)','var(--ink)','',false)) + fold(300,32,66) + lab(350,52,'YOKE','CUT 2');
+  g += H('sleeve', piece('sleeve',300,110,1.15,'var(--sheet)','var(--ink)','',false)) + A(369,150,369,214) + A(369,214,369,150) + lab(369,190,'SLEEVE','CUT 2') + C(369,111,2.4,'var(--ink)','none',0) + P('M318 150 l-5 -6 l8 -2 z','var(--ink)','none',0) + P('M418 146 l5 -6 l3 7 z M424 156 l5 -6 l3 7 z','var(--ink)','none',0);
+  g += H('collar', piece('collarHalf',180,236,1.3,'var(--sheet)','var(--ink)','',false)) + fold(180,240,280) + lab(232,262,'COLLAR','CUT 2');
+  g += H('pocket', piece('pocket',340,240,1,'var(--sheet)','var(--ink)','',false)) + lab(360,262,'POCKET','CUT 1');
+  g += TM(12,300,'Seam allowance: 1.5 cm main seams · 1 cm collar and neckline',{s:8.5,c:'var(--ink2)'});
+  return S(470,310,g,'The ten shirt pattern pieces with markings');
+};
+// ---------- Flat-felled seam, four steps in cross-section ----------
+D.flatfell = () => {
+  const F='var(--fab)', W=4.5; let g='';
+  const panel = (i, x, inner, cap) => { g += R(x+4,20,104,170,'var(--sheet)','var(--line)',1,'rx="8"') + TM(x+14,40,String(i),{s:14,c:'var(--teal)'}) + inner + T(x+56,178,cap,{s:10,a:'middle'}); };
+  const cx=56;
+  panel(1,0, P(`M10 150 L${cx-2} 150 L${cx-2} 104`,'none',F,W) + P(`M102 154 L${cx+2} 154 L${cx+2} 104`,'none','var(--fab2)',W) + C(cx,146,2.6,'var(--thread)','none',0), 'sew WS together');
+  panel(2,112, P(`M122 150 L${112+cx-2} 150 L${112+cx-2} 104`,'none',F,W) + H('trimmed', P(`M214 154 L${112+cx+2} 154 L${112+cx+2} 132`,'none','var(--fab2)',W) + R(112+cx-4,128,12,30,'transparent','none',0)) + C(112+cx,146,2.6,'var(--thread)','none',0), 'trim one to 6 mm');
+  panel(3,224, H('folded', P(`M234 150 L${224+cx-2} 150 L${224+cx-2} 116 Q${224+cx+4} 106 ${224+cx+10} 116 L${224+cx+10} 128`,'none',F,W)) + P(`M326 154 L${224+cx+2} 154 L${224+cx+2} 132`,'none','var(--fab2)',W) + C(224+cx,146,2.6,'var(--thread)','none',0), 'wrap the wide one');
+  panel(4,336, P(`M346 150 L${336+cx} 150 L${336+cx+30} 141 Q${336+cx+36} 140 ${336+cx+30} 137 L${336+cx+8} 137`,'none',F,W) + P(`M438 154 L${336+cx+2} 154 L${336+cx+22} 145`,'none','var(--fab2)',W) + C(336+cx,148,2.6,'var(--thread)','none',0) + H('stitch', C(336+cx+26,146,3.2,'var(--thread)','none',0) + C(336+cx+26,146,9,'transparent','none',0)), 'press, stitch fold');
+  g += T(224,212,'Raw edges end up wrapped inside; two lines of stitching hold it.',{s:11,a:'middle',c:'var(--ink2)'});
+  return S(448,222,g,'Flat-felled seam in four steps');
+};
+
+// ---------- Interfacing ----------
+D.interf = () => {
+  let g = piece('front',70,20,0.9,'var(--fab)','var(--ink)','',false);
+  g += H('facing', R(48,57,22,143,'var(--int)','var(--ink)',1,'opacity=".95"')) + L(70,57,70,200,'var(--ink2)',1,'4 3') + T(40,150,'facing',{s:11,a:'end'});
+  g += H('collar', piece('collarFull',260,60,1.4,'var(--fab)','var(--ink)','',false) + `<g transform="translate(260 60) scale(1.4)"><path d="M-66 30 L-55 5 L55 5 L66 30 Z" fill="var(--int)" stroke="var(--ink)" stroke-width="1" vector-effect="non-scaling-stroke"/></g>`) + T(260,124,'upper collar',{s:11,a:'middle'});
+  g += P('M300 150 L380 150 Q376 120 350 116 L320 116 Q304 128 300 150 Z','var(--sheet2)','var(--ink)',1.2) + A(340,160,340,184,'var(--thread)',2) + A(370,184,370,160,'var(--thread)',2);
+  g += T(340,200,'press 10–15 s · lift · overlap',{s:11,a:'middle',c:'var(--ink2)'});
+  return S(440,212,g,'Interfacing on the front facing and upper collar; press and lift');
+};
+
+// ---------- Patch pocket ----------
+D.pocket = () => {
+  let g = R(30,30,120,150,'var(--fab)','var(--ink)',1.2) + L(30,48,150,48,'var(--ink2)',1,'4 3') + L(30,90,150,90,'var(--ink2)',1,'4 3') + L(46,90,46,180,'var(--ink2)',1,'4 3') + L(134,90,134,180,'var(--ink2)',1,'4 3') + L(30,164,150,164,'var(--ink2)',1,'4 3');
+  g += R(46,94,88,70,'none','var(--ink)',1.5,'stroke-dasharray="7 3"') + TM(90,132,'CARD',{s:9,a:'middle'}) + T(156,52,'fold 1 cm',{s:10}) + T(156,94,'fold 2.5 cm',{s:10}) + T(90,200,'1. press over a card',{s:11,a:'middle'});
+  g += R(240,10,190,190,'var(--fab2)','var(--line)',1) ;
+  g += P('M282 50 L388 50 L388 150 L335 166 L282 150 Z','var(--fab)','var(--ink)',1.3);
+  g += H('hem', L(282,74,388,74,'var(--thread)',1.4,'3 2') + R(282,68,106,12,'transparent','none',0));
+  g += H('edge', P('M285 52 L285 148 L335 163 L385 148 L385 52','none','var(--thread)',1.4,'stroke-dasharray="3 2"') + P('M285 52 L285 148 L335 163 L385 148 L385 52','none','transparent',10));
+  g += H('triangle', P('M282 50 L294 50 L282 62 Z','var(--thread)','var(--ink)',1) + P('M388 50 L376 50 L388 62 Z','var(--thread)','var(--ink)',1));
+  g += T(335,200,'2. hem, then edgestitch 3 sides',{s:11,a:'middle'}) + T(335,30,'reinforce both top corners',{s:10,a:'middle',c:'var(--thread)'});
+  return S(440,212,g,'Making and attaching the patch pocket');
+};
+
+// ---------- Double yoke, side section ----------
+D.yoke = () => {
+  let g = T(20,24,'Side section through the back seam',{s:11,c:'var(--ink2)'});
+  g += H('outer', P('M240 30 L240 120','none','var(--fab)',6) + T(250,60,'outer yoke (right side faces out)',{s:11}));
+  g += H('back', P('M232 120 L232 230','none','var(--sheet2)',6) + P('M232 120 L232 230','none','var(--fab)',6) + T(244,200,'back',{s:11}));
+  g += H('inner', P('M224 30 L224 120','none','var(--fab2)',6) + T(214,60,'inner yoke',{s:11,a:'end'}));
+  g += C(232,124,4,'var(--thread)','none',0) + T(244,132,'one seam through all three',{s:11,c:'var(--thread)'});
+  g += A(260,110,260,80,'var(--ink)',1.5) + A(206,110,206,80,'var(--ink)',1.5) + T(206,140,'press both yokes up',{s:11,a:'end',c:'var(--ink2)'});
+  return S(440,240,g,'Back sandwiched between outer and inner yoke');
+};
+
+// ---------- Collar: sew, grade, turn ----------
+D.collar = () => {
+  let g = `<g transform="translate(200 40) scale(2.2)"><path d="M-74 34 L-60 2 L60 2 L74 34 Z" fill="var(--fab)" stroke="var(--ink)" stroke-width="1.3" vector-effect="non-scaling-stroke"/></g>`;
+  g += P('M43 115 L72 46 L328 46 L357 115','none','var(--thread)',1.6,'stroke-dasharray="4 3"') + T(200,36,'stitch the outer edges, neck edge open',{s:11,a:'middle',c:'var(--thread)'});
+  g += H('grade', P('M60 118 L84 56 L316 56 L340 118','none','var(--ink2)',1,'stroke-dasharray="2 2"') + P('M52 118 L78 52 L322 52 L348 118','none','var(--ink2)',1) + R(78,46,244,14,'transparent','none',0)) + T(200,72,'graded: 3 mm and 6 mm',{s:10,a:'middle'});
+  g += H('corner', P('M330 46 L357 115','none','transparent',12) + P('M346 40 L364 64','none','var(--bad)',2.5) + P('M38 64 L56 40','none','var(--bad)',2.5)) + T(384,58,'trim corners',{s:10,c:'var(--bad)'});
+  g += H('turner', P('M370 170 L380 120 L392 170 Z','var(--sun)','var(--ink)',1.2) + R(372,170,18,22,'var(--sun)','var(--ink)',1)) + T(404,180,'point turner',{s:10});
+  g += T(200,160,'turn, push points out, press',{s:11,a:'middle',c:'var(--ink2)'});
+  return S(460,200,g,'Collar: stitched, graded, corners trimmed, point turner');
+};
+
+// ---------- Neckline: attach the camp collar ----------
+D.neckline = () => {
+  let g = P('M40 60 L120 40 Q220 130 320 40 L400 60 L400 240 L40 240 Z','var(--fab)','var(--ink)',1.4);
+  g += P('M120 40 Q220 130 320 40','none','var(--ink)',2) + P('M128 48 Q220 126 312 48','none','var(--thread)',1.3,'stroke-dasharray="4 3"');
+  let clips=''; for(let i=1;i<8;i++){ const t=i/8, x=(1-t)*(1-t)*120+2*(1-t)*t*220+t*t*320, y=(1-t)*(1-t)*40+2*(1-t)*t*130+t*t*40; const dx=-(2*(1-t)*(220-120)+2*t*(320-220)), dy=(2*(1-t)*(130-40)+2*t*(40-130)); const len=Math.hypot(dx,dy), nx=dy/len*-1, ny=dx/len*-1; clips += L(x,y,x+nx*7,y+ny*7,'var(--bad)',2); }
+  g += H('clip', clips + P('M120 40 Q220 130 320 40','none','transparent',16));
+  g += P('M120 40 L60 30 L80 100 L150 92 Z','var(--sheet2)','var(--ink)',1.2) + P('M320 40 L380 30 L360 100 L290 92 Z','var(--sheet2)','var(--ink)',1.2);
+  g += T(98,118,'facing folded over',{s:10,a:'middle'}) + T(342,118,'facing folded over',{s:10,a:'middle'}) + T(220,150,'CB',{s:11,a:'middle',w:700}) + L(220,128,220,138,'var(--ink)',2) + T(220,200,'clip to the stitching, every 1–1.5 cm',{s:11,a:'middle',c:'var(--bad)'});
+  return S(440,250,g,'Camp collar attached at the neckline with clips in the curve');
+};
+
+// ---------- Collar with stand ----------
+D.stand = () => {
+  let g = H('collar', P('M70 40 L370 40 L392 96 Q220 84 48 96 Z','var(--fab)','var(--ink)',1.3)) + T(220,70,'collar',{s:12,a:'middle',w:700});
+  g += H('stand', P('M40 130 Q220 110 400 130 L404 156 Q220 140 36 156 Z','var(--fab2)','var(--ink)',1.3)) + T(220,146,'collar stand',{s:12,a:'middle',w:700});
+  g += H('button', C(54,143,6,'var(--chalk)','var(--ink)',1.2) + L(380,138,394,140,'var(--ink)',2.4)) + T(54,176,'top button',{s:10,a:'middle'}) + T(388,176,'top buttonhole',{s:10,a:'middle'});
+  g += A(220,98,220,116,'var(--ink2)',1.5) + T(232,110,'collar sits between two stand layers',{s:10,c:'var(--ink2)'});
+  return S(440,190,g,'Two-piece collar: collar and collar stand');
+};
+
+// ---------- Sleeve set flat ----------
+D.sleeve = () => {
+  let g = P('M30 30 L150 30 Q160 120 230 140 L230 230 L30 230 Z','var(--fab2)','var(--ink)',1.2) + T(90,200,'body (front)',{s:11,a:'middle'});
+  g += `<g transform="translate(230 150) scale(1.6)"><path d="M0 52 Q30 0 60 0 Q90 0 120 52 L108 96 L12 96 Z" fill="var(--fab)" stroke="var(--ink)" stroke-width="1.3" vector-effect="non-scaling-stroke"/></g>`;
+  g += H('cap', C(326,150,4,'var(--ink)','none',0) + C(326,150,10,'transparent','none',0)) + T(326,140,'cap dot → shoulder point',{s:10,a:'middle'});
+  g += H('front', P('M258 196 l-7 -7 l10 -3 z','var(--ink)','none',0) + C(256,192,10,'transparent','none',0)) + T(240,214,'1 notch: front',{s:10,a:'end'});
+  g += H('back', P('M394 186 l7 -7 l3 10 z M402 198 l7 -7 l3 10 z','var(--ink)','none',0) + C(402,192,12,'transparent','none',0)) + T(420,226,'2 notches: back',{s:10,a:'end'});
+  g += A(200,120,250,170,'var(--ink2)',1.5) + T(196,108,'match, then sew WS together',{s:10,a:'end',c:'var(--ink2)'});
+  return S(440,320,g,'Setting the sleeve flat: cap dot and notches');
+};
+
+// ---------- One long side seam ----------
+D.sideseam = () => {
+  let g = P('M120 40 L60 90 L90 126 L130 106 L132 300 L300 300 L300 40 Z','var(--fab)','var(--ink)',1.4);
+  g += P('M86 122 L128 102 L130 298','none','var(--thread)',3,'stroke-dasharray="6 4"');
+  g += H('underarm', C(129,104,7,'var(--sun)','var(--ink)',1.2) + C(129,104,14,'transparent','none',0)) + T(150,100,'armhole seams meet here',{s:11});
+  g += A(70,112,96,124,'var(--ink2)',1.5) + T(30,140,'sleeve hem',{s:10}) + A(150,286,132,296,'var(--ink2)',1.5) + T(156,280,'to the shirt hem in one pass',{s:10});
+  return S(340,320,g,'Side seam running from sleeve hem to shirt hem');
+};
+
+// ---------- Double-fold hem ----------
+D.hem = () => {
+  let g = P('M60 20 L60 150 Q60 172 80 172 L80 128 Q80 112 70 112','none','var(--fab)',6);
+  g += H('raw', C(70,114,5,'var(--bad)','none',0) + C(70,114,12,'transparent','none',0)) + T(100,112,'raw edge locked inside',{s:11,c:'var(--bad)'});
+  g += H('stitch', C(70,130,3.5,'var(--thread)','none',0) + C(70,130,10,'transparent','none',0)) + T(100,134,'stitch at the inner fold',{s:11});
+  g += DIM(30,128,30,172,'2nd fold',{left:true}) + T(100,172,'fold line = hem edge',{s:11,c:'var(--ink2)'}) + T(100,40,'shirt: 1 cm + 1 cm · sleeves: 1 cm + 2 cm',{s:11,c:'var(--ink2)'}) + T(66,14,'outside',{s:10,c:'var(--ink2)'});
+  return S(400,190,g,'Double-fold hem in cross-section');
+};
+
+// ---------- Buttonholes: machine and hand ----------
+D.buttonhole = () => {
+  let g = T(110,24,'Machine',{s:12,a:'middle',w:700}) + T(330,24,'Hand-worked',{s:12,a:'middle',w:700});
+  let zz=''; for(let x=50;x<170;x+=4){ zz += L(x,52,x+2,60,'var(--thread)',1.2) + L(x,70,x+2,78,'var(--thread)',1.2); }
+  g += R(40,46,140,38,'var(--fab)','var(--ink)',1) + zz + L(56,65,164,65,'var(--ink)',1.2);
+  g += H('bar', R(44,50,8,30,'var(--thread)','none',0)+R(168,50,8,30,'var(--thread)','none',0));
+  let pr=''; for(let x=262;x<388;x+=5){ pr += L(x,52,x,62,'var(--thread)',1.2) + C(x,62,1.3,'var(--thread)','none',0) + L(x,78,x,68,'var(--thread)',1.2) + C(x,68,1.3,'var(--thread)','none',0); }
+  g += R(240,46,180,38,'var(--fab)','var(--ink)',1) + pr + L(262,65,392,65,'var(--ink)',1.2);
+  let fan=''; for(let a=-80;a<=80;a+=20){ const r=a*rad; fan += L(258,65,258-Math.cos(r)*12,65+Math.sin(r)*12,'var(--thread)',1.3); }
+  g += fan + H('bar', R(392,50,8,30,'var(--thread)','none',0));
+  g += T(110,110,'dense zigzag sides, bar ends',{s:10,a:'middle',c:'var(--ink2)'}) + T(330,110,'purl knots on the cut edge, fan and bar',{s:10,a:'middle',c:'var(--ink2)'});
+  return S(440,124,g,'Machine and hand-worked buttonholes');
+};
+
+// ---------- Button with thread shank ----------
+D.button = () => {
+  let g = R(40,150,360,10,'var(--fab)','var(--ink)',1) + R(40,160,360,6,'var(--int)','var(--ink)',.8) + R(40,166,360,10,'var(--fab)','var(--ink)',1) + T(410,160,'front + interfacing',{s:10,a:'end'});
+  g += R(170,92,100,12,'var(--chalk)','var(--ink)',1.4,'rx="5"') + T(290,100,'button',{s:11});
+  g += H('shank', R(208,104,24,46,'var(--thread)','var(--ink)',1) + P('M208 112 L232 116 M208 122 L232 126 M208 132 L232 136 M208 142 L232 146','none','var(--sheet)',1)) + T(250,132,'thread shank (wrapped)',{s:11});
+  g += P('M206 88 L206 104 M234 88 L234 104','none','var(--thread)',1.4);
+  g += H('spacer', L(150,86,290,86,'var(--sun)',3,'6 3')) + T(150,78,'toothpick spacer while sewing',{s:10,c:'var(--ink2)'});
+  g += T(220,198,'shank height ≈ the buttonhole layer it must clear',{s:11,a:'middle',c:'var(--ink2)'});
+  return S(440,210,g,'Button standing on a wrapped thread shank');
+};
+// ---------- COURSE CONTENT: units 1–4 ----------
+const UNITS = [];
+UNITS.push({id:'f1', title:'Kit and fabric', sub:'Tools for machine or hand, choosing cloth, grain and pressing', lessons:[
+ {id:'f1a', title:'Your kit, machine or hand', ref:'General sewing practice · machine and needle makers\' guides', cards:[
+  {h:'The shirt you will make', d:'heroFull', t:`<p>A short-sleeved button-up with a <b>camp collar</b> (it lies open, with no stand), one <b>chest pocket</b>, a double <b>back yoke</b>, six buttons and a straight hem. Every main seam is <b>flat-felled</b>: raw edges wrapped inside and stitched twice, the seam used on work shirts and jeans.</p><p>Sew it all on a machine, all by hand, or mix the two. Pick your method on the home screen or in Settings, and each lesson opens on that method.</p>`},
+  {h:'Shared kit', d:'kit', t:`<ul><li><b>Fabric shears</b>, used only on fabric, and small <b>snips</b> for threads</li><li>Glass-head <b>pins</b> or clips, a <b>tape measure</b>, a clear ruler</li><li><b>Tailor's chalk</b> or a washable marker</li><li>A <b>seam ripper</b>, a <b>point turner</b></li><li>An <b>iron</b>, ironing board and press cloth</li><li>Polyester all-purpose <b>thread</b> in a matching colour: strong and smooth</li></ul>`},
+  {h:'Method kit', t:`<p>The extras depend on how you sew.</p>`, m:`<ul><li>Machine needles: universal or sharp <b>80/12</b> for medium shirting, 70/10 for fine poplin, 90/14 for heavy linen or denim shirting.</li><li>Feet: standard and buttonhole; an edgestitch foot helps.</li><li>Bobbins wound with the same thread.</li></ul>`, hd:`<ul><li>Hand needles: <b>sharps</b>, size 7–9.</li><li>A <b>thimble</b> for the middle finger of your sewing hand, to push the needle through layers.</li><li><b>Beeswax</b> or thread conditioner: fewer tangles, stronger thread.</li><li>Good light and a needle threader.</li></ul>`}],
+ qs:[
+  {k:'mc', q:'What are fabric shears for?', o:['Fabric only','Fabric and paper patterns','Anything that needs cutting','Wire and fabric'], a:0, e:'Paper dulls the blades quickly. Keep a separate pair for paper.'},
+  {k:'tap', q:'Tap the thimble.', d:'kit', a:'thimble', e:'The thimble is the small dimpled cap.'},
+  {k:'mc', q:'Which machine needle suits medium cotton shirting?', o:['80/12 universal or sharp','110/18 jeans','60/8','75/11 ballpoint for knits'], a:0, only:'machine', e:'80/12 suits most medium shirtings; go down for fine fabric, up for heavy.'},
+  {k:'tf', q:'Running hand-sewing thread through beeswax helps stop tangles.', a:true, only:'hand', e:'Wax smooths and strengthens the thread.'},
+  {k:'match', q:'Match each tool to its job.', p:[['Point turner','Pushes collar corners out'],['Seam ripper','Unpicks stitches'],['Tailor\'s chalk','Marks the fabric'],['Press cloth','Protects fabric from the iron']], e:'Each one saves time or mistakes later.'},
+  {k:'tf', q:'Polyester all-purpose thread is a strong choice for durable seams.', a:true, e:'It is strong and smooth, and resists rot and abrasion.'}]},
+ {id:'f1b', title:'Choosing shirt fabric', ref:'Fabric weight and fibre basics', cards:[
+  {h:'Woven, stable, medium weight', t:`<p>A button-up needs a <b>woven</b> fabric; knits stretch at buttonholes and seams. For a first shirt choose a stable, medium-weight cotton or cotton-linen of about <b>100–150 g/m²</b>. It cuts accurately, presses crisply and stays put.</p><p>Save slippery fabrics (rayon, silk), sheer fabrics and large checks or stripes, which need matching at every seam, for a later shirt.</p>`},
+  {h:'Shirting cloths', t:`<ul><li><b>Oxford</b>: basket weave, soft and very hard-wearing.</li><li><b>Chambray</b>: denim look, lighter and softer.</li><li><b>Poplin</b>: smooth and crisp; shows every stitch.</li><li><b>Linen</b>: coolest in heat; creases and frays more.</li></ul><p>Buy a little extra for shrinkage and a test swatch. <b>Tools → Fabric and layout</b> estimates how much.</p>`}],
+ qs:[
+  {k:'mc', q:'Best fabric for a first shirt?', o:['Medium-weight cotton oxford or chambray','Silk charmeuse','Cotton jersey knit','Large tartan wool'], a:0, e:'Stable, medium-weight cotton is the easiest to sew well.'},
+  {k:'tf', q:'A stretchy knit is ideal for a first button-up.', a:false, e:'Knits stretch at buttonholes and seams; a stable woven sews more accurately and lasts longer.'},
+  {k:'mc', q:'Why avoid big checks on a first shirt?', o:['They must match at the seams, which takes skill and extra fabric','They fade faster','They can\'t be pressed','They need a special needle'], a:0, e:'Matching checks across fronts, pocket and sleeves is a skill for later.'},
+  {k:'match', q:'Match the cloth to its character.', p:[['Oxford','Basket weave, very hard-wearing'],['Poplin','Smooth and crisp'],['Linen','Cool, creases and frays'],['Chambray','Soft, denim look']], e:'All four make good shirts.'},
+  {k:'num', q:'1.8 m of 150 cm wide fabric at 130 g/m². How much does it weigh?', a:351, tol:2, u:'g', e:'1.8 × 1.5 = 2.7 m², and 2.7 × 130 = 351 g.'}]},
+ {id:'f1c', title:'Grain, pre-washing and pressing', ref:'Fabric grain conventions · pressing technique', cards:[
+  {h:'Grain', d:'grain', t:`<p>The <b>selvedge</b> is the woven, finished edge. The <b>lengthwise grain</b> runs parallel to it: strongest, with almost no stretch. The <b>crossgrain</b> runs across. The <b>bias</b>, at 45°, stretches most.</p><p>Every pattern piece has a <b>grainline arrow</b>. Lay it parallel to the selvedge by measuring from both ends of the arrow to the selvedge; the two measurements must match. Off-grain pieces twist after washing.</p>`},
+  {h:'Pre-wash, then press', t:`<p>Wash and dry the fabric the way you will wash the shirt, before cutting. Cotton commonly shrinks a few percent and linen more; let it happen now.</p><p><b>Press, don't iron:</b> lift and lower the iron instead of sliding it, so nothing stretches. Press every seam as you sew it. Pressing is what makes homemade look professional.</p>`}],
+ qs:[
+  {k:'mc', q:'The grainline arrow is laid parallel to…', o:['The selvedge','The cut end','The bias','A 45° line'], a:0, e:'Measure from both ends of the arrow to the selvedge.'},
+  {k:'mc', q:'Which direction stretches most?', o:['The bias (45°)','The lengthwise grain','The crossgrain','They all stretch the same'], a:0, e:'Bias stretches, which is why curved necklines need staystitching.'},
+  {k:'tap', q:'Tap the selvedge.', d:'grain', a:'selvedge', e:'The selvedge is the dotted, finished edge.'},
+  {k:'num', q:'A 2.0 m length shrinks 4% in its first wash. How much shorter is it?', a:8, tol:0, u:'cm', e:'200 cm × 0.04 = 8 cm.'},
+  {k:'mc', q:'Pressing means…', o:['Lifting and lowering the iron','Sliding the iron back and forth','Ironing the right side only','Using no heat'], a:0, e:'Sliding stretches seams and curves.'},
+  {k:'tf', q:'Pre-wash the fabric before cutting.', a:true, e:'Shrinkage happens before the pieces are cut.'}]}
+]});
+
+UNITS.push({id:'f2', title:'Measure and cut', sub:'Sizing with ease, the ten pieces, layout and marking', lessons:[
+ {id:'f2a', title:'Measure and pick a size', ref:'Pattern sizing practice: finished garment measurements', cards:[
+  {h:'Body measurements', d:'measure', t:`<p>Measure over a thin T-shirt with the tape level and snug, not tight: <b>chest</b> at the fullest part under the arms, <b>waist</b>, <b>hip</b> (an untucked shirt must clear it), <b>neck</b>, <b>shoulder width</b>, <b>bicep</b>, and <b>back length</b> from the bone at the base of the neck to where you want the hem.</p>`},
+  {h:'Ease and finished size', t:`<p><b>Ease</b> is the room beyond your body. Finished chest = body chest + ease. A relaxed camp-collar shirt usually has about <b>15–25 cm</b> of chest ease; a slim shirt 8–10 cm.</p><p>Pick your size from the pattern's <b>finished garment</b> measurements, not from shop sizes: by chest first, then check the hip. Change the length at the lengthen/shorten line.</p>`}],
+ qs:[
+  {k:'num', q:'Body chest 100 cm, ease 20 cm. Finished chest?', a:120, tol:0, u:'cm', e:'100 + 20 = 120 cm.'},
+  {k:'mc', q:'Where do you measure the chest?', o:['Fullest part, tape level under the arms','Just under the collarbone','At the waist','Around the shoulders'], a:0, e:'Keep the tape level all the way round.'},
+  {k:'mc', q:'What is ease?', o:['Room beyond your body measurement','The seam allowance','Stretch in the fabric','The hem depth'], a:0, e:'Ease lets you move and sets the style.'},
+  {k:'num', q:'Finished chest 120 cm. How wide is each front and back quarter at the chest?', a:30, tol:0, u:'cm', e:'120 ÷ 4 = 30 cm.'},
+  {k:'tf', q:'Choose the size from the finished garment measurements.', a:true, e:'Pattern sizes rarely match shop sizes.'}]},
+ {id:'f2b', title:'Pattern pieces and markings', ref:'Commercial pattern marking conventions', cards:[
+  {h:'Ten pieces', d:'pieces', t:`<ul><li><b>Front</b> ×2, each with a self-facing that folds back</li><li><b>Back</b> ×1, on the fold</li><li><b>Yoke</b> ×2 (outer and inner), on the fold</li><li><b>Sleeve</b> ×2</li><li><b>Collar</b> ×2 (upper and under), on the fold</li><li><b>Pocket</b> ×1</li></ul><p>Plus fusible interfacing for the two front facings and one collar.</p>`},
+  {h:'Reading the marks', t:`<ul><li><b>Grainline arrow</b>: parallel to the selvedge.</li><li><b>Place on fold</b>: put that edge on the fabric fold; it opens out twice as wide.</li><li><b>Notches</b>: match points. One notch marks the front of an armhole, two mark the back.</li><li><b>Dots</b>: pocket corners, buttons, collar ends.</li><li><b>Seam allowance</b>: 1.5 cm on main seams, 1 cm on the collar and neckline in this pattern.</li></ul>`}],
+ qs:[
+  {k:'tap', q:'Tap the yoke.', d:'pieces', a:'yoke', e:'The yoke is the shaped band across the shoulders.'},
+  {k:'num', q:'How many fabric pieces do you cut in total?', a:10, tol:0, u:'pieces', e:'2 fronts + 1 back + 2 yokes + 2 sleeves + 2 collars + 1 pocket = 10.'},
+  {k:'mc', q:'What are notches for?', o:['Matching pieces at the right points','Decoration','Marking the grain','Showing buttonholes'], a:0, e:'Match notch to notch and the pieces line up.'},
+  {k:'mc', q:'Two notches on a sleeve cap mean…', o:['The back of the sleeve','The front of the sleeve','The shoulder point','Cut here'], a:0, e:'One notch front, two notches back.'},
+  {k:'tf', q:'A piece marked "place on fold" opens out twice as wide when cut.', a:true, e:'You draw half; the fold makes it symmetrical.'}]},
+ {id:'f2c', title:'Lay out and cut', ref:'Cutting practice', cards:[
+  {h:'Lay out', d:'layout', t:`<p>Fold the fabric selvedge to selvedge, right sides together, so pairs cut as mirror images and marks land on the wrong side. Check each grainline at both ends. Put fold pieces right against the fold. Hold pieces with weights or pins, and check everything fits before the first cut. <b>Tools → Fabric and layout</b> draws it for your size.</p>`},
+  {h:'Cut and mark', t:`<p>Cut with long, smooth strokes, the lower blade resting on the table. Snip notches 3 mm into the seam allowance. Mark dots with chalk on the wrong side, or with <b>tailor's tacks</b>: loose thread loops through both layers, cut apart between them. Label every piece.</p>`}],
+ qs:[
+  {k:'ord', q:'Put the cutting steps in order.', o:['Fold fabric selvedge to selvedge','Lay pieces with grainlines parallel to the selvedge','Weight or pin the pieces','Cut with long smooth strokes','Transfer notches and dots'], e:'Fold, place, secure, cut, mark.'},
+  {k:'num', q:'Fabric 150 cm wide, folded selvedge to selvedge. Folded width?', a:75, tol:0, u:'cm', e:'150 ÷ 2 = 75 cm.'},
+  {k:'tf', q:'Lifting the shears high off the table gives more accurate cuts.', a:false, e:'Keep the lower blade on the table so the fabric doesn\'t lift and shift.'},
+  {k:'mc', q:'A tailor\'s tack is…', o:['A thread loop marking a point through both layers','A metal pin','A chalk line','A label'], a:0, e:'It marks both layers at once without chalk.'},
+  {k:'mc', q:'Why fold right sides together?', o:['Pairs cut as mirror images and marks land on the wrong side','It makes the fabric thinner','It hides the selvedge','It isn\'t needed'], a:0, e:'Left and right fronts come out as a matched pair.'}]}
+]});
+
+UNITS.push({id:'f3', title:'Stitches and seams', sub:'Hand stitches, machine basics and the flat-felled seam', lessons:[
+ {id:'f3a', title:'Hand stitches you\'ll use', ref:'Traditional hand-sewing technique', cards:[
+  {h:'Four stitches build the shirt', d:'st_back', t:`<ul><li><b>Backstitch</b>: the strong seam stitch. Each stitch goes back to meet the last, making a solid line like a machine seam. Keep stitches 2–3 mm.</li><li><b>Running stitch</b>: in and out; basting and low-stress spots.</li><li><b>Slip stitch (felling)</b>: tiny stitches catching a fold to flat fabric; hems and finishing seams.</li><li><b>Overcast</b>: loops over a raw edge to stop fraying.</li></ul><p>Even machine sewers need slip stitch and button sewing. Watch every stitch move in the <b>Stitches</b> tab.</p>`},
+  {h:'Thread, start and finish', t:`<p>Cut thread about elbow to fingertip, 45–50 cm; longer tangles and wears. Single strand for seams, doubled for buttons. Start with a knot and a small backstitch; finish with two or three tiny backstitches on top of each other before trimming.</p>`}],
+ qs:[
+  {k:'mc', q:'Strongest hand stitch for a seam?', o:['Backstitch','Running stitch','Basting','Slip stitch'], a:0, e:'Backstitch makes a continuous, locked line.'},
+  {k:'mc', q:'What is slip stitch for?', o:['Near-invisible hems and felling a fold','Gathering','Fast main seams','Buttonholes'], a:0, e:'It catches only a thread or two of the outer fabric.'},
+  {k:'num', q:'A 30 cm seam in backstitch at 3 mm a stitch: how many stitches?', a:100, tol:0, u:'stitches', e:'300 mm ÷ 3 mm = 100.'},
+  {k:'tf', q:'Use a very long thread so you rarely rethread.', a:false, e:'Long thread tangles and frays from being pulled through so many times.'},
+  {k:'match', q:'Match the stitch to its job.', p:[['Backstitch','Strong seams'],['Running stitch','Basting'],['Slip stitch','Hems and felling'],['Overcast','Stops raw edges fraying']], e:'Four stitches cover the whole shirt.'}]},
+ {id:'f3b', title:'Machine basics', only:'machine', ref:'Sewing machine manuals (general practice)', cards:[
+  {h:'Set up', t:`<p>Thread the machine with the <b>presser foot up</b> so the tension discs open and the thread seats properly. Wind a bobbin with the same thread. Test on a doubled scrap of your fabric.</p><ul><li>Seams: <b>2.0–2.5 mm</b></li><li>Topstitching: 3 mm</li><li>Basting: 4–5 mm</li></ul>`},
+  {h:'Sew straight, lock the ends', t:`<p>Run the fabric edge along the throat-plate line for your seam allowance (1.5 cm) and watch that guide, not the needle. Backstitch 3–4 stitches at the start and end, or use the lock-stitch button, so seams can't unravel.</p>`}],
+ qs:[
+  {k:'tf', q:'Thread the machine with the presser foot down.', a:false, e:'Foot up opens the tension discs so the thread seats between them.'},
+  {k:'mc', q:'Stitch length for main seams in shirting?', o:['2.0–2.5 mm','4–5 mm','1 mm','6 mm'], a:0, e:'Short stitches make strong, neat seams.'},
+  {k:'mc', q:'Why backstitch at both ends of a seam?', o:['It locks the stitches so the seam can\'t unravel','It looks neater','It presses the seam','It changes direction'], a:0, e:'Unlocked ends pull out with wear.'},
+  {k:'num', q:'At 2.5 mm a stitch, how many stitches in a 50 cm seam?', a:200, tol:0, u:'stitches', e:'500 ÷ 2.5 = 200.'},
+  {k:'mc', q:'While sewing, watch…', o:['The fabric edge on the seam guide','The needle','The bobbin','The spool'], a:0, e:'The guide keeps the allowance even.'}]},
+ {id:'f3h', title:'Comfortable hand sewing', only:'hand', ref:'Traditional hand-sewing technique', cards:[
+  {h:'Hold, push, pull', t:`<p>Wear the thimble on the <b>middle finger</b> of your sewing hand and push the needle with it; you can then sew through several layers without a sore finger. Load a few running stitches onto the needle at once. Pull each stitch <b>snug, not tight</b>: tight stitches pucker the seam.</p>`},
+  {h:'Even stitches, steady seams', t:`<p>Sew along a chalk line. Small, even backstitches (2–3 mm) make a seam as strong as a machine seam. Work at a table in good light, and stop every 20 minutes or so to stretch your hands.</p>`}],
+ qs:[
+  {k:'mc', q:'Which finger wears the thimble?', o:['Middle finger of the sewing hand','Thumb of the other hand','Little finger','Index finger of the other hand'], a:0, e:'The middle finger pushes the needle.'},
+  {k:'tf', q:'Pulling hand stitches very tight makes the seam stronger.', a:false, e:'Tight stitches pucker and snap when the seam flexes.'},
+  {k:'mc', q:'Why sew along a chalk line?', o:['It keeps the seam allowance even','It strengthens the thread','It stops fraying','It speeds up pressing'], a:0, e:'An even allowance means pieces fit.'},
+  {k:'num', q:'You sew 12 backstitches a minute at 3 mm. How many centimetres of seam is that per minute?', a:3.6, tol:0.05, u:'cm', e:'12 × 0.3 cm = 3.6 cm.'},
+  {k:'tf', q:'Small, even backstitches can be as strong as a machine seam.', a:true, e:'Shirts were sewn by hand for centuries.'}]},
+ {id:'f3c', title:'The flat-felled seam', ref:'Classic shirtmaking construction', cards:[
+  {h:'Why flat-felled', d:'flatfell', t:`<p>The seam on work shirts and jeans: raw edges wrapped inside, two lines of stitching holding it flat. It survives hard wear and hot washes and looks clean inside and out.</p>`},
+  {h:'How', t:`<ol><li>Sew <b>wrong sides together</b> at 1.5 cm.</li><li>Trim one allowance to about <b>6 mm</b>.</li><li>Fold the wide allowance over the trimmed one, tucking its raw edge under.</li><li>Press the fold flat to one side.</li><li>Stitch close to the fold through all layers.</li></ol>`, m:`<p>Sew the first seam at 2.5 mm. Edgestitch the fold about <b>2 mm</b> from its edge at 2.5–3 mm; an edgestitch foot keeps it even.</p>`, hd:`<p>Backstitch the first seam at 2–3 mm. Then <b>fell</b> the fold down with small slip stitches about 4–5 mm apart. Only the backstitch line shows on the right side.</p>`},
+  {h:'Alternatives', t:`<p><b>French seam</b>: enclosed too, best on straight seams in light fabric. <b>Mock flat-fell</b>: sew right sides together, finish both edges together (zigzag or overcast), press to one side and topstitch. Use it where a true fell is awkward.</p>`}],
+ qs:[
+  {k:'ord', q:'Put the flat-felled seam in order.', o:['Sew wrong sides together at 1.5 cm','Trim one allowance to 6 mm','Fold the wide allowance over the trimmed one','Press flat to one side','Stitch close to the fold'], e:'Sew, trim, wrap, press, stitch.'},
+  {k:'tap', q:'Tap the trimmed allowance.', d:'flatfell', a:'trimmed', e:'In step 2 one allowance is cut down to 6 mm.'},
+  {k:'num', q:'Seam allowance 15 mm; trim one side to 6 mm. How much do you cut off?', a:9, tol:0, u:'mm', e:'15 − 6 = 9 mm.'},
+  {k:'mc', q:'Why is a flat-felled seam durable?', o:['Raw edges are enclosed and two lines of stitching hold it','It uses thicker thread','It stretches','It needs no pressing'], a:0, e:'Nothing can fray, and the stitching shares the load.'},
+  {k:'tf', q:'By hand, the folded edge is felled down with slip stitches.', a:true, only:'hand', e:'Small, close felling stitches hold the fold.'},
+  {k:'mc', q:'Edgestitch the fold at about…', o:['2 mm from the edge','2 cm from the edge','On the raw edge','10 mm from the edge'], a:0, only:'machine', e:'Close to the fold catches it securely.'}]}
+]});
+
+UNITS.push({id:'f4', title:'Interfacing and pocket', sub:'Stabilising, a crisp patch pocket and corners that hold', lessons:[
+ {id:'f4a', title:'Interfacing', ref:'Interfacing makers\' fusing guidance', cards:[
+  {h:'Where and why', d:'interf', t:`<p>Interfacing stiffens the parts that take strain or must stay crisp: the <b>front facings</b>, where the buttons and buttonholes go, and <b>one collar piece</b>. Choose a weight a little lighter than your fabric; too heavy looks stiff and can bubble.</p>`},
+  {h:'Fusible or sew-in', t:`<p><b>Fusible</b> has heat-set glue. Trim it out of the seam allowances to cut bulk, lay it glue side down on the wrong side and <b>press, don't slide</b>: 10–15 seconds per spot, with steam or a damp press cloth, overlapping as you go. Let it cool before moving it.</p><p><b>Sew-in</b> is basted in place by hand inside the seam allowance; it suits a hand-sewn shirt and delicate fabric.</p>`}],
+ qs:[
+  {k:'mc', q:'Which parts get interfacing?', o:['Front facings and one collar piece','The sleeves','The whole back','Only the pocket'], a:0, e:'The parts that carry buttons or must stay crisp.'},
+  {k:'tf', q:'Slide the iron back and forth to fuse interfacing.', a:false, e:'Sliding shifts and wrinkles it; press and lift.'},
+  {k:'mc', q:'Interfacing that is too heavy…', o:['Looks stiff and can bubble','Makes the shirt warmer','Is always better','Has no effect'], a:0, e:'Pick slightly lighter than the fabric.'},
+  {k:'mc', q:'Fusing time per spot is about…', o:['10–15 seconds','1 second','2 minutes','Just a touch'], a:0, e:'Check the maker\'s instructions too.'},
+  {k:'tf', q:'Sew-in interfacing suits a hand-sewn shirt.', a:true, e:'It needs no fusing and stays soft.'}]},
+ {id:'f4b', title:'Make the patch pocket', ref:'Patch pocket construction', cards:[
+  {h:'Hem the top, press the edges', d:'pocket', t:`<p>Fold the top edge 1 cm, then 2.5 cm to the wrong side and stitch the hem. Cut a card template the size of the finished pocket, lay it inside, and press the other edges under 1 cm around it for crisp, matching corners. For a pointed bottom, fold the point first, then the sides.</p>`, m:`<p>Stitch the top hem close to its inner fold at 2.5 mm.</p>`, hd:`<p>Slip stitch the top hem; it won't show from the front.</p>`},
+  {h:'Placement', t:`<p>The pocket goes on the <b>wearer's left front</b>, positioned with the pattern dots. Keep it on the same grain as the front and check both sides sit the same distance from the front edge.</p>`}],
+ qs:[
+  {k:'ord', q:'Put the pocket steps in order.', o:['Fold and stitch the top hem','Press the other edges over a card template','Position on the left front at the dots','Stitch it on'], e:'Hem, press, place, sew.'},
+  {k:'mc', q:'Why use a card template?', o:['Crisp, matching edges and corners','To cut the fabric','To stiffen the pocket','To mark buttonholes'], a:0, e:'The card gives a hard edge to press against.'},
+  {k:'num', q:'Finished pocket 13 cm wide, 1 cm turned under each side. Cut width?', a:15, tol:0, u:'cm', e:'13 + 1 + 1 = 15 cm.'},
+  {k:'tf', q:'The pocket goes on the wearer\'s left front.', a:true, e:'The traditional spot, over the heart.'},
+  {k:'mc', q:'Why fold the top hem twice?', o:['No raw edge shows and the top is stronger','To shorten it','To save fabric','So it stretches'], a:0, e:'The double fold encloses the edge and adds a layer where hands pull.'}]},
+ {id:'f4c', title:'Attach it to last', ref:'Reinforcing stress points', cards:[
+  {h:'Reinforce the corners', d:'pocket', t:`<p>Pockets fail at the top corners, where hands pull. Reinforce them, then stitch the three sides close to the edge.</p>`, m:`<p>Edgestitch 2 mm from the edge around three sides, starting and ending with a small <b>triangle</b> at each top corner, or a <b>bar tack</b>: a short, dense, narrow zigzag about 1 cm long.</p>`, hd:`<p>Backstitch 2 mm from the edge, or slip stitch for an invisible finish. At each top corner make a <b>hand bar tack</b>: three or four stitches on top of each other, about 8 mm long, covered with tight overcast or buttonhole stitches.</p>`}],
+ qs:[
+  {k:'tap', q:'Tap a reinforcement triangle.', d:'pocket', a:'triangle', e:'The small triangles sit at the top corners.'},
+  {k:'mc', q:'Why reinforce the top corners?', o:['Pulling on the pocket would tear the shirt there','Looks only','To hold the hem','To close the pocket'], a:0, e:'All the strain lands on two small points.'},
+  {k:'num', q:'How many sides of a patch pocket are stitched down?', a:3, tol:0, u:'sides', e:'The top stays open.'},
+  {k:'mc', q:'A hand bar tack is…', o:['A few stitches on top of each other, covered with tight overcast','A single knot','A line of running stitch','Glue'], a:0, only:'hand', e:'The covering stitches bind the core together.'},
+  {k:'mc', q:'A machine bar tack is…', o:['A short, dense, narrow zigzag','A long straight stitch','A basting stitch','A buttonhole'], a:0, only:'machine', e:'Width about 2 mm, length near 0.'},
+  {k:'tf', q:'Edgestitching sits about 2 mm from the edge.', a:true, e:'Close enough to hold the edge flat.'}]}
+]});
+// ---------- COURSE CONTENT: units 5–7 ----------
+UNITS.push({id:'f5', title:'Fronts, back and yoke', sub:'Facings, staystitching, the double yoke and pressing', lessons:[
+ {id:'f5a', title:'Fronts and staystitching', ref:'Shirt construction practice', cards:[
+  {h:'Self-facings', t:`<p>Each front has an extension that folds back along a fold line to become the facing and button band, with interfacing inside. Press the fold lines now. Finish the facing's long inner edge with a narrow turned hem, or overcast it.</p>`},
+  {h:'Staystitch the curves', t:`<p>Necklines are curved and partly on the bias, so they stretch as you handle them. <b>Staystitch</b> one row 8 mm from the edge, inside the 1 cm neckline allowance, sewing from each shoulder toward the centre.</p>`, m:`<p>A single row of 2.5 mm straight stitch.</p>`, hd:`<p>Small running stitches, 2–3 mm, along the line do the same job.</p>`}],
+ qs:[
+  {k:'mc', q:'What does staystitching do?', o:['Stops curved edges stretching out of shape','Finishes the hem','Attaches the collar','Marks the grain'], a:0, e:'It holds the cut curve at its true length.'},
+  {k:'tf', q:'Staystitching sits inside the seam allowance.', a:true, e:'It is hidden once the seam is sewn.'},
+  {k:'num', q:'Neckline allowance 10 mm, staystitch at 8 mm. How far inside the seamline is it?', a:2, tol:0, u:'mm', e:'10 − 8 = 2 mm.'},
+  {k:'mc', q:'A self-facing is…', o:['An extension of the front folded back to face the edge','A separate pocket','The inner yoke','Interfacing'], a:0, e:'Cut in one with the front, so there is no seam at the edge.'},
+  {k:'tf', q:'Press the facing fold lines before construction.', a:true, e:'Pressed folds guide every later step.'}]},
+ {id:'f5b', title:'The double yoke', ref:'Shirt yoke construction', cards:[
+  {h:'Yokes and back', d:'yoke', t:`<p>The yoke is two layers across the shoulders. It carries the weight of the shirt, hides the shoulder seams and gives a clean inside.</p><p>Sandwich the back between the yokes: <b>outer yoke</b> right side to the back's right side, <b>inner yoke</b> right side to the back's wrong side. Sew through all three layers and press both yokes up.</p>`, m:`<p>Then the <b>burrito</b>: lay the fronts on the outer yoke at the shoulders, roll the shirt up inside, wrap the inner yoke round and pin its shoulders to the fronts too. Sew both shoulders through every layer, then pull the shirt out through the neck. All shoulder seams end up enclosed.</p>`, hd:`<p>Backstitch the outer yoke to the fronts at the shoulders. Turn the inner yoke's shoulder edges under 1.5 cm, lay them over the seams and <b>fell</b> them down with slip stitch. Neat and very strong.</p>`},
+  {h:'Finish', t:`<p>Press. Topstitch the yoke seams if you like (a 3 mm stitch by machine, prick stitch by hand). Baste the two yokes together at the neck and armholes so they act as one.</p>`}],
+ qs:[
+  {k:'tap', q:'Tap the inner yoke.', d:'yoke', a:'inner', e:'The inner yoke lies against the wrong side of the back.'},
+  {k:'ord', q:'Order the yoke steps.', o:['Outer yoke to the back, right sides together','Inner yoke to the back\'s wrong side','Sew through all three layers','Press both yokes up','Join the shoulders'], e:'Back seam first, then shoulders.'},
+  {k:'mc', q:'What does the burrito method achieve?', o:['Shoulder seams enclosed with no hand finishing','A gathered back','A faster hem','Pleats'], a:0, only:'machine', e:'Rolling the shirt inside lets one seam enclose everything.'},
+  {k:'mc', q:'By hand, the inner yoke shoulders are…', o:['Turned under and felled over the seams with slip stitch','Glued down','Left raw','Zigzagged'], a:0, only:'hand', e:'Felling closes the yoke cleanly.'},
+  {k:'tf', q:'A double yoke spreads strain across the shoulders.', a:true, e:'Two layers carry the hanging weight of the shirt.'},
+  {k:'mc', q:'Why baste the yokes together at the neck and armholes?', o:['So they act as one layer in the next seams','To gather them','To mark the grain','They separate later anyway'], a:0, e:'Basting stops the layers shifting.'}]},
+ {id:'f5c', title:'Press and topstitch', ref:'Pressing and topstitching practice', cards:[
+  {h:'Set, then turn', t:`<p>Press each seam flat as sewn first, "setting" the stitches, then press it in its final direction. Use a press cloth on dark fabric to avoid shine, and a pressing ham or rolled towel for curves.</p>`},
+  {h:'Edgestitch and topstitch', t:`<p><b>Edgestitch</b> runs about 2 mm from a seam or edge; <b>topstitch</b> runs 5–6 mm away. Both hold seams flat and add strength.</p>`, m:`<p>Use a 3 mm stitch and an edgestitch foot; go slowly with the guide on the seam.</p>`, hd:`<p><b>Prick stitch</b> gives the look: a backstitch that goes back only a thread or two, leaving tiny dots on the surface.</p>`}],
+ qs:[
+  {k:'ord', q:'Pressing a seam, in order.', o:['Press it flat as sewn','Turn it in its final direction','Press again from the right side with a press cloth'], e:'Set, turn, finish.'},
+  {k:'mc', q:'Edgestitching sits about…', o:['2 mm from the edge','2 cm from the edge','5 cm away','On the seamline'], a:0, e:'Right next to the edge.'},
+  {k:'mc', q:'Topstitching sits about…', o:['5–6 mm from the seam','1 mm away','20 mm away','On the fold'], a:0, e:'Further out than edgestitching.'},
+  {k:'tf', q:'Prick stitch is a hand alternative to machine topstitching.', a:true, e:'Tiny surface dots, strong backstitch underneath.'},
+  {k:'mc', q:'Why use a press cloth on dark fabric?', o:['To prevent shiny marks','To make it hotter','To add starch','No reason'], a:0, e:'Direct heat can glaze dark cotton.'}]}
+]});
+
+UNITS.push({id:'f6', title:'The collar', sub:'Making and attaching a camp collar, then the stand version', lessons:[
+ {id:'f6a', title:'Make the collar', ref:'Collar construction practice', cards:[
+  {h:'Sew, grade, turn', d:'collar', t:`<ol><li>Interface the collar piece the pattern says, usually the upper collar.</li><li>Sew upper to under collar, right sides together, around the outer edges, leaving the neck edge open.</li><li><b>Grade</b> the allowances: trim one layer to 3 mm and the other to 6 mm, so no ridge shows.</li><li>Trim across each corner, close to the stitching.</li><li>Turn right side out and ease the corners out with a <b>point turner</b>, never scissors.</li><li>Press with the seam rolled a hair to the underside so it doesn't show from the top.</li></ol>`, m:`<p>Shorten the stitch to 1.5–2 mm for 1 cm either side of each corner; it strengthens the point you trimmed.</p>`, hd:`<p>Backstitch at 2 mm, with extra-small stitches at the corners.</p>`}],
+ qs:[
+  {k:'mc', q:'What is grading?', o:['Trimming seam layers to different widths to reduce bulk','Choosing a size','Pressing in stages','Marking the grain'], a:0, e:'Staggered edges don\'t make a ridge.'},
+  {k:'tf', q:'Use scissor points to push the collar corners out.', a:false, e:'Scissors poke through the corner; use a point turner.'},
+  {k:'num', q:'Collar allowance 10 mm. Grade one layer to 3 mm and one to 6 mm. How much is cut from the wider layer?', a:4, tol:0, u:'mm', e:'10 − 6 = 4 mm.'},
+  {k:'ord', q:'Order the collar steps.', o:['Interface the upper collar','Sew upper to under around the outer edge','Grade and trim the corners','Turn and push out the points','Press'], e:'Interface, sew, trim, turn, press.'},
+  {k:'mc', q:'Why roll the seam slightly to the underside when pressing?', o:['So the seam doesn\'t show from the top','To shorten it','To stretch it','For buttonholes'], a:0, e:'The upper collar is what people see.'}]},
+ {id:'f6b', title:'Attach the camp collar', ref:'Camp (convertible) collar attachment', cards:[
+  {h:'Sandwich at the front', d:'neckline', t:`<p>Pin the under collar to the shirt's neckline, right sides together, matching centre backs and the shoulder marks. Fold each front facing back along its fold line, over the collar, right sides together. Across the back neck, lay the inner yoke's edge, or a strip of bias binding, over the collar.</p>`},
+  {h:'Sew, clip, turn', t:`<p>Sew the neckline at 1 cm. <b>Clip</b> into the curved allowance every 1–1.5 cm, up to but not through the stitching, so the curve lies flat. Turn the facings out and press. Turn under the free back-neck edge and close it.</p>`, m:`<p>Edgestitch the turned back-neck edge from the right side, or slip stitch it by hand for an invisible finish.</p>`, hd:`<p>Backstitch the neckline at 2–3 mm, then slip stitch the turned back-neck edge down over the seam.</p>`}],
+ qs:[
+  {k:'mc', q:'Why clip the neckline curve?', o:['So the curved allowance can spread and lie flat','To strengthen it','To remove the collar','To mark the centre'], a:0, e:'The allowance is shorter than the outer curve it must reach.'},
+  {k:'tf', q:'Clip through the stitching for a flatter curve.', a:false, e:'Clip up to the stitching, never through it, or the seam opens.'},
+  {k:'tap', q:'Tap a clip in the neckline curve.', d:'neckline', a:'clip', e:'The clips are the short cuts into the curved allowance.'},
+  {k:'mc', q:'What do you match first when pinning the collar?', o:['Centre back and the shoulder marks','The pocket','The hem','The sleeve notches'], a:0, e:'Centre and shoulders keep the collar symmetrical.'},
+  {k:'tf', q:'The front facings fold back over the collar ends.', a:true, e:'The collar is sandwiched between shirt and facing.'}]},
+ {id:'f6c', title:'Level up: a collar with a stand', ref:'Two-piece shirt collar construction', cards:[
+  {h:'Two pieces instead of one', d:'stand', t:`<p>A dress-shirt collar has a <b>collar</b>, the part that folds over, sewn between two <b>collar stand</b> pieces, the band around the neck. The stand carries the top button and buttonhole, so the shirt can button to the neck.</p>`},
+  {h:'What changes', t:`<p>Make the collar as before, sandwich it between the stands, sew the outer stand to the neckline, then turn under and close the inner stand over the seam. The curves at the stand ends take patience: a good project for your second shirt.</p>`, m:`<p>Edgestitch the inner stand down from the right side.</p>`, hd:`<p>Slip stitch the inner stand down, the same way as the back-neck finish.</p>`}],
+ qs:[
+  {k:'mc', q:'The collar stand is…', o:['The band around the neck that carries the top button','The part that folds over','The inner yoke','The facing'], a:0, e:'The stand raises the collar off the neck.'},
+  {k:'tf', q:'A camp collar has no separate stand.', a:true, e:'It is one folded piece that lies open.'},
+  {k:'mc', q:'Where does the top button go on a two-piece collar?', o:['On the stand','On the collar points','On the yoke','On the pocket'], a:0, e:'The stand closes at the neck.'},
+  {k:'match', q:'Match the collar part.', p:[['Collar','Folds over the stand'],['Collar stand','Band around the neck'],['Camp collar','Lies open, no stand'],['Inner stand','Closes over the neckline seam']], e:'Two different ways to finish a neck.'},
+  {k:'tf', q:'A two-piece collar can button up to the neck.', a:true, e:'That is its main advantage.'}]}
+]});
+
+UNITS.push({id:'f7', title:'Sleeves and sides', sub:'Setting sleeves flat, felled armholes, one long side seam', lessons:[
+ {id:'f7a', title:'Set the sleeves flat', ref:'Flat sleeve setting (shirt method)', cards:[
+  {h:'Before the side seams', d:'sleeve', t:`<p>Shirts set sleeves <b>flat</b>: each sleeve goes into the armhole while the side seams are still open. Far easier than setting a sleeve into a closed tube.</p><p>Match the sleeve cap dot to the shoulder point, one notch to the front armhole and two notches to the back. Shirt sleeves have little cap ease, so only light easing is needed.</p>`},
+  {h:'Felled armholes', t:`<p>Sew wrong sides together, trim the sleeve allowance to 6 mm, fold the body's allowance over it and fell toward the body.</p>`, m:`<p>Press the fold in short sections round the curve, then edgestitch slowly, keeping the rest of the shirt clear.</p>`, hd:`<p>Curves are easier by hand: fold and fell a few centimetres at a time with slip stitch, no pressing gymnastics needed.</p>`}],
+ qs:[
+  {k:'mc', q:'Why set shirt sleeves flat?', o:['Attaching before the side seams is much easier','It uses less thread','It changes the size','It is only for knits'], a:0, e:'An open armhole lies flat under the needle.'},
+  {k:'mc', q:'The sleeve cap dot matches…', o:['The shoulder point','The side seam','The pocket','The hem'], a:0, e:'That centres the sleeve on the shoulder.'},
+  {k:'tf', q:'Two notches mark the back of the armhole.', a:true, e:'One notch front, two back.'},
+  {k:'tap', q:'Tap the back notches.', d:'sleeve', a:'back', e:'The double notches sit on the back half.'},
+  {k:'ord', q:'Setting a sleeve, in order.', o:['Match the cap dot to the shoulder point','Match one notch front, two notches back','Sew wrong sides together','Trim and fell the seam'], e:'Match first, then sew and fell.'}]},
+ {id:'f7b', title:'Side seams in one go', ref:'Shirt side seam construction', cards:[
+  {h:'Sleeve hem to shirt hem', d:'sideseam', t:`<p>With the sleeves on, lay the front and back wrong sides together. Pin the underarm and side as one long seam from the sleeve hem to the shirt hem, matching the armhole seams exactly at the underarm, and sew it in one pass. Fell the seam toward the back.</p>`},
+  {h:'Felling a tube', t:`<p>The last flat-fell is the trickiest, because the sleeve is now a tube.</p>`, m:`<p>Fell from the shirt hem toward the sleeve, scrunching the fabric onto the free arm; or use a <b>mock flat-fell</b> here: sew, finish the edges together, press toward the back and topstitch.</p>`, hd:`<p>A true flat-fell is easy by hand: there is no tube problem, because you fell from the inside a short stretch at a time.</p>`}],
+ qs:[
+  {k:'mc', q:'The side seam runs…', o:['From the sleeve hem to the shirt hem in one pass','Only along the body','Only along the sleeve','Around the armhole'], a:0, e:'One continuous seam.'},
+  {k:'mc', q:'What must line up at the underarm?', o:['The two armhole seams','The pocket and yoke','The buttons','The collar points'], a:0, e:'Misaligned underarm seams are the most visible flaw.'},
+  {k:'tf', q:'A mock flat-fell is a good machine option for side seams.', a:true, only:'machine', e:'Same look outside, easier to sew in a tube.'},
+  {k:'tf', q:'By hand, a true flat-fell on the side seam is straightforward.', a:true, only:'hand', e:'You work from the inside, a little at a time.'},
+  {k:'num', q:'Underarm 12 cm + side 55 cm, flat-felled with two lines of stitching. Total stitching for both sides of the shirt?', a:268, tol:0, u:'cm', e:'(12 + 55) × 2 sides × 2 lines = 268 cm.'},
+  {k:'mc', q:'Which way is the side seam felled?', o:['Toward the back','Toward the front','Pressed open','Either, randomly'], a:0, e:'Toward the back keeps it less visible from the front.'}]}
+]});
+// ---------- COURSE CONTENT: units 8–10 ----------
+UNITS.push({id:'f8', title:'Fit and hems', sub:'Try it on, then double-fold hems that lock the raw edge in', lessons:[
+ {id:'f8a', title:'Try it on', ref:'Fitting practice', cards:[
+  {h:'Check before you hem', t:`<p>Pin the fronts closed at centre front and try it on. Check that the shoulder seams sit at your shoulder points, the sleeves end where you like (often mid-bicep on a camp shirt), the hem clears your seat and reaches about the middle of your trouser fly for untucked wear, and nothing pulls across the back.</p>`},
+  {h:'Mark and even up', t:`<p>Chalk the hem line, then check it is level, measuring up from the floor or down from the underarm on both sides. Trim to the line plus the hem allowance: 2 cm for a 1 cm + 1 cm double-fold hem.</p>`}],
+ qs:[
+  {k:'mc', q:'Where should the shoulder seams sit?', o:['At your shoulder points','Halfway down the arm','At the neck','On the collarbone'], a:0, e:'Too far out droops; too far in pulls.'},
+  {k:'tf', q:'Pin the fronts closed at centre front for a fitting.', a:true, e:'Pinning off-centre gives a false fit.'},
+  {k:'num', q:'Double-fold hem of 1 cm + 1 cm. How much allowance below the hem line?', a:2, tol:0, u:'cm', e:'1 + 1 = 2 cm.'},
+  {k:'mc', q:'An untucked hem usually reaches about…', o:['The middle of the trouser fly','The knee','The waistband','Mid-thigh'], a:0, e:'Long enough to cover, short enough to look intended.'},
+  {k:'tf', q:'Check both sides measure the same before cutting the hem.', a:true, e:'Measure, don\'t eyeball.'}]},
+ {id:'f8b', title:'Double-fold hems', ref:'Hemming technique', cards:[
+  {h:'Fold twice', d:'hem', t:`<p>Press up 1 cm, then fold up again by the hem depth (1 cm on the body, 2 cm on the sleeves) and press. The raw edge is now locked inside.</p><p>At each front, first fold the facing back <b>right sides together</b> at the hem, stitch across at the hem depth, trim and turn it out: a clean, square corner.</p>`, m:`<p>Stitch close to the inner fold at 2.5 mm, from the wrong side so you can see the fold.</p>`, hd:`<p>Slip stitch the fold for an invisible hem, or backstitch close to it for a visible, sporty line.</p>`},
+  {h:'Thick spots', t:`<p>Where the hem crosses felled seams the layers stack up. Walk the machine over slowly, turning the wheel by hand if needed, or take those hand stitches one at a time with the thimble.</p>`}],
+ qs:[
+  {k:'tap', q:'Tap the hidden raw edge.', d:'hem', a:'raw', e:'The raw edge sits inside the second fold.'},
+  {k:'ord', q:'Hem the shirt, in order.', o:['Press up 1 cm','Fold up again and press','Square off the front facing corners','Stitch close to the inner fold'], e:'Fold, fold, square the corners, stitch.'},
+  {k:'num', q:'Sleeve hem: 1 cm then 2 cm. Total allowance?', a:3, tol:0, u:'cm', e:'1 + 2 = 3 cm.'},
+  {k:'tf', q:'A slip-stitched hem is nearly invisible from outside.', a:true, only:'hand', e:'Each stitch catches only a thread or two of the outer fabric.'},
+  {k:'mc', q:'Where the hem crosses felled seams…', o:['Go slowly and turn the wheel by hand if needed','Sew faster','Use a longer needle','Skip that part'], a:0, only:'machine', e:'Forcing it breaks needles.'},
+  {k:'mc', q:'Why fold a hem twice?', o:['To hide the raw edge','To shorten it','To add stretch','To save thread'], a:0, e:'An enclosed edge can\'t fray.'}]}
+]});
+
+UNITS.push({id:'f9', title:'Buttonholes and buttons', sub:'Spacing, machine or hand-worked buttonholes, shanked buttons', lessons:[
+ {id:'f9a', title:'Plan the buttonholes', ref:'Buttonhole sizing conventions', cards:[
+  {h:'Size and spacing', d:'placket', t:`<p>Buttonhole length = button diameter + button thickness: a 12 mm button about 2 mm thick needs a 14 mm hole. Space buttons evenly, usually 8–10 cm apart: the top one where the collar turns back, the bottom one 12–15 cm above an untucked hem. Mark vertical buttonholes on the centre front line of the buttonhole side. <b>Tools → Buttons</b> works it out.</p>`},
+  {h:'Which side?', t:`<p>Traditionally men's shirts have buttons on the wearer's right and buttonholes on the left; women's are the other way round. Either works: the buttonholes go on the side that laps over the top.</p>`}],
+ qs:[
+  {k:'num', q:'Button 12 mm across and 2 mm thick. Buttonhole length?', a:14, tol:0, u:'mm', e:'12 + 2 = 14 mm.'},
+  {k:'num', q:'Six buttons spread over 45 cm from top to bottom button. Spacing?', a:9, tol:0, u:'cm', e:'Six buttons make five gaps: 45 ÷ 5 = 9 cm.'},
+  {k:'mc', q:'Shirt front buttonholes run…', o:['Vertically, on the centre front line','Horizontally across the band','At 45°','Along the side seam'], a:0, e:'Vertical holes suit a narrow band and keep buttons on centre.'},
+  {k:'tf', q:'Traditionally men\'s shirts have buttons on the wearer\'s right.', a:true, e:'And women\'s on the left; either is fine.'},
+  {k:'mc', q:'The bottom button on an untucked shirt sits about…', o:['12–15 cm above the hem','At the hem edge','50 cm up','On the pocket'], a:0, e:'Low enough to close, high enough not to strain.'}]},
+ {id:'f9b', title:'Sew the buttonholes', ref:'Machine and hand-worked buttonhole technique', cards:[
+  {h:'Test first', d:'buttonhole', t:`<p>Make a test buttonhole on scraps with the same layers and interfacing as the front, and check the button passes through snugly.</p>`, m:`<p>Use the one-step buttonhole foot: the button sits in its holder and sets the length. Sew each hole, then open it with a seam ripper, cutting from each end toward a pin set across the bar, or with a buttonhole chisel. A dab of fray stopper helps.</p>`, hd:`<p>Mark the slit, sew a small rectangle of running stitch around it, then cut the slit. Overcast the cut edges, then work close <b>buttonhole stitches</b> along both sides; each forms a little knot, the purl, on the cut edge. Finish one end with a fan of stitches and the other with a bar.</p>`},
+  {h:'Durability', t:`<p>Interfacing behind every buttonhole, dense stitching and a strong bar at the ends stop buttonholes tearing. Hand-worked buttonholes take time, often 20–30 minutes each at first, but they outlast most machine ones.</p>`}],
+ qs:[
+  {k:'tf', q:'Always test a buttonhole on scraps first.', a:true, e:'Same layers, same interfacing, same thread.'},
+  {k:'mc', q:'Opening a machine buttonhole safely…', o:['Cut from each end toward a pin across the bar','Slash with scissors from one end','Pull the threads apart','Burn it open'], a:0, only:'machine', e:'The pin stops you cutting through the bar.'},
+  {k:'mc', q:'In a hand-worked buttonhole, the purl is…', o:['The little knot each stitch forms on the cut edge','The button','The bar tack','A pin'], a:0, only:'hand', e:'The row of purls protects the cut edge.'},
+  {k:'tap', q:'Tap a bar end of a buttonhole.', d:'buttonhole', a:'bar', e:'Bars are the dense stitches across the ends.'},
+  {k:'mc', q:'What stops buttonholes tearing?', o:['Interfacing, dense stitching and strong bars','Longer slits','Looser stitches','Bigger buttons'], a:0, e:'Reinforce, cover the edge, block the ends.'}]},
+ {id:'f9c', title:'Sew buttons on to last', ref:'Button sewing technique', cards:[
+  {h:'Mark, then build a shank', d:'button', t:`<p>Lap the fronts and mark each button spot through its buttonhole. Use doubled, waxed thread. Lay a toothpick or pin across the button so the stitches stand off the fabric. Make 4–6 passes through each pair of holes, take out the spacer, then wrap the thread tightly round the stitches 4–5 times to form a <b>shank</b>. The shank makes room for the buttonhole layer, so the button doesn't strain its threads.</p>`, m:`<p>Machines sew buttons too: drop the feed dogs, set stitch length 0 and a zigzag width that matches the hole spacing (turn the wheel by hand first to check), and sew 8–10 stitches. Pull the threads to the back and tie them.</p>`, hd:`<p>Finish on the back with three small stitches on top of each other through the base of the shank, then run the needle away before cutting.</p>`}],
+ qs:[
+  {k:'mc', q:'What is the thread shank for?', o:['Room for the buttonhole layer, so the button doesn\'t strain the threads','Decoration','Making the button spin','Nothing'], a:0, e:'Without a shank, buttons pull tight and threads wear through.'},
+  {k:'ord', q:'Sewing on a button, in order.', o:['Mark the spot through the buttonhole','Lay a spacer across the button','Make 4–6 passes through the holes','Remove the spacer and wrap the shank','Lock the thread on the back'], e:'Mark, space, sew, wrap, lock.'},
+  {k:'tf', q:'Use doubled thread for buttons.', a:true, e:'Buttons take repeated pulls.'},
+  {k:'mc', q:'Machine button sewing needs…', o:['Feed dogs down and stitch length 0','A long straight stitch','The buttonhole foot','Top speed'], a:0, only:'machine', e:'The button must not move while the needle swings.'},
+  {k:'num', q:'Six buttons, five passes per pair of holes, two pairs per button. Passes in total?', a:60, tol:0, u:'passes', e:'6 × 2 × 5 = 60.'},
+  {k:'tf', q:'Wrap the thread round the stitches under the button to form the shank.', a:true, e:'The wrapping firms the shank.'}]}
+]});
+
+UNITS.push({id:'f10', title:'Finish and care', sub:'Final press and checks, washing, and mending', lessons:[
+ {id:'f10a', title:'Final press and check', ref:'Finishing practice', cards:[
+  {h:'Final press', t:`<p>Press in this order: collar (underside first, then top), yoke, sleeves (over a sleeve board or rolled towel), fronts and pocket, back, hem. Press the facings so they roll slightly to the inside.</p>`},
+  {h:'Quality check', t:`<ul><li>No raw edges visible inside.</li><li>Seam ends locked; thread tails buried with a needle.</li><li>Pocket corners solid.</li><li>Buttons line up with buttonholes when the fronts are level at the hem.</li><li>Collar points match.</li></ul>`}],
+ qs:[
+  {k:'ord', q:'Final press, in order.', o:['Collar','Yoke','Sleeves','Fronts and pocket','Back','Hem'], e:'Top down, small parts first.'},
+  {k:'tf', q:'Inside, a flat-felled shirt shows no raw edges.', a:true, e:'Every main seam is enclosed.'},
+  {k:'mc', q:'When checking buttons, the fronts should be…', o:['Level at the hem','Overlapping by 10 cm','Pulled tight','Unbuttoned'], a:0, e:'Level hems prove the buttons are placed right.'},
+  {k:'mc', q:'Thread tails are best…', o:['Buried inside the seam with a needle','Burned off','Left long','Glued'], a:0, e:'Buried tails can\'t catch or unravel.'},
+  {k:'tf', q:'Facings should roll slightly to the inside.', a:true, e:'So they don\'t peek out at the front edge.'}]},
+ {id:'f10b', title:'Care for a long life', ref:'Garment care practice', cards:[
+  {h:'Wash and dry', t:`<p>Wash warm or cool with similar colours; unbutton first so buttonholes aren't strained; turn dark shirts inside out to slow fading. Line dry or tumble on low, and press while slightly damp.</p>`},
+  {h:'Catch problems early', t:`<p>Re-sew a loose button the moment you notice it, and re-stitch a popped seam before it runs. Small repairs keep a shirt going for years.</p>`}],
+ qs:[
+  {k:'tf', q:'Unbutton the shirt before washing.', a:true, e:'Buttoned shirts strain their buttonholes in the drum.'},
+  {k:'mc', q:'Turning a dark shirt inside out in the wash…', o:['Slows fading','Shrinks it','Removes creases','Is bad for buttons'], a:0, e:'The outer face rubs less.'},
+  {k:'mc', q:'Best time to press?', o:['While slightly damp','Bone dry after a week','Before washing','Never'], a:0, e:'Damp cotton presses smooth easily.'},
+  {k:'tf', q:'Re-sew a loose button straight away.', a:true, e:'Lost buttons are hard to match.'},
+  {k:'mc', q:'Line drying compared with hot tumble drying…', o:['Is gentler and reduces shrinkage','Shrinks more','Damages buttons','Makes no difference'], a:0, e:'Heat and tumbling wear fabric and shrink cotton.'}]},
+ {id:'f10c', title:'Mending', ref:'Mending technique', cards:[
+  {h:'Re-stitch a seam', t:`<p>Start about 2 cm before the break, over the old stitching, and backstitch (by hand) or straight stitch (by machine) along the original line to 2 cm past it. On a felled seam, fell the fold down again too.</p>`},
+  {h:'Small holes and worn spots', t:`<p>Darn a small hole: run parallel stitches across it, then weave across those at right angles. Back a worn area with a patch of similar fabric and stitch round it with small running stitches or backstitches.</p>`}],
+ qs:[
+  {k:'mc', q:'Where do you start re-stitching a split seam?', o:['About 2 cm before the break, over the old stitching','Exactly at the break','In the middle','Anywhere'], a:0, e:'Overlapping the old stitching locks both ends.'},
+  {k:'ord', q:'Darning a small hole, in order.', o:['Run parallel stitches across the hole','Weave across them at right angles','Lock the thread at the end'], e:'Warp, then weft, then lock.'},
+  {k:'tf', q:'A worn area can be backed with a patch of similar fabric.', a:true, e:'The patch takes the strain.'},
+  {k:'mc', q:'Re-stitching a felled seam also means…', o:['Felling the fold down again','Unpicking the whole shirt','Adding a zip','Gluing it'], a:0, e:'Both lines of stitching should be restored.'},
+  {k:'tf', q:'Darning weaves new threads across a hole.', a:true, e:'It rebuilds the cloth.'}]}
+]});
+// ---------- TOOLS: shared ----------
+const Tools = {};
+const rad = Math.PI/180;
+const fmt = (n,d=0) => Number(n).toLocaleString('en-AU',{minimumFractionDigits:d,maximumFractionDigits:d});
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const kv = (v,l) => `<div class="kv"><b>${v}</b><span>${l}</span></div>`;
+const field = (id,lab,val,min,max,step,unit) => `<label class="field"><span class="lab">${lab}${unit?` (${unit})`:''}</span><input type="number" id="${id}" value="${val}" min="${min}" max="${max}" step="${step}"></label>`;
+const BBOX = {front:[-24,0,108,200], backHalf:[0,0,80,170], yokeHalf:[0,0,76,36], sleeve:[0,0,120,96], collarHalf:[0,2,74,32], pocket:[0,0,40,48]};
+
+// ---------- Fabric and layout ----------
+function layoutPlan(o){
+  const F = o.chest + o.ease, Wf = o.width/2, gap = 1.5;
+  const P = [
+    {n:'Back', shape:'backHalf', w:F/4+2.5, h:o.len-3, fold:true},
+    {n:'Yoke', shape:'yokeHalf', w:F/4+1.5, h:14, fold:true},
+    {n:'Yoke', shape:'yokeHalf', w:F/4+1.5, h:14, fold:true},
+    {n:'Collar', shape:'collarHalf', w:o.neck/2+5, h:11, fold:true},
+    {n:'Collar', shape:'collarHalf', w:o.neck/2+5, h:11, fold:true},
+    {n:'Front ×2', shape:'front', w:F/4+10.5, h:o.len+5, fold:false},
+    {n:'Sleeve ×2', shape:'sleeve', w:0.36*F+4, h:o.sleeve+6, fold:false},
+    {n:'Pocket', shape:'pocket', w:15, h:19, fold:false}];
+  const cols = []; let tooWide = false;
+  P.filter(p=>p.fold).sort((a,b)=>b.h-a.h).forEach(p => { cols.push({len:p.h, used:p.w+gap, items:[{...p, y:0}]}); if(p.w>Wf) tooWide = true; });
+  P.filter(p=>!p.fold).sort((a,b)=>b.h-a.h).forEach(p => {
+    if(p.w > Wf) tooWide = true;
+    const c = cols.find(c => c.used + p.w <= Wf && p.h <= c.len);
+    if(c){ c.items.push({...p, y:c.used}); c.used += p.w + gap; }
+    else cols.push({len:p.h, used:p.w+gap, items:[{...p, y:0}]});
+  });
+  let x = 0; cols.forEach(c => { c.x = x; x += c.len + gap; });
+  const L = x, buy = Math.ceil((L*(1+o.shrink/100) + 10)/10)*10;
+  return {cols, L, buy, Wf, F, tooWide};
+}
+function layoutSVG(plan){
+  const W = 460, k = (W-40)/Math.max(plan.L, 60), H0 = 26, Hh = plan.Wf*k;
+  let g = R(20,H0,plan.L*k,Hh,'var(--fab)','var(--ink)',1.2) + L(20,H0,20+plan.L*k,H0,'var(--ink)',2,'6 4');
+  g += TM(22,H0-8,'FOLD',{s:9}) + TM(22,H0+Hh+14,'SELVEDGES',{s:9}) + A(20+plan.L*k-90,H0+Hh+10,20+plan.L*k-10,H0+Hh+10,'var(--ink)',1.2) + TM(20+plan.L*k-50,H0+Hh+22,'GRAIN',{s:8.5,a:'middle'});
+  plan.cols.forEach(c => c.items.forEach(p => {
+    const bb = BBOX[p.shape], sL = p.h*k/bb[3], sW = p.w*k/bb[2], gx = 20+c.x*k, gy = H0+p.y*k;
+    const e = gx - bb[1]*sL, f = gy - bb[0]*sW;
+    g += `<g transform="matrix(0 ${sW} ${sL} 0 ${e} ${f})"><path d="${PATHS[p.shape]}" fill="var(--sheet)" stroke="var(--ink)" stroke-width="1.2" vector-effect="non-scaling-stroke" opacity=".95"/></g>`;
+    g += TM(gx+p.h*k/2, gy+p.w*k/2+3, p.n.toUpperCase(), {s:8.5,a:'middle'});
+  }));
+  g += DIM(20,H0+Hh+36,20+plan.L*k,H0+Hh+36,fmt(plan.L)+' cm laid out');
+  return S(W, H0+Hh+54, g, 'Cutting layout on folded fabric');
+}
+D.layout = () => layoutSVG(layoutPlan({chest:100,ease:18,len:76,sleeve:24,neck:40,width:150,shrink:5}));
+Tools.layout = el => {
+  el.innerHTML = `<h3>Fabric and layout</h3><p>Estimate how much fabric to buy and see a cutting layout for your size. Pieces are simplified outlines, close enough to plan a purchase.</p>
+  <div class="fields">${field('l-chest','Body chest',100,60,170,1,'cm')}
+   <label class="field"><span class="lab">Fit</span><select id="l-fit"><option value="10">Slim (10 cm ease)</option><option value="18" selected>Regular camp (18 cm)</option><option value="24">Relaxed (24 cm)</option></select></label>
+   ${field('l-len','Back length',76,50,100,1,'cm')}${field('l-slv','Sleeve length',24,15,40,1,'cm')}${field('l-neck','Neck',40,30,55,0.5,'cm')}
+   <label class="field"><span class="lab">Fabric width</span><select id="l-w"><option value="112">112 cm</option><option value="140">140 cm</option><option value="150" selected>150 cm</option></select></label>
+   ${field('l-shr','Shrinkage allowance',5,0,15,1,'%')}</div>
+  <div class="out" id="l-out"></div><p class="note" id="l-msg"></p><div class="svgbox" id="l-svg"></div>
+  <p class="note">Fabric is folded selvedge to selvedge. Fold pieces (back, yokes, collars) sit on the fold; yoke and collar are placed twice because each is cut twice on the fold. Add extra for stripes, checks or one-way prints.</p>`;
+  const q = id => el.querySelector('#'+id), n = id => Math.max(0, +q(id).value || 0);
+  const calc = () => {
+    const plan = layoutPlan({chest:n('l-chest'), ease:+q('l-fit').value, len:n('l-len'), sleeve:n('l-slv'), neck:n('l-neck'), width:+q('l-w').value, shrink:n('l-shr')});
+    q('l-out').innerHTML = kv(fmt(plan.F)+' cm','Finished chest') + kv(fmt(plan.L)+' cm','Layout length') + kv(fmt(plan.buy/100,1)+' m','Buy (rounded up)') + kv(plan.cols.length,'Columns of pieces');
+    q('l-msg').innerHTML = plan.tooWide ? `<b>A piece is wider than the folded fabric.</b> Use wider fabric, or cut that piece on a single layer and add its length again.` : `Includes ${fmt(n('l-shr'))}% for shrinkage and 10 cm to straighten the cut ends.`;
+    q('l-svg').innerHTML = layoutSVG(plan);
+  };
+  el.querySelectorAll('input,select').forEach(i => i.addEventListener('input', calc));
+  calc();
+};
+
+// ---------- Buttons and buttonholes ----------
+function buttonsSVG(o){
+  const H0 = 20, k = 300/Math.max(o.front,30), x0 = 150; let g='';
+  g += R(x0-30,H0,60,o.front*k,'var(--fab)','var(--ink)',1.2) + L(x0,H0,x0,H0+o.front*k,'var(--ink2)',1,'4 3') + TM(x0,H0-6,'CENTRE FRONT',{s:8.5,a:'middle'});
+  const pos = []; const sp = o.n>1 ? (o.front-o.top-o.bot)/(o.n-1) : 0;
+  for(let i=0;i<o.n;i++) pos.push(o.top + i*sp);
+  pos.forEach((p,i) => { const y = H0+p*k; g += L(x0, y-o.hole/20*k, x0, y+o.hole/20*k, 'var(--ink)', 2.4) + C(x0+60,y,o.dia/20*k+2,'var(--chalk)','var(--ink)',1) + L(x0+8,y,x0+48,y,'var(--line)',1,'2 2') + T(x0-38,y+4,fmt(p,1)+' cm',{s:10.5,a:'end'}); });
+  if(o.n>1) g += DIM(x0+110,H0+pos[0]*k,x0+110,H0+pos[1]*k,fmt(sp,1)+' cm');
+  g += DIM(x0+34,H0+o.front*k-o.bot*k,x0+34,H0+o.front*k,fmt(o.bot)+' cm') + T(x0,H0+o.front*k+16,'hem',{s:10,a:'middle',c:'var(--ink2)'});
+  g += T(330,40,'buttonhole',{s:11}) + T(330,54,fmt(o.hole)+' mm long',{s:11,w:700}) + T(330,72,'= '+fmt(o.dia)+' mm diameter',{s:10,c:'var(--ink2)'}) + T(330,86,'+ '+fmt(o.thick)+' mm thickness',{s:10,c:'var(--ink2)'});
+  return S(440, H0+o.front*k+28, g, 'Button positions on the front');
+}
+D.placket = () => buttonsSVG({front:72,top:13,bot:14,n:6,dia:12,thick:2,hole:14});
+Tools.buttons = el => {
+  el.innerHTML = `<h3>Buttons and buttonholes</h3><p>Space buttons evenly down the front and size each buttonhole from the button.</p>
+  <div class="fields">${field('b-front','Front length, neck to hem',72,40,100,0.5,'cm')}${field('b-top','Top button below neck',13,1,30,0.5,'cm')}${field('b-bot','Bottom button above hem',14,3,30,0.5,'cm')}${field('b-n','Number of buttons',6,2,12,1,'')}${field('b-dia','Button diameter',12,6,30,0.5,'mm')}${field('b-th','Button thickness',2,1,8,0.5,'mm')}</div>
+  <div class="out" id="b-out"></div><p class="note" id="b-msg"></p><div class="svgbox" id="b-svg"></div>
+  <p class="note">On a camp collar the top button sits where the collar turns back; the buttonholes go on the side that laps over.</p>`;
+  const q = id => el.querySelector('#'+id), n = id => Math.max(0, +q(id).value || 0);
+  const calc = () => {
+    const o = {front:n('b-front'), top:n('b-top'), bot:n('b-bot'), n:Math.max(2,Math.round(n('b-n'))), dia:n('b-dia'), thick:n('b-th')}; o.hole = o.dia + o.thick;
+    const sp = (o.front-o.top-o.bot)/(o.n-1);
+    q('b-out').innerHTML = kv(fmt(sp,1)+' cm','Spacing') + kv(fmt(o.hole,1)+' mm','Buttonhole length') + kv(o.n,'Buttons (+1 spare)') + kv(fmt(o.front-o.top-o.bot,1)+' cm','Top to bottom button');
+    q('b-msg').innerHTML = sp<=0 ? '<b>The buttons don\'t fit:</b> reduce the top or bottom distance.' : sp<6 ? 'Buttons are very close; most shirts space them 8–10 cm.' : sp>11 ? 'Buttons are far apart; the front may gape. Add a button.' : 'Spacing is in the usual 6–11 cm range.';
+    if(sp>0) q('b-svg').innerHTML = buttonsSVG(o);
+  };
+  el.querySelectorAll('input').forEach(i => i.addEventListener('input', calc));
+  calc();
+};
+
+// ---------- Stitch count and time ----------
+const SEAMS0 = [['Back yoke seam',45,2],['Shoulder seams',30,2],['Armholes',100,2],['Side and underarm seams',134,2],['Collar edges',61,1],['Neckline and back-neck finish',50,2],['Pocket',57,1],['Front facing edges',140,1],['Body hem',115,1],['Sleeve hems',72,1]];
+Tools.time = el => {
+  el.innerHTML = `<h3>Stitch count and time</h3><p>How long is the stitching in a shirt, and how long does it take by hand or by machine? Seam lengths are for a medium size; edit any of them.</p>
+  <div class="tablebox"><table class="codes num" id="t-tab"></table></div>
+  <div class="fields" style="margin-top:1rem">${field('t-hl','Hand stitch length',3,1,8,0.5,'mm')}${field('t-hs','Hand stitches per minute',10,2,60,1,'')}${field('t-ms','Machine speed incl. stops',25,5,200,1,'cm/min')}${field('t-bh','Buttonholes',6,0,14,1,'')}${field('t-bhh','Hand buttonhole',25,5,60,1,'min each')}${field('t-bhm','Machine buttonhole',2,1,10,1,'min each')}${field('t-bt','Sewing on a button',8,2,20,1,'min each')}</div>
+  <div class="out" id="t-out"></div><div class="svgbox" id="t-svg"></div>
+  <p class="note">Stitching time only. Cutting, pressing and fitting add as much again. Hand speeds rise quickly with practice.</p>`;
+  const rows = SEAMS0.map(r=>r.slice()), q = id => el.querySelector('#'+id), n = id => Math.max(0, +q(id).value || 0);
+  q('t-tab').innerHTML = `<thead><tr><th>Seam</th><th>Length (cm)</th><th>Lines</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${r[0]}</td><td><input aria-label="${r[0]} length" id="t-l${i}" type="number" min="0" step="1" value="${r[1]}" style="width:5.5rem" data-i="${i}" data-c="1"></td><td><input aria-label="${r[0]} lines of stitching" id="t-n${i}" type="number" min="0" max="4" step="1" value="${r[2]}" style="width:4rem" data-i="${i}" data-c="2"></td></tr>`).join('')}</tbody>`;
+  const calc = () => {
+    const len = rows.reduce((a,r)=>a+r[1]*r[2],0), hl = Math.max(0.5,n('t-hl')), hs = Math.max(1,n('t-hs')), ms = Math.max(1,n('t-ms')), bh = n('t-bh');
+    const stitches = len*10/hl, handMin = stitches/hs + bh*n('t-bhh') + bh*n('t-bt'), machMin = len/ms + bh*n('t-bhm') + bh*n('t-bt');
+    q('t-out').innerHTML = kv(fmt(len/100,1)+' m','Total stitching') + kv(fmt(stitches),'Hand stitches') + kv(fmt(handMin/60,1)+' h','By hand') + kv(fmt(machMin/60,1)+' h','By machine');
+    const mx = Math.max(handMin,machMin,1), W=440, bar=(y,lab,v,c)=>T(110,y+15,lab,{s:11,a:'end'})+R(118,y,(W-190)*v/mx,22,c,'none',0,'rx="3"')+T(124+(W-190)*v/mx,y+15,fmt(v/60,1)+' h',{s:11,c:'var(--ink2)'});
+    q('t-svg').innerHTML = S(W,70,bar(8,'By hand',handMin,'var(--thread)')+bar(38,'By machine',machMin,'var(--teal)'),'Stitching time by hand and by machine');
+  };
+  q('t-tab').querySelectorAll('input').forEach(i => i.addEventListener('input', e => { rows[+e.target.dataset.i][+e.target.dataset.c] = Math.max(0,+e.target.value||0); calc(); }));
+  el.querySelectorAll('.fields input').forEach(i => i.addEventListener('input', calc));
+  calc();
+};
+// ---------- Stitch library ----------
+const STITCHES = [
+ {id:'running', name:'Running stitch', kind:'hand', use:'Basting, gathering and low-stress seams', len:'3–6 mm', strength:2, seen:'Even dashes, front and back', ground:'seam', steps:['Bring the needle up from the back.','Go down one stitch length ahead.','Come up one stitch length further on.','Load several stitches onto the needle, then pull through.']},
+ {id:'back', name:'Backstitch', kind:'hand', use:'Strong seams: the hand version of a machine seam', len:'2–3 mm', strength:5, seen:'A solid line on top; overlapping stitches underneath', ground:'seam', steps:['Come up one stitch length ahead of the start.','Go down at the start, back to meet the last stitch.','Come up one stitch length beyond your last exit.','Repeat: each stitch goes back to touch the one before.']},
+ {id:'prick', name:'Prick stitch', kind:'hand', use:'Hand topstitching and understitching', len:'5–8 mm apart', strength:4, seen:'Tiny dots on top', ground:'seam', steps:['Come up a stitch length ahead.','Go back down only a thread or two behind.','Travel underneath to the next stitch.','Keep the dots evenly spaced.']},
+ {id:'slip', name:'Slip stitch (felling)', kind:'hand', use:'Hems, closing the inner yoke and collar, felling seams', len:'4–6 mm apart', strength:3, seen:'Almost nothing from outside', ground:'hem', steps:['Hide the knot inside the fold.','Slide the needle inside the fold for 4–6 mm.','Come out at the fold edge.','Pick up one or two threads of the outer fabric just above.','Go straight back into the fold and repeat.']},
+ {id:'overcast', name:'Overcast', kind:'hand', use:'Finishing raw edges by hand', len:'4–6 mm apart', strength:2, seen:'Slanted loops over the edge', ground:'edge', steps:['Come up 4–6 mm in from the edge.','Take the thread over the edge to the back.','Come up again one stitch further along.','Keep slant and depth even; don\'t pull tight.']},
+ {id:'blanket', name:'Buttonhole stitch', kind:'hand', use:'Hand-worked buttonholes and covering bar tacks', len:'1–1.5 mm apart', strength:5, seen:'Close upright stitches with a knotted edge', ground:'edge', steps:['Come up at the depth line, below the cut edge.','Wrap the thread behind the needle point.','Pull up so a little knot, the purl, sits on the edge.','Place the next stitch right beside it.']},
+ {id:'bartack', name:'Hand bar tack', kind:'hand', use:'Pocket corners, buttonhole ends, stress points', len:'about 8 mm long', strength:5, seen:'A small solid bar', ground:'seam', steps:['Make three or four long stitches on top of each other.','Wrap tight overcast stitches round them without catching the fabric.','Cover the whole bar closely.','Finish on the back.']},
+ {id:'mstraight', name:'Machine straight stitch', kind:'machine', use:'Seams 2.0–2.5 mm · topstitch 3 mm · baste 4–5 mm', len:'2.0–2.5 mm', strength:5, seen:'Top thread above, bobbin thread below', ground:'seam', steps:['Lower the presser foot.','Backstitch 3–4 stitches to lock.','Sew at a steady speed, eyes on the seam guide.','Backstitch again at the end.']},
+ {id:'mzigzag', name:'Machine zigzag', kind:'machine', use:'Finishing raw edges, mock flat-fell', len:'width 3–4 mm · length 1.5–2 mm', strength:3, seen:'Zigzag over the edge', ground:'edge', steps:['Set width 3–4 mm, length 1.5–2 mm.','Let the right swing just pass the raw edge.','Test on a scrap; the edge should lie flat.']},
+ {id:'mbartack', name:'Machine bar tack', kind:'machine', use:'Pocket corners and other stress points', len:'width 2 mm · length near 0', strength:5, seen:'A short, dense bar', ground:'seam', steps:['Set a narrow zigzag, about 2 mm, length near 0.','Sew about 1 cm.','Pull threads to the back and tie off.']}
+];
+function stitchSegs(id){
+  const s = 26, x0 = 40, y = 100, out = [];
+  const f = (a,b,c,d) => out.push(['f',a,b,c,d]), bk = (a,b,c,d) => out.push(['b',a,b,c,d]), hd = (a,b,c,d) => out.push(['h',a,b,c,d]), k = (a,b) => out.push(['k',a,b]);
+  if(id==='running') for(let i=0;i<7;i++){ const x=x0+i*2*s; f(x,y,x+s,y); if(i<6) bk(x+s,y,x+2*s,y); }
+  if(id==='back') for(let i=0;i<12;i++){ f(x0+(i+1)*s,y,x0+i*s,y); if(i<11) bk(x0+i*s,y,x0+(i+2)*s,y); }
+  if(id==='prick') for(let i=0;i<12;i++){ const a=x0+(i+1)*s; f(a,y,a-3,y); if(i<11) bk(a-3,y,a+s,y); }
+  if(id==='slip') for(let i=0;i<12;i++){ const x=x0+i*s*1.1; hd(x,104,x+s,104); f(x+s,100,x+s+2,92); f(x+s+2,92,x+s+4,100); }
+  if(id==='overcast') for(let i=0;i<12;i++){ const x=x0+i*s; f(x,104,x+s/2,80); bk(x+s/2,80,x+s,104); }
+  if(id==='blanket') for(let i=0;i<26;i++){ const x=x0+i*s/2; f(x,104,x,80); k(x,80); if(i<25) f(x,80,x+s/2,80); }
+  if(id==='bartack'){ for(let r=0;r<4;r++){ f(170,98+r*1.4,270,98+r*1.4); bk(270,98+r*1.4,170,99+r*1.4); } for(let x=172;x<268;x+=4) f(x,90,x+2,110); }
+  if(id==='mstraight') for(let x=x0;x<400;x+=9){ f(x,y,x+9,y); bk(x,y,x+9,y); }
+  if(id==='mzigzag') for(let i=0, x=x0;x<396;i++,x+=8) f(x,i%2?84:106,x+8,i%2?106:84);
+  if(id==='mbartack') for(let i=0, x=190;x<250;i++,x+=2) f(x,i%2?94:106,x+2,i%2?106:94);
+  return out;
+}
+function stitchSVG(id, n, under){
+  const st = STITCHES.find(x=>x.id===id), segs = stitchSegs(id), N = n==null ? segs.length : Math.min(n, segs.length);
+  let g = '';
+  if(st.ground==='hem'){ g += R(20,30,400,70,'var(--fab)','none',0) + R(20,100,400,46,'var(--fab2)','var(--ink)',1) + L(20,100,420,100,'var(--ink)',1.5) + TM(24,26,'SHIRT BODY (WRONG SIDE)',{s:8.5}) + TM(24,160,'FOLDED HEM',{s:8.5}); }
+  else if(st.ground==='edge'){ g += R(20,80,400,80,'var(--fab)','none',0) + L(20,80,420,80,'var(--ink)',1.5,'2 2') + TM(24,74,'RAW EDGE',{s:8.5}); }
+  else { g += R(20,50,400,100,'var(--fab)','none',0) + L(20,100,420,100,'var(--chalk)',1,'5 4') + TM(24,44,id[0]==='m'?'TWO LAYERS · SEAM LINE':'TWO LAYERS · CHALK LINE',{s:8.5}); }
+  let last = [40, 100];
+  for(let i=0;i<N;i++){ const sg = segs[i];
+    if(sg[0]==='k'){ g += C(sg[1],sg[2],2,'var(--thread)','none',0); continue; }
+    if(sg[0]==='f') g += `<line x1="${sg[1]}" y1="${sg[2]}" x2="${sg[3]}" y2="${sg[4]}" stroke="var(--thread)" stroke-width="2.4" stroke-linecap="round"/>`;
+    else if(under) g += `<line x1="${sg[1]}" y1="${sg[2]+(sg[0]==='b'?6:0)}" x2="${sg[3]}" y2="${sg[4]+(sg[0]==='b'?6:0)}" stroke="var(--thread)" stroke-width="1.6" stroke-dasharray="${sg[0]==='b'?'4 3':'1 3'}" opacity=".5"/>`;
+    last = [sg[3], sg[4]];
+  }
+  if(N < segs.length || n!=null){ const [nx,ny] = last; g += `<line x1="${nx}" y1="${ny}" x2="${nx+22}" y2="${ny-26}" stroke="var(--galv)" stroke-width="2.4" stroke-linecap="round"/>` + `<ellipse cx="${nx+19}" cy="${ny-22}" rx="2.6" ry="1.1" transform="rotate(-50 ${nx+19} ${ny-22})" fill="var(--sheet)" stroke="var(--ink)" stroke-width=".7"/>` + P(`M${nx+19} ${ny-22} Q${nx+50} ${ny-60} ${Math.min(430,nx+90)} ${ny-48}`,'none','var(--thread)',1.4); }
+  g += T(420,182,under?'solid = on top · dashed = underneath or hidden':'solid = on top',{s:10,a:'end',c:'var(--ink2)'});
+  return S(440,190,g,st.name+' diagram');
+}
+D.st_back = () => stitchSVG('back');
+function StitchLib(el){
+  let cur = (typeof st!=='undefined' && st.method==='machine') ? 'mstraight' : 'back', n = 0, timer = null;
+  const order = () => { const m = typeof st!=='undefined' ? st.method : 'both'; return m==='machine' ? [...STITCHES.filter(s=>s.kind==='machine'), ...STITCHES.filter(s=>s.kind==='hand')] : STITCHES; };
+  el.innerHTML = `<div class="panel"><div class="stitchpick" id="sp-pick" role="group" aria-label="Stitch"></div>
+    <h3 id="sp-name" style="font-size:1.4rem"></h3><div class="stitchmeta" id="sp-meta"></div>
+    <div class="svgbox" id="sp-svg"></div>
+    <div class="row" style="margin-top:.7rem"><button class="btn" id="sp-play">Play</button><label class="field" style="flex:1;min-width:10rem"><span class="lab">Step <span id="sp-n" class="num"></span></span><input type="range" id="sp-range" min="0" value="0"></label><label class="row" style="gap:.4rem"><input type="checkbox" id="sp-under" checked> Show underside</label></div>
+    <ol class="steps" id="sp-steps"></ol></div>`;
+  const q = id => el.querySelector('#'+id);
+  const stop = () => { clearInterval(timer); timer = null; q('sp-play').textContent = 'Play'; };
+  const draw = () => { q('sp-svg').innerHTML = stitchSVG(cur, n, q('sp-under').checked); q('sp-range').value = n; q('sp-n').textContent = n+' / '+stitchSegs(cur).length; };
+  const pick = id => { stop(); cur = id; const s = STITCHES.find(x=>x.id===id), total = stitchSegs(id).length;
+    q('sp-pick').innerHTML = order().map(x=>`<button data-s="${x.id}" aria-pressed="${x.id===id}">${x.name}${x.kind==='machine'?' <span class="qtag">machine</span>':''}</button>`).join('');
+    q('sp-pick').querySelectorAll('[data-s]').forEach(b => b.onclick = () => pick(b.dataset.s));
+    q('sp-name').textContent = s.name;
+    q('sp-meta').innerHTML = kv(esc(s.use).replace(/ · /g,'<br>'),'Use for') + kv(s.len,'Stitch size') + kv('<span style="color:var(--sun)">'+'●'.repeat(s.strength)+'</span><span style="color:var(--line)">'+'●'.repeat(5-s.strength)+'</span>','Strength') + kv(s.seen,'Seen from the front');
+    q('sp-meta').querySelectorAll('.kv b').forEach(b => b.style.fontSize = '.95rem');
+    q('sp-steps').innerHTML = s.steps.map(t=>`<li>${t}</li>`).join('');
+    q('sp-range').max = total; n = total; draw();
+    if(window.matchMedia && !matchMedia('(prefers-reduced-motion: reduce)').matches && s.kind==='hand'){ n = 0; draw(); play(); }
+  };
+  const play = () => { if(timer){ stop(); return; } const total = stitchSegs(cur).length; if(n>=total) n = 0; q('sp-play').textContent = 'Pause'; timer = setInterval(() => { n++; draw(); if(n>=total) stop(); }, 420); };
+  q('sp-play').onclick = play;
+  q('sp-range').oninput = () => { stop(); n = +q('sp-range').value; draw(); };
+  q('sp-under').onchange = draw;
+  pick(cur);
+}
+
+// ---------- Pieces tab: pattern pieces, build order, glossary ----------
+const PIECE_INFO = {
+  front:'Front ×2. Each has a self-facing that folds back along the fold line, with interfacing inside for the buttons and buttonholes. The pocket goes on the wearer\'s left front.',
+  back:'Back ×1, cut on the fold. It hangs from the yoke; its top edge is sandwiched between the outer and inner yoke.',
+  yoke:'Yoke ×2, cut on the fold: outer and inner. Together they carry the weight of the shirt and enclose the shoulder seams.',
+  sleeve:'Sleeve ×2. Set flat into the armhole before the side seams: cap dot to shoulder point, one notch front, two notches back.',
+  collar:'Collar ×2, cut on the fold: upper (interfaced) and under. Sewn, graded, turned and attached between the shirt and the front facings.',
+  pocket:'Pocket ×1. Top hem folded 1 cm then 2.5 cm, other edges pressed under 1 cm over a card template, corners reinforced.'
+};
+const BUILD = [
+ ['Pre-wash, press, cut and mark','Unit 1–2'],['Interface the front facings and upper collar','Unit 4'],['Make and attach the pocket to the left front','Unit 4'],['Press the facings, finish their edges, staystitch the neckline','Unit 5'],['Sandwich the back between the yokes','Unit 5'],['Join the shoulders: burrito by machine, or fell by hand','Unit 5'],['Make the collar: sew, grade, turn, press','Unit 6'],['Attach the collar and finish the back neck','Unit 6'],['Set the sleeves flat and fell the armholes','Unit 7'],['Sew and fell the side seams in one pass','Unit 7'],['Try on, then hem the sleeves and body','Unit 8'],['Mark and sew the buttonholes','Unit 9'],['Sew on the buttons with shanks','Unit 9'],['Final press and quality check','Unit 10']];
+const GLOSS = [
+ ['Bar tack','Dense stitching that reinforces a stress point, such as a pocket corner.'],['Bias','The 45° direction across the weave; it stretches the most.'],['Burrito method','Rolling the shirt inside the yokes so one seam encloses both shoulder seams.'],['Camp collar','A one-piece collar that lies open, with no stand.'],['Collar stand','The band around the neck under a two-piece collar.'],['Ease','Room in the garment beyond your body measurement.'],['Edgestitch','Stitching about 2 mm from an edge or seam.'],['Facing','A layer that finishes an edge on the inside; here, folded back from the front.'],['Fell','To stitch a folded edge down flat, by machine or with slip stitch.'],['Flat-felled seam','A seam with raw edges wrapped inside and two lines of stitching.'],['Grading','Trimming seam allowance layers to different widths to reduce bulk.'],['Grainline','The arrow on a pattern piece, laid parallel to the selvedge.'],['Interfacing','A stiffening layer fused or sewn behind facings and collars.'],['Notch','A small mark on a cut edge for matching pieces.'],['Placket','The overlapping front band that carries buttons and buttonholes.'],['Press','Lifting and lowering the iron, rather than sliding it.'],['Seam allowance','The fabric between the cut edge and the stitching line.'],['Selvedge','The finished woven edge of the fabric.'],['Shank','The wrapped thread stem that lifts a button off the fabric.'],['Staystitch','A line of stitching inside the allowance that stops a curve stretching.'],['Tailor\'s tack','A loose thread loop that marks a point through two layers.'],['Topstitch','Visible stitching 5–6 mm from a seam or edge.'],['Yoke','The double band across the shoulders that the back and fronts hang from.']];
+function PiecesTab(el){
+  el.innerHTML = `<div class="sub-tabs" role="group" aria-label="Section"><button data-v="pieces" aria-pressed="true">Pattern pieces</button><button data-v="order" aria-pressed="false">Build order</button><button data-v="gloss" aria-pressed="false">Glossary</button></div><div id="pt-body"></div>`;
+  const body = el.querySelector('#pt-body');
+  const show = v => {
+    el.querySelectorAll('[data-v]').forEach(b => b.setAttribute('aria-pressed', b.dataset.v===v ? 'true':'false'));
+    if(v==='pieces'){ body.innerHTML = `<div class="panel"><div class="row" style="justify-content:space-between"><b>The ten pieces</b><button class="ib" id="pt-zoom" aria-label="Enlarge pattern">${ICON.zoom}</button></div><div class="svgbox" id="pt-svg">${D.pieces()}</div><div class="info" id="pt-info"><span class="muted">Tap a piece for what it is and how it is used.</span></div></div>`;
+      body.querySelectorAll('#pt-svg [data-hit]').forEach(g => { g.style.cursor='pointer'; g.addEventListener('click', () => { body.querySelector('#pt-info').textContent = PIECE_INFO[g.dataset.hit] || ''; }); });
+      body.querySelector('#pt-zoom').onclick = () => openDiagram(D.pieces(), 'Pattern pieces'); }
+    else if(v==='order'){ body.innerHTML = `<ol class="order">${BUILD.map(b=>`<li>${b[0]}<small>${b[1]}</small></li>`).join('')}</ol>`; }
+    else body.innerHTML = `<div class="gloss">${GLOSS.map(t=>`<div><b>${t[0]}</b><p>${t[1]}</p></div>`).join('')}</div>`;
+  };
+  el.querySelectorAll('[data-v]').forEach(b => b.onclick = () => show(b.dataset.v));
+  show('pieces');
+}
+// ---------- APP: state, shell, path ----------
+D.heroFull = () => D.hero(10);
+const KEY = 'flatfelled.v1';
+const store = { get(){ try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch(e){ return null; } }, set(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} } };
+const st = Object.assign({xp:0, done:{}, streak:0, last:'', zoom:1, theme:'system', unlock:false, method:'both'}, store.get() || {});
+const save = () => store.set(st);
+const $ = id => document.getElementById(id);
+const LESSONS = [];
+UNITS.forEach((u,ui) => u.lessons.forEach((l,li) => LESSONS.push(Object.assign({}, l, {unit:u, ui, li}))));
+const STAGES = ['Pattern on paper','Fabric ready','Pieces cut','Seams practised','Pocket on','Yoke and shoulders','Collar on','Sleeves and sides','Hemmed','Buttons on','Finished shirt'];
+const ICON = {
+  zoom:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg>'
+};
+const btnSVG = state => {
+  const face = state==='locked' ? 'var(--sheet2)' : 'var(--teal)', hole = state==='locked' ? 'var(--line)' : 'var(--on-teal)', rim = state==='locked' ? 'var(--line)' : 'color-mix(in srgb, var(--teal) 70%, #000)';
+  let s = `<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="27" fill="${rim}"/><circle cx="32" cy="31" r="27" fill="${face}"/><circle cx="32" cy="31" r="20" fill="none" stroke="${hole}" stroke-opacity=".35" stroke-width="2"/>`;
+  [[25,24],[39,24],[25,38],[39,38]].forEach(([x,y]) => s += `<circle cx="${x}" cy="${y}" r="3.6" fill="${hole}"/>`);
+  if(state==='done') s += `<path d="M25 24 39 38M39 24 25 38" stroke="var(--sun)" stroke-width="3.4" stroke-linecap="round"/>`;
+  if(state==='locked') s += `<path d="M27 31h10v8H27zM29 31v-3a3 3 0 0 1 6 0v3" fill="none" stroke="var(--galv)" stroke-width="2"/>`;
+  return s + '</svg>';
+};
+const today = () => { const d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
+const yesterday = () => { const d = new Date(Date.now()-864e5); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
+const appl = l => !l.only || st.method==='both' || l.only===st.method;
+const unitDone = ui => UNITS[ui].lessons.every(l => !appl(l) || st.done[l.id]);
+const stage = () => { let s=0; while(s<UNITS.length && unitDone(s)) s++; return s; };
+const nextIdx = () => { const i = LESSONS.findIndex(l => appl(l) && !st.done[l.id]); return i<0 ? LESSONS.length : i; };
+const unlocked = i => st.unlock || !appl(LESSONS[i]) || i <= nextIdx();
+let toastT;
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,2400); }
+
+// theme, zoom, fullscreen, method
+function applyTheme(){ const r=document.documentElement; if(st.theme==='system') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', st.theme); }
+function isDark(){ return st.theme==='dark' || (st.theme==='system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+function applyZoom(){ st.zoom = Math.min(1.6, Math.max(0.8, Math.round(st.zoom*100)/100)); document.documentElement.style.setProperty('--z', st.zoom); $('zlab').textContent = Math.round(st.zoom*100)+'%'; const zs=$('pz'); if(zs){ zs.value = st.zoom; $('pzl').textContent = Math.round(st.zoom*100)+'%'; } }
+function setMethod(m){ st.method = m; save(); document.querySelectorAll('[data-m]').forEach(b => { if(b.closest('#heroMethod') || b.closest('#prefMethod')) b.setAttribute('aria-pressed', b.dataset.m===m ? 'true':'false'); }); renderLearn(); }
+$('zin').onclick = () => { st.zoom += 0.1; applyZoom(); save(); };
+$('zout').onclick = () => { st.zoom -= 0.1; applyZoom(); save(); };
+$('theme').onclick = () => { st.theme = isDark() ? 'light' : 'dark'; applyTheme(); save(); const s=$('pth'); if(s) s.value=st.theme; };
+$('fs').onclick = () => {
+  const d = document, el = d.documentElement;
+  if(d.fullscreenElement || d.webkitFullscreenElement){ (d.exitFullscreen || d.webkitExitFullscreen).call(d); return; }
+  const req = el.requestFullscreen || el.webkitRequestFullscreen;
+  if(!req){ toast('Fullscreen isn\'t available in this view'); return; }
+  try { const p = req.call(el); if(p && p.catch) p.catch(()=>toast('Fullscreen isn\'t available in this view')); } catch(e){ toast('Fullscreen isn\'t available in this view'); }
+};
+document.querySelectorAll('#heroMethod [data-m]').forEach(b => b.onclick = () => { setMethod(b.dataset.m); toast(b.dataset.m==='both' ? 'Showing machine and hand methods' : b.dataset.m==='hand' ? 'Lessons open on the hand method' : 'Lessons open on the machine method'); });
+
+// stats + hero + path
+function renderStats(){ $('xp').textContent = st.xp; $('streak').textContent = st.streak; }
+function renderHero(){
+  const s = stage(), all = LESSONS.filter(appl), n = all.filter(l=>st.done[l.id]).length, ni = nextIdx();
+  $('heroArt').innerHTML = D.hero(s);
+  $('stageLab').textContent = 'Stage '+s+' · '+STAGES[s];
+  $('pbar').style.width = (100*n/Math.max(1,all.length))+'%';
+  $('plab').textContent = n+' of '+all.length+' lessons';
+  document.querySelectorAll('#heroMethod [data-m]').forEach(b => b.setAttribute('aria-pressed', b.dataset.m===st.method ? 'true':'false'));
+  const b = $('goNext');
+  if(ni >= LESSONS.length){ b.textContent = 'Review: '+LESSONS[0].title; b.onclick = () => openLesson(0); }
+  else { const l = LESSONS[ni]; b.textContent = (n? 'Continue: ' : 'Start: ')+l.title; b.onclick = () => openLesson(ni); }
+}
+function renderPath(){
+  const ni = nextIdx(), off = [-64,0,64,0]; let h='';
+  UNITS.forEach((u,ui) => {
+    const first = LESSONS.findIndex(l => l.unit===u), locked = !unlocked(first), req = u.lessons.filter(appl), dn = req.filter(l=>st.done[l.id]).length;
+    h += `<section class="unit${locked?' ulocked':''}"><div class="uhead"><span class="ustamp">UNIT ${String(ui+1).padStart(2,'0')}</span><div><h2>${u.title}</h2><p>${u.sub} · ${dn}/${req.length} done</p></div></div><div class="nodes">`;
+    u.lessons.forEach((l,li) => {
+      const gi = first+li, done = !!st.done[l.id], ap = appl(l), lock = !unlocked(gi), x = off[(li + ui) % 4];
+      const state = done ? 'done' : lock ? 'locked' : 'open';
+      h += `<button class="node${done?' done':''}${lock?' locked':''}${gi===ni&&!done?' next':''}${ap?'':' optional'}" data-l="${gi}" style="transform:translateX(${x}px)" aria-label="${l.title}${lock?' (locked)':done?' (done)':''}${ap?'':' (optional)'}">
+        <span class="dot">${btnSVG(state)}<span class="num-badge">${ui+1}.${li+1}</span>${done&&st.done[l.id].n>1?`<span class="crowns num">×${st.done[l.id].n}</span>`:''}</span>
+        <span>${l.title}</span>${!ap?`<small>${l.only==='machine'?'machine only · optional':'hand only · optional'}</small>`:done?`<small>${st.done[l.id].best}% best</small>`:''}</button>`;
+    });
+    h += '</div></section>';
+  });
+  $('path').innerHTML = h;
+  $('path').querySelectorAll('.node').forEach(b => b.onclick = () => { const i=+b.dataset.l; if(!unlocked(i)){ toast('Finish the lessons before this one first'); return; } openLesson(i); });
+}
+function renderLearn(){ renderStats(); renderHero(); renderPath(); }
+
+// views + hash routing
+const VIEWS = ['learn','pieces','stitches','tools','prefs'], rendered = {};
+function show(v){
+  if(!VIEWS.includes(v)) v='learn';
+  VIEWS.forEach(x => { $('v-'+x).hidden = x!==v; });
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.view===v ? 'true':'false'));
+  if(!rendered[v]){ rendered[v]=true; ({pieces:()=>PiecesTab($('v-pieces')), stitches:()=>StitchLib($('v-stitches')), tools:renderTools, prefs:renderPrefs}[v]||(()=>{}))(); }
+  if(v==='learn') renderLearn();
+}
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { if(location.hash.slice(1)!==t.dataset.view) location.hash = t.dataset.view; else show(t.dataset.view); window.scrollTo(0,0); });
+window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+
+// diagram modal
+let dz = 1;
+function openDiagram(svg, title){ dz = 1; $('dtitle').textContent = title || 'Diagram'; $('dview').innerHTML = svg; sizeDiagram(); $('dmodal').hidden = false; }
+function sizeDiagram(){ const s = $('dview').querySelector('svg'); if(s) s.style.width = (100*dz)+'%'; }
+$('dzi').onclick = () => { dz = Math.min(4, dz+0.5); sizeDiagram(); };
+$('dzo').onclick = () => { dz = Math.max(1, dz-0.5); sizeDiagram(); };
+$('dclose').onclick = () => { $('dmodal').hidden = true; };
+$('dmodal').addEventListener('click', e => { if(e.target.id==='dmodal') $('dmodal').hidden = true; });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ if(!$('dmodal').hidden) $('dmodal').hidden = true; else if(!$('lesson').hidden) closeLesson(); } });
+// ---------- APP: lesson engine ----------
+let LS = null;
+function methodHTML(c){
+  if(!c.m && !c.hd) return '';
+  if(st.method==='both') return `<div class="method">${c.m?`<div class="mpane"><h5>By machine</h5>${c.m}</div>`:''}${c.hd?`<div class="mpane"${c.m?' style="border-top:1px solid var(--line)"':''}><h5>By hand</h5>${c.hd}</div>`:''}</div>`;
+  const pref = st.method, tabs = [['machine','By machine',c.m],['hand','By hand',c.hd]].filter(t=>t[2]);
+  return `<div class="method"><div class="mtabs" role="group" aria-label="Method">${tabs.map(t=>`<button data-mt="${t[0]}" aria-pressed="${t[0]===pref||tabs.length===1}">${t[1]}</button>`).join('')}</div>${tabs.map(t=>`<div class="mpane" data-mp="${t[0]}"${t[0]===pref||tabs.length===1?'':' hidden'}>${t[2]}</div>`).join('')}</div>`;
+}
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+const figHTML = (key, title) => D[key] ? `<div class="fig">${D[key]()}<button class="ib zoomit" data-zoom="${key}" aria-label="Enlarge diagram" title="Enlarge">${ICON.zoom}</button></div>` : '';
+function openLesson(i){
+  const l = LESSONS[i];
+  const qs = l.qs.filter(q => !q.only || st.method==='both' || q.only===st.method);
+  LS = { i, l, qs, queue:[...l.cards.map(c=>({t:'card',c})), ...qs.map((q,qi)=>({t:'q',q,qi,tries:0}))], pos:0, first:0, retries:0, xp:0, seen:{} };
+  $('lesson').hidden = false; document.body.style.overflow = 'hidden';
+  renderStep();
+}
+function closeLesson(){ $('lesson').hidden = true; document.body.style.overflow = ''; LS = null; renderLearn(); }
+$('lclose').onclick = closeLesson;
+function setFoot(state, html, label, enabled){
+  const f = $('lfoot'); f.className = 'lfoot' + (state ? ' '+state : '');
+  $('fb').innerHTML = html || ''; const b = $('lbtn'); b.textContent = label; b.disabled = !enabled;
+}
+function renderStep(){
+  const s = LS.queue[LS.pos], c = $('lcontent'), l = LS.l;
+  $('lprog').style.width = (100*LS.pos/LS.queue.length)+'%'; $('lxp').textContent = LS.xp+' XP';
+  $('lbody').scrollTop = 0;
+  const kick = `<div class="kicker">Unit ${l.ui+1} · ${l.title}</div>`;
+  if(s.t==='card'){
+    c.innerHTML = kick + `<div class="card"><h2 class="qtitle">${s.c.h}</h2>${s.c.d?figHTML(s.c.d, s.c.h):''}${s.c.t}${methodHTML(s.c)}</div>` + (LS.pos===l.cards.length-1 ? `<div class="ref">Reference: ${l.ref}</div>` : '');
+    setFoot('', '', 'Continue', true); LS.check = null; LS.next = advance;
+  } else renderQ(s, c, kick);
+  c.querySelectorAll('[data-zoom]').forEach(b => b.onclick = () => openDiagram(D[b.dataset.zoom](), 'Diagram'));
+  c.querySelectorAll('[data-mt]').forEach(b => b.onclick = () => { c.querySelectorAll('[data-mt]').forEach(x => x.setAttribute('aria-pressed', x===b ? 'true':'false')); c.querySelectorAll('[data-mp]').forEach(p => p.hidden = p.dataset.mp !== b.dataset.mt); });
+}
+function advance(){ LS.pos++; if(LS.pos >= LS.queue.length) finish(); else renderStep(); }
+$('lbtn').onclick = () => { if(!LS) return; if(LS.check){ const f = LS.check; LS.check = null; f(); } else if(LS.next) LS.next(); };
+document.addEventListener('keydown', e => {
+  if(!LS || $('lesson').hidden || !$('dmodal').hidden) return;
+  if(e.key==='Enter' && !$('lbtn').disabled && document.activeElement.tagName!=='BUTTON'){ e.preventDefault(); $('lbtn').click(); }
+  if(/^[1-9]$/.test(e.key) && document.activeElement.tagName!=='INPUT'){ const o = $('lcontent').querySelectorAll('.opts .opt:not([disabled])')[+e.key-1]; if(o) o.click(); }
+});
+function renderQ(s, c, kick){
+  const q = s.q; let ans = null; const ready = ok => { $('lbtn').disabled = !ok; };
+  c.innerHTML = kick + `<h2 class="qtitle">${q.q}${q.only&&st.method==='both'?`<span class="qtag">${q.only}</span>`:''}</h2><div id="qa"></div>`;
+  const qa = c.querySelector('#qa');
+  setFoot('', s.tries ? '<span class="muted">Second try. You have got this.</span>' : '', 'Check', false);
+  const grade = (ok, reveal) => {
+    if(reveal) reveal(ok);
+    const gain = ok ? (s.tries ? 5 : 10) : 0; LS.xp += gain; $('lxp').textContent = LS.xp+' XP';
+    if(ok && !s.tries) LS.first++;
+    if(!ok){ s.tries++; LS.retries++; if(s.tries < 3) LS.queue.push(s); }
+    setFoot(ok?'ok':'bad', `<h4>${ok?'Correct':'Not quite'}${gain?` · +${gain} XP`:''}</h4><div>${q.e||''}</div>${!ok&&s.tries<3?'<div class="muted" style="margin-top:.2rem">This one comes back at the end.</div>':''}`, 'Continue', true);
+    LS.next = advance;
+  };
+  if(q.k==='mc' || q.k==='tf'){
+    const opts = q.k==='tf' ? [['True',true],['False',false]] : shuffle(q.o.map((o,i)=>[o,i]));
+    qa.innerHTML = `<div class="opts${q.k==='tf'?' tf':''}">${opts.map((o,i)=>`<button class="opt" data-k="${i}">${esc(o[0])}</button>`).join('')}</div>`;
+    const btns = qa.querySelectorAll('.opt');
+    btns.forEach(b => b.onclick = () => { btns.forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); ans = opts[+b.dataset.k][1]; ready(true); });
+    LS.check = () => { const ok = ans === q.a; grade(ok, () => btns.forEach(b => { b.disabled = true; const v = opts[+b.dataset.k][1]; if(v===q.a) b.classList.add('right'); else if(b.classList.contains('sel')) b.classList.add('wrong'); })); };
+  }
+  else if(q.k==='num'){
+    qa.innerHTML = `<div class="numin"><input id="numa" inputmode="decimal" autocomplete="off" aria-label="Your answer" placeholder="?"><span>${q.u||''}</span></div>`;
+    const inp = qa.querySelector('#numa'); setTimeout(()=>{ try{ inp.focus({preventScroll:true}); }catch(e){} }, 50);
+    inp.oninput = () => { const v = parseFloat(inp.value.replace(/[, $]/g,'')); ans = isNaN(v) ? null : v; ready(ans!==null); };
+    inp.onkeydown = e => { if(e.key==='Enter' && ans!==null){ e.preventDefault(); $('lbtn').click(); } };
+    LS.check = () => { const ok = Math.abs(ans - q.a) <= (q.tol||0) + 1e-9; inp.disabled = true; inp.style.borderColor = ok ? 'var(--ok)' : 'var(--bad)'; grade(ok, ok ? null : () => { qa.insertAdjacentHTML('beforeend', `<p class="muted">Answer: <b>${fmt(q.a, q.a%1?String(q.a).split('.')[1].length:0)} ${q.u||''}</b></p>`); }); };
+  }
+  else if(q.k==='ord'){
+    const pool = shuffle(q.o.map((o,i)=>[o,i])), picked = [];
+    const draw = () => {
+      qa.innerHTML = `<div class="lab">Your order</div><div class="ordl" id="ordl">${picked.length?picked.map((p,n)=>`<button class="opt" data-p="${n}"><b>${n+1}</b>${esc(p[0])}</button>`).join(''):'<span class="muted">Tap the steps below in order.</span>'}</div><div class="opts">${pool.filter(p=>!picked.includes(p)).map(p=>`<button class="opt" data-o="${p[1]}">${esc(p[0])}</button>`).join('')}</div>`;
+      qa.querySelectorAll('[data-o]').forEach(b => b.onclick = () => { picked.push(pool.find(p=>p[1]===+b.dataset.o)); draw(); });
+      qa.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { picked.splice(+b.dataset.p,1); draw(); });
+      ready(picked.length === q.o.length);
+    };
+    draw();
+    LS.check = () => { const ok = picked.every((p,n)=>p[1]===n); grade(ok, () => { qa.querySelectorAll('[data-p]').forEach((b,n)=>{ b.disabled = true; b.classList.add(picked[n][1]===n?'right':'wrong'); }); if(!ok) qa.insertAdjacentHTML('beforeend', `<p class="muted">Correct order: ${q.o.map((o,n)=>`<b>${n+1}</b> ${esc(o)}`).join(' → ')}</p>`); }); };
+  }
+  else if(q.k==='match'){
+    const L1 = shuffle(q.p.map((p,i)=>[p[0],i])), R1 = shuffle(q.p.map((p,i)=>[p[1],i]));
+    let selL = null, miss = 0, got = 0;
+    qa.innerHTML = `<div class="match"><div class="opts">${L1.map(p=>`<button class="opt" data-ml="${p[1]}">${esc(p[0])}</button>`).join('')}</div><div class="opts">${R1.map(p=>`<button class="opt" data-mr="${p[1]}">${esc(p[0])}</button>`).join('')}</div></div>`;
+    $('lbtn').textContent = 'Match all pairs'; ready(false);
+    qa.querySelectorAll('[data-ml]').forEach(b => b.onclick = () => { qa.querySelectorAll('[data-ml]').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); selL = +b.dataset.ml; });
+    qa.querySelectorAll('[data-mr]').forEach(b => b.onclick = () => {
+      if(selL===null){ toast('Pick an item on the left first'); return; }
+      const lb = qa.querySelector(`[data-ml="${selL}"]`);
+      if(+b.dataset.mr === selL){ lb.classList.remove('sel'); lb.classList.add('right','gone'); b.classList.add('right','gone'); selL = null; got++;
+        if(got === q.p.length){ const ok = miss===0; if(!ok){ s.tries++; } const gain = miss===0 ? 10 : 5; LS.xp += gain; if(miss===0) LS.first++; $('lxp').textContent = LS.xp+' XP';
+          setFoot(ok?'ok':'ok', `<h4>All matched · +${gain} XP</h4><div>${miss?miss+' wrong pick'+(miss>1?'s':'')+' along the way. ':''}${q.e||''}</div>`, 'Continue', true); LS.next = advance; } }
+      else { miss++; b.classList.add('wrong'); setTimeout(()=>b.classList.remove('wrong'), 450); }
+    });
+    LS.check = null;
+  }
+  else if(q.k==='tap'){
+    qa.innerHTML = `<div class="fig tapfig">${D[q.d]()}</div><p class="muted">Tap the part on the drawing, then Check.</p>`;
+    const svg = qa.querySelector('svg');
+    svg.addEventListener('click', e => { const g = e.target.closest('[data-hit]'); if(!g) return; svg.querySelectorAll('.picked').forEach(x=>x.classList.remove('picked')); g.classList.add('picked'); ans = g.dataset.hit; ready(true); });
+    LS.check = () => { const ok = ans === q.a; grade(ok, () => { const r = svg.querySelector(`[data-hit="${q.a}"]`); if(r){ r.classList.add('picked'); r.style.filter = 'drop-shadow(0 0 5px var(--ok))'; } }); };
+  }
+}
+function finish(){
+  const l = LS.l, nq = LS.qs.length, acc = Math.round(100*LS.first/Math.max(1,nq)), wasDone = !!st.done[l.id], sBefore = stage();
+  const bonus = 10 + (acc===100 ? 5 : 0); LS.xp += bonus; st.xp += LS.xp;
+  const rec = st.done[l.id] || {n:0, best:0}; rec.n++; rec.best = Math.max(rec.best, acc); st.done[l.id] = rec;
+  const t = today(); if(st.last !== t){ st.streak = st.last === yesterday() ? st.streak+1 : 1; st.last = t; }
+  save(); renderStats();
+  const sAfter = stage(), up = sAfter > sBefore, nextI = nextIdx();
+  $('lprog').style.width = '100%';
+  $('lcontent').innerHTML = `<div class="donebox"><div class="big">${up?'STAGE UP':'DONE'}</div><h2 class="qtitle">${up? 'Stage '+sAfter+': '+STAGES[sAfter] : l.title+' complete'}</h2>
+    <div class="trophies">${kv('+'+LS.xp,'XP earned')}${kv(acc+'%','First-try accuracy')}${kv(st.streak+(st.streak===1?' day':' days'),'Streak')}</div>
+    ${up? `<div class="fig">${D.hero(sAfter)}</div><p>The shirt comes together. ${sAfter>=UNITS.length?'It is finished: flat-felled, buttoned and ready to wear.':'Next up: '+UNITS[sAfter].title+'.'}</p>` : wasDone ? '<p>Practice round logged. Repeat lessons to keep the knowledge fresh.</p>' : ''}
+    <div class="ref">Reference: ${l.ref}</div></div>`;
+  setFoot('', '', nextI < LESSONS.length ? 'Next lesson' : 'Back to the path', true);
+  LS.check = null;
+  LS.next = () => { if(nextI < LESSONS.length && nextI !== LS.i) openLesson(nextI); else closeLesson(); };
+  $('lfoot').querySelector('.fb').innerHTML = `<button class="btn ghost" id="toPath">Back to the path</button>`;
+  $('toPath').onclick = closeLesson;
+}
+// ---------- APP: tools, preferences, start ----------
+function renderTools(){
+  const el = $('v-tools');
+  el.innerHTML = `<div class="sub-tabs" role="group" aria-label="Tool"><button data-t="layout" aria-pressed="true">Fabric and layout</button><button data-t="buttons" aria-pressed="false">Buttons</button><button data-t="time" aria-pressed="false">Stitch time</button></div>
+    <div class="panel tool" id="tool-layout"></div><div class="panel tool" id="tool-buttons" hidden></div><div class="panel tool" id="tool-time" hidden></div>`;
+  const made = {};
+  const pick = t => { ['layout','buttons','time'].forEach(x => { el.querySelector('#tool-'+x).hidden = x!==t; }); el.querySelectorAll('[data-t]').forEach(b => b.setAttribute('aria-pressed', b.dataset.t===t?'true':'false')); if(!made[t]){ made[t]=true; Tools[t](el.querySelector('#tool-'+t)); } };
+  el.querySelectorAll('[data-t]').forEach(b => b.onclick = () => pick(b.dataset.t));
+  pick('layout');
+}
+function renderPrefs(){
+  $('v-prefs').innerHTML = `<div class="panel" style="max-width:40rem"><h2 style="font-size:1.4rem;margin-bottom:.8rem">Settings</h2>
+    <div class="fields" style="grid-template-columns:1fr">
+      <div class="field"><span class="lab">I'll sew</span><div class="mchoice" id="prefMethod" role="group" aria-label="Sewing method"><button data-m="machine">By machine</button><button data-m="hand">By hand</button><button data-m="both">Show both</button></div><span class="note" style="margin-top:.3rem">Lessons open on your method. Machine-only or hand-only lessons and questions become optional when they don't match.</span></div>
+      <label class="field"><span class="lab">Text and drawing size <span id="pzl" class="num">100%</span></span><input type="range" id="pz" min="0.8" max="1.6" step="0.05"></label>
+      <label class="field"><span class="lab">Theme</span><select id="pth"><option value="system">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label class="row" style="gap:.5rem"><input type="checkbox" id="pun"> <span>Unlock every lesson (browse in any order)</span></label>
+    </div>
+    <div class="row" style="margin-top:1rem"><button class="btn ghost" id="pfs">Go fullscreen</button><button class="btn ghost" id="preset">Reset progress</button></div>
+    <p class="note">Progress is saved in this browser only. Fullscreen works in desktop browsers; some app views don't allow it.</p></div>`;
+  const z = $('pz'), th = $('pth'), un = $('pun'), rs = $('preset');
+  z.value = st.zoom; $('pzl').textContent = Math.round(st.zoom*100)+'%'; th.value = st.theme; un.checked = !!st.unlock;
+  document.querySelectorAll('#prefMethod [data-m]').forEach(b => { b.setAttribute('aria-pressed', b.dataset.m===st.method ? 'true':'false'); b.onclick = () => { setMethod(b.dataset.m); toast('Method saved'); }; });
+  z.oninput = () => { st.zoom = +z.value; applyZoom(); save(); };
+  th.onchange = () => { st.theme = th.value; applyTheme(); save(); };
+  un.onchange = () => { st.unlock = un.checked; save(); toast(un.checked ? 'All lessons unlocked' : 'Lessons unlock in order'); };
+  $('pfs').onclick = () => $('fs').click();
+  let armed = false;
+  rs.onclick = () => { if(!armed){ armed = true; rs.textContent = 'Tap again to erase all progress'; setTimeout(()=>{ armed=false; rs.textContent='Reset progress'; }, 4000); return; }
+    st.xp = 0; st.done = {}; st.streak = 0; st.last = ''; save(); armed = false; rs.textContent = 'Reset progress'; toast('Progress reset'); renderStats(); };
+}
+applyTheme(); applyZoom();
+show(location.hash.slice(1) || 'learn');
+</script>
+
+</body></html>
