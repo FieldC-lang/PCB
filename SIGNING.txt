@@ -1,0 +1,25 @@
+AssArm: Load & Store - Android signing details
+==============================================
+
+Package id ....... com.assarm.loadstore  (installs alongside AssArm and AssArm: Loops)
+Version .......... 1.0.0 (versionCode 1)
+Android .......... 8.0 and newer (minSdk 26), built for Android 17 (targetSdk 37)
+
+Keystore file .... assarm-loadstore.jks   (PKCS12)
+Key alias ........ assarm-loadstore
+Store password ... YksYaR0uyNwfGeDB6ekrl79C
+Key password ..... YksYaR0uyNwfGeDB6ekrl79C   (same as the store password)
+Certificate SHA-256:
+  50:03:33:9E:69:80:C5:CA:0A:2C:B6:96:8F:2F:9C:59:C9:E4:1A:57:4A:68:9D:F8:39:AA:BB:BB:B8:B4:96:91
+Valid for 10,000 days (until 2054).
+
+KEEP THIS KEYSTORE. Every update to the APK (and the upload key for the AAB on Google Play)
+must be signed with it. If it is lost, phones will refuse updates over the installed app.
+Back it up somewhere private; do not publish it.
+
+Files
+-----
+AssArm-LoadStore-1.0.0.apk   install directly on a phone or tablet (sideload)
+AssArm-LoadStore-1.0.0.aab   upload to Google Play Console (Play re-signs for each device)
+SHA-256 (apk): 1bf017355f0219978d82211116ba68a1400c857b79e6b6043518b1afccb8b249
+SHA-256 (aab): 41d1062374ef005b95f88d7c517e37e8a64205a72e35b00a008ed7703b43ada0
